@@ -18,6 +18,6 @@ namespace LanguageSchool.Model
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
 
-        public ICollection<StudentToClass> StudentToClasses { get; set; }
+        public virtual ICollection<StudentToClass> StudentToClasses { get; set; }
     }
 }

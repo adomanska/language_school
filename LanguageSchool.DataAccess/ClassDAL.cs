@@ -7,36 +7,37 @@ using LanguageSchool.Model;
 
 namespace LanguageSchool.DataAccess
 {
-    public class StudentDAL
+    public class ClassDAL
     {
         private LanguageSchoolContext db;
 
-        public StudentDAL(LanguageSchoolContext context)
+        public ClassDAL(LanguageSchoolContext context)
         {
             db = context;
         }
-        public List<Student> GetAll()
+        public List<Class> GetAll()
         {
             try
             {
-                return db.Students.ToList();
+                return db.Classes.ToList();
             }
             catch
             {
                 throw;
             }
         }
-        public void Add(Student student)
+        public void Add(Class _class)
         {
             try
             {
-                db.Students.Add(student);
+                db.Classes.Add(_class);
                 db.SaveChanges();
             }
             catch
             {
-                throw new Exception("Student with such email address already exists in the database");
+                throw;
             }
         }
+     
     }
 }

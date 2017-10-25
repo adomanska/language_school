@@ -14,6 +14,6 @@ namespace LanguageSchool.Model
         [Required]
         public string LanguageName { get; set; }
 
-        public ICollection<Class> Classes { get; set; }
+        public virtual ICollection<Class> Classes { get; set; }
     }
 }

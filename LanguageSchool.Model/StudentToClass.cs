@@ -18,9 +18,9 @@ namespace LanguageSchool.Model
         public int ClassRefID { get; set; }
 
         [ForeignKey("StudentRefID")]
-        public Student Student { get; set; }
+        public virtual Student Student { get; set; }
 
         [ForeignKey("ClassRefID")]
-        public Class Class { get; set; }
+        public virtual Class Class { get; set; }
     }
 }

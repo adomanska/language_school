@@ -14,6 +14,6 @@ namespace LanguageSchool.Model
         [Required]
         public string LanguageLevelSignature { get; set; }
 
-        public ICollection<Class> Classes { get; set; }
+        public virtual ICollection<Class> Classes { get; set; }
     }
 }

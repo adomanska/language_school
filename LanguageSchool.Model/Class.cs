@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.Model
 {
-    public enum DayOfWeek { Monday, Tuesday, Wednesday, Thursday, Friday}
     public class Class
     {
         [Key]
@@ -25,13 +24,13 @@ namespace LanguageSchool.Model
         [Required]
         public int LanguageRefID { get; set; }
         [ForeignKey("LanguageRefID")]
-        public Language Language { get; set; }
+        public virtual Language Language { get; set; }
 
         [Required]
         public int LanguageLevelRefID { get; set; }
         [ForeignKey("LanguageLevelRefID")]
-        public LanguageLevel LanguageLevel { get; set; }
+        public virtual LanguageLevel LanguageLevel { get; set; }
 
-        public ICollection<StudentToClass> StudentToClasses { get; set; }
+        public virtual ICollection<StudentToClass> StudentToClasses { get; set; }
     }
 }

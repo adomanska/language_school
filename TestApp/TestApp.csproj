@@ -65,7 +65,7 @@
       <Project>{98e12b1a-ce3f-418e-bc8e-41aa040323e1}</Project>
       <Name>LanguageSchool.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LanguageSchoolDatabase\LanguageSchool.Model.csproj">
+    <ProjectReference Include="..\LanguageSchool.Model\LanguageSchool.Model.csproj">
       <Project>{7188bcf3-7c5b-473d-925f-497fa9fe1636}</Project>
       <Name>LanguageSchool.Model</Name>
     </ProjectReference>

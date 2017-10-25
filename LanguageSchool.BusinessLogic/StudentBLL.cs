@@ -11,14 +11,15 @@ namespace LanguageSchool.BusinessLogic
 {
     public class StudentBLL
     {
-        private StudentDAL studentDAL = new StudentDAL();
+        private StudentDAL studentDAL;
         private Regex firstNameRegex;
         private Regex lastNameRegex;
         private Regex emailRegex;
         private Regex phoneNumberRegex;
 
-        public StudentBLL()
+        public StudentBLL(LanguageSchoolContext context)
         {
+            studentDAL = new StudentDAL(context);
             firstNameRegex = new Regex(@"[A-Z][a-z]*");
             lastNameRegex = new Regex(@"([A-Z][a-z]*)(-[A-Z][a-z]*)*");
             emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
@@ -45,7 +46,7 @@ namespace LanguageSchool.BusinessLogic
                 throw new Exception("Invalid Email Address");
             if (phoneNumber != "" && !phoneNumberRegex.IsMatch(phoneNumber))
                 throw new Exception("Invalid Phone Number");
-            Student student = new Student { FirstName = firstName, LastName = lastName, Email = email, PhoneNumber = phoneNumber };
+            Student student = new Student { FirstName = firstName, LastName = lastName, Email = email, PhoneNumber = phoneNumber=="" ? null : phoneNumber };
             try
             {
                 studentDAL.Add(student);

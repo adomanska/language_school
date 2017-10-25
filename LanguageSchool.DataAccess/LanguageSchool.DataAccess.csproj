@@ -47,18 +47,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassDAL.cs" />
+    <Compile Include="LanguageDAL.cs" />
+    <Compile Include="LanguageLevelDAL.cs" />
     <Compile Include="StudentDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LanguageSchoolDatabase\LanguageSchool.Model.csproj">
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LanguageSchool.Model\LanguageSchool.Model.csproj">
       <Project>{7188bcf3-7c5b-473d-925f-497fa9fe1636}</Project>
       <Name>LanguageSchool.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
