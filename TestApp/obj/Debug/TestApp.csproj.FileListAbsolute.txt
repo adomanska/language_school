@@ -7,8 +7,14 @@ C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolMa
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\obj\Debug\TestApp.pdb
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\EntityFramework.dll
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchoolDatabase.dll
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\EntityFramework.xml
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchoolDatabase.pdb
-C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchoolDatabase.dll.config
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.BusinessLogic.dll
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.DataAccess.dll
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.Model.dll
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.BusinessLogic.pdb
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.DataAccess.pdb
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.Model.pdb
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.Model.dll.config
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.BusinessLogic.dll.config
+C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\TestApp\bin\Debug\LanguageSchool.DataAccess.dll.config

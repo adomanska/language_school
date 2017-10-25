@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LanguageSchoolDatabase
+namespace LanguageSchool.Model
 {
     public class StudentToClass
     {

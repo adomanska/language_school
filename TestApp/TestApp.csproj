@@ -38,9 +38,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="LanguageSchoolDatabase">
-      <HintPath>..\LanguageSchoolDatabase\bin\Debug\LanguageSchoolDatabase.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -58,6 +55,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LanguageSchool.BusinessLogic\LanguageSchool.BusinessLogic.csproj">
+      <Project>{036de280-ef74-4b92-8730-1abdcba18e3c}</Project>
+      <Name>LanguageSchool.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageSchool.DataAccess\LanguageSchool.DataAccess.csproj">
+      <Project>{98e12b1a-ce3f-418e-bc8e-41aa040323e1}</Project>
+      <Name>LanguageSchool.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageSchoolDatabase\LanguageSchool.Model.csproj">
+      <Project>{7188bcf3-7c5b-473d-925f-497fa9fe1636}</Project>
+      <Name>LanguageSchool.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
