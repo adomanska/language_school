@@ -71,7 +71,7 @@
                     Go To Classes
                 </Button>
                 <Button Name="goToStudents" Margin="20" Width="300"
-                        FontSize="30" FontWeight="DemiBold"
+                        FontSize="30" FontWeight="DemiBold" Click="goToStudents_Click"
                         Foreground="#FF404040">
                     Go To Students
                 </Button>

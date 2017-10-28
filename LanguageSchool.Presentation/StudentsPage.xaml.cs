@@ -16,23 +16,18 @@ using System.Windows.Shapes;
 namespace LanguageSchool.Presentation
 {
     /// <summary>
-    /// Interaction logic for StartPage.xaml
+    /// Interaction logic for StudentsPage.xaml
     /// </summary>
-    public partial class StartPage : Page
+    public partial class StudentsPage : Page
     {
-        public StartPage()
+        public StudentsPage()
         {
             InitializeComponent();
         }
 
-        private void goToClasses_Click(object sender, RoutedEventArgs e)
+        private void goToStartPage_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ClassesPage());
-        }
-
-        private void goToStudents_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new StudentsPage());
+            this.NavigationService.Navigate(new Uri("StartPage.xaml", UriKind.Relative));
         }
     }
 }
