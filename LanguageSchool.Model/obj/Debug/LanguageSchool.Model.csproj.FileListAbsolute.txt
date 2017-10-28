@@ -20,3 +20,13 @@ C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolMa
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.dll
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.pdb
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.csprojResolveAssemblyReference.cache
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\LanguageSchool.Model.dll.config
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\LanguageSchool.Model.dll
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\LanguageSchool.Model.pdb
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\EntityFramework.dll
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\EntityFramework.xml
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.csproj.CoreCompileInputs.cache
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.dll
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.pdb

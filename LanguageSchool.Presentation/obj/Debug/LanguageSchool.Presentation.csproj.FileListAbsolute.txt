@@ -17,3 +17,21 @@ C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolMa
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\LanguageSchool.Presentation\obj\Debug\StartPage.baml
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\LanguageSchool.Presentation\obj\Debug\ClassesPage.g.cs
 C:\Users\Andżelika\Desktop\[MiNI] Informatyka\Semestr 5\dotNET\LanguageSchoolManagementStudio\LanguageSchool.Presentation\obj\Debug\ClassesPage.baml
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\LanguageSchool.Presentation.exe.config
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\LanguageSchool.Presentation.exe
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\LanguageSchool.Presentation.pdb
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\ClassesPage.g.cs
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\MainWindow.g.cs
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\StartPage.g.cs
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\App.g.cs
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation_MarkupCompile.cache
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation_MarkupCompile.lref
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\ClassesPage.baml
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\MainWindow.baml
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\StartPage.baml
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation.g.resources
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation.Properties.Resources.resources
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation.csproj.GenerateResource.Cache
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation.csproj.CoreCompileInputs.cache
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation.exe
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation.pdb
