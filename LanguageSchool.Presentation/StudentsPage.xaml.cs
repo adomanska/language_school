@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LanguageSchool.BusinessLogic;
 
 namespace LanguageSchool.Presentation
 {
@@ -20,8 +21,10 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StudentsPage : Page
     {
-        public StudentsPage()
+        public static StudentBLL studentBLL;
+        public StudentsPage(StudentBLL studentBll)
         {
+            studentBLL = studentBll;
             InitializeComponent();
         }
 

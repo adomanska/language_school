@@ -3,15 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:controls="clr-namespace:LanguageSchool.Presentation" 
       xmlns:local="clr-namespace:LanguageSchool.Presentation"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="StudentsPage">
     <Grid>
-        <Button Name="goToStartPage"
+        <Button Name="goToStartPage" HorizontalAlignment="Right" Margin="0,204,294,346"
                 Width="100" Height="50"
                 Click="goToStartPage_Click">
             Go To Start Page
         </Button>
+        <controls:StudentRegistrationView x:Name="studentRegistrationControl" Width="435" HorizontalAlignment="Left" Margin="50,65,0,192"/>
     </Grid>
 </Page>

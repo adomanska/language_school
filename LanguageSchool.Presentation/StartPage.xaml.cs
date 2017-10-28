@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LanguageSchool.BusinessLogic;
 
 namespace LanguageSchool.Presentation
 {
@@ -20,8 +21,10 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StartPage : Page
     {
-        public StartPage()
+        private StudentBLL studentBLL;
+        public StartPage(StudentBLL studentBLL)
         {
+            this.studentBLL = studentBLL;
             InitializeComponent();
         }
 
@@ -32,7 +35,7 @@ namespace LanguageSchool.Presentation
 
         private void goToStudents_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new StudentsPage());
+            this.NavigationService.Navigate(new StudentsPage(studentBLL));
         }
     }
 }

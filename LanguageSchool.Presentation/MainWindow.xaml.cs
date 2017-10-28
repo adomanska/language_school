@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LanguageSchool.BusinessLogic;
+using LanguageSchool.Model;
 
 namespace LanguageSchool.Presentation
 {
@@ -20,10 +22,16 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
+        static private LanguageSchoolContext context = new LanguageSchoolContext();
+        static public StudentBLL studentBLL = new StudentBLL(context);
+        static private ClassBLL classBLL = new ClassBLL(context);
+        static private LanguageBLL languageBLL = new LanguageBLL(context);
+        static private LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
+
         public MainWindow()
         {
             InitializeComponent();
-            navigationFrame.Content = new StartPage();
+            navigationFrame.Content = new StartPage(studentBLL);
         }
     }
 }

@@ -33,9 +33,10 @@ namespace LanguageSchool.DataAccess
                 db.Students.Add(student);
                 db.SaveChanges();
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Student with such email address already exists in the database");
+                throw;
+                //throw new Exception("Student with such email address already exists in the database");
             }
         }
     }
