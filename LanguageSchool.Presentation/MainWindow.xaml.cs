@@ -31,7 +31,7 @@ namespace LanguageSchool.Presentation
         public MainWindow()
         {
             InitializeComponent();
-            navigationFrame.Content = new StartPage(studentBLL);
+            navigationFrame.Content = new StartPage();
         }
     }
 }

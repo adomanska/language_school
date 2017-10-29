@@ -54,3 +54,7 @@ C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debu
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\obj\Debug\LanguageSchool.Presentation.pdb
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\MahApps.Metro.dll
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\MahApps.Metro.pdb
+C:\Users\Beata\source\repos\language_school\LanguageSchool.Presentation\bin\Debug\MahApps.Metro.xml

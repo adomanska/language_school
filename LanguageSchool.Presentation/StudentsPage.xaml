@@ -9,11 +9,15 @@
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="StudentsPage">
     <Grid>
-        <Button Name="goToStartPage" HorizontalAlignment="Right" Margin="0,204,294,346"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="435"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="1" Name="goToStartPage" HorizontalAlignment="Right" Margin="300,215,0,0"
                 Width="100" Height="50"
                 Click="goToStartPage_Click">
             Go To Start Page
         </Button>
-        <controls:StudentRegistrationView x:Name="studentRegistrationControl" Width="435" HorizontalAlignment="Left" Margin="50,65,0,192"/>
+        <controls:StudentRegistrationView x:Name="studentRegistrationControl" Grid.Column="0" Width="435" HorizontalAlignment="Left" Margin="-9,55,0,202"/>
     </Grid>
 </Page>

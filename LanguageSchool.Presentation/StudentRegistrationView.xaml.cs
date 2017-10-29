@@ -32,7 +32,7 @@ namespace LanguageSchool.Presentation
         {
             try
             {
-                StudentsPage.studentBLL.Add(textBoxFirstName.Text, textBoxLastName.Text, textBoxEmail.Text, textBoxPhone.Text);
+                MainWindow.studentBLL.Add(textBoxFirstName.Text, textBoxLastName.Text, textBoxEmail.Text, textBoxPhone.Text);
                 textBoxFirstName.Text = "";
                 textBoxLastName.Text = "";
                 textBoxEmail.Text = "";

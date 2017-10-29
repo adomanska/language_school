@@ -21,10 +21,8 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StartPage : Page
     {
-        private StudentBLL studentBLL;
-        public StartPage(StudentBLL studentBLL)
+        public StartPage()
         {
-            this.studentBLL = studentBLL;
             InitializeComponent();
         }
 
@@ -35,7 +33,7 @@ namespace LanguageSchool.Presentation
 
         private void goToStudents_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new StudentsPage(studentBLL));
+            this.NavigationService.Navigate(new StudentsPage());
         }
     }
 }

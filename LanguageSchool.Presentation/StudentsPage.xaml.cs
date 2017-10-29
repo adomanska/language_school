@@ -21,10 +21,8 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StudentsPage : Page
     {
-        public static StudentBLL studentBLL;
-        public StudentsPage(StudentBLL studentBll)
+        public StudentsPage()
         {
-            studentBLL = studentBll;
             InitializeComponent();
         }
 
