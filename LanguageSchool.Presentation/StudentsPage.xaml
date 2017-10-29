@@ -11,13 +11,48 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="435"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Name="goToStartPage" HorizontalAlignment="Right" Margin="300,215,0,0"
+        <Button Name="goToStartPage" HorizontalAlignment="Right" Margin="0,400,181,0"
                 Width="100" Height="50"
-                Click="goToStartPage_Click">
+                Click="goToStartPage_Click" RenderTransformOrigin="0.636,-1.516">
             Go To Start Page
         </Button>
-        <controls:StudentRegistrationView x:Name="studentRegistrationControl" Grid.Column="0" Width="435" HorizontalAlignment="Left" Margin="-9,55,0,202"/>
+        <controls:StudentRegistrationView x:Name="studentRegistrationControl" Grid.Column="0" Width="435" HorizontalAlignment="Left" Margin="1,55,0,202"/>
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Name="searchBox" Grid.Row="0" Grid.Column="0" Height="20" Width="200" />
+            <Button Name="searchButton"  Grid.Row="0" Grid.Column="1" Height="20" Width="50" HorizontalAlignment="Left" Click="searchButton_Click">Search</Button>
+            <RadioButton Name="lastNameRadioButton" Grid.Row="1" Content="Search by last name" IsChecked="True"/>
+            <RadioButton Name="emailRadioButton" Grid.Row="1" Content="Search by email" HorizontalAlignment="Right"/>
+            <TextBlock Name="searchErrorTextBlock" Grid.Row="1" Text="" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="Red"/>
+            <ListBox Name="studentsListBox" ItemsSource="{Binding studentsList}" Grid.Row="2" Grid.ColumnSpan="2" AlternationCount="2" FontFamily="Arial" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Stretch" VerticalAlignment="Top">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel LastChildFill="True" Height="80" Width="Auto" HorizontalAlignment="Left">
+                            <TextBlock DockPanel.Dock="Top" FontFamily="Arial" FontSize="18" Margin="10" VerticalAlignment="Center">
+                        <Run Text="Name: " FontWeight="Bold"/>
+                        <Run Text="{Binding LastName}" FontWeight="Normal"/>
+                        <Run Text="{Binding FirstName}" FontWeight="Normal"/>
+                            </TextBlock>
+                            <TextBlock  DockPanel.Dock="Bottom" FontFamily="Arial" FontSize="18" Margin="10" VerticalAlignment="Center">
+                        <Run Text="Email: " FontWeight="Bold"/>
+                        <Run Text="{Binding Email}" FontWeight="Normal"/>
+                        <Run Text="     Phone Number: " FontWeight="Bold" />
+                        <Run Text="{Binding PhoneNumber}" FontWeight="Normal"/>
+                            </TextBlock>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </Page>

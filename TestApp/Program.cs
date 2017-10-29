@@ -29,7 +29,7 @@ namespace TestApp
                     Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
                     Console.Write("LastName:");
                     string lastName = Console.ReadLine();
-                    st = studentBLL.FindByLastName(lastName);
+                    //st = studentBLL.FindByLastName(lastName);
                     Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
 
                     studentBLL.UpdateFirstName(st.Email, "Zofia");

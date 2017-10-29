@@ -27,7 +27,6 @@ C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\Entit
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\EntityFramework.xml
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.csprojResolveAssemblyReference.cache
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.csproj.CoreCompileInputs.cache
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.dll
 C:\Users\Beata\source\repos\language_school\LanguageSchool.Model\obj\Debug\LanguageSchool.Model.pdb

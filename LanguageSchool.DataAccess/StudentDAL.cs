@@ -55,18 +55,18 @@ namespace LanguageSchool.DataAccess
             }
         }
 
-        public Student FindByLastName(string lastName)
+        public List<Student> FindByLastName(string lastName)
         {
             try
             {
-                Student student = db.Students
+                List<Student> students = db.Students
                     .Where(st => st.LastName == lastName)
-                    .FirstOrDefault();
+                    .ToList();
 
-                if (student == null)
+                if (students.Count == 0)
                     throw new Exception("Student with such last name doesn't exist");
 
-                return student;
+                return students;
             }
             catch
             {
