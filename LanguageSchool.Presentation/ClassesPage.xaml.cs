@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LanguageSchool.BusinessLogic;
 
 namespace LanguageSchool.Presentation
 {
@@ -20,13 +21,19 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class ClassesPage : Page
     {
-        public ClassesPage()
+        ClassBLL classBLL;
+        LanguageBLL languageBLL;
+        LanguageLevelBLL languageLevelBLL;
+        public ClassesPage(ClassBLL _classBLL, LanguageBLL _languageBLL, LanguageLevelBLL _languageLevelBLL)
         {
+            classBLL = _classBLL;
+            languageBLL = _languageBLL;
+            languageLevelBLL = _languageLevelBLL;
             InitializeComponent();
         }
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("StartPage.xaml", UriKind.Relative));
+            this.NavigationService.GoBack();
         }
     }
 }

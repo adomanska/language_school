@@ -21,14 +21,17 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StudentsPage : Page
     {
-        public StudentsPage()
+        StudentBLL studentBLL;
+        public StudentsPage(StudentBLL _studentBLL)
         {
+            studentBLL = _studentBLL;
             InitializeComponent();
+            studentRegistrationControl.StudentBLL = studentBLL;
         }
 
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("StartPage.xaml", UriKind.Relative));
+            this.NavigationService.GoBack();
         }
     }
 }

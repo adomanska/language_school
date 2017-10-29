@@ -27,12 +27,12 @@ namespace LanguageSchool.Presentation
         {
             InitializeComponent();
         }
-
+        public StudentBLL StudentBLL { get; set; }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                MainWindow.studentBLL.Add(textBoxFirstName.Text, textBoxLastName.Text, textBoxEmail.Text, textBoxPhone.Text);
+                StudentBLL.Add(textBoxFirstName.Text, textBoxLastName.Text, textBoxEmail.Text, textBoxPhone.Text);
                 textBoxFirstName.Text = "";
                 textBoxLastName.Text = "";
                 textBoxEmail.Text = "";

@@ -21,19 +21,23 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StartPage : Page
     {
-        public StartPage()
+        StudentsPage studentsPage;
+        ClassesPage classesPage;
+        public StartPage(StudentsPage _studentsPage, ClassesPage _classesPage)
         {
             InitializeComponent();
+            studentsPage = _studentsPage;
+            classesPage = _classesPage;
         }
 
         private void goToClasses_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ClassesPage());
+            this.NavigationService.Navigate(classesPage);
         }
 
         private void goToStudents_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new StudentsPage());
+            this.NavigationService.Navigate(studentsPage);
         }
     }
 }
