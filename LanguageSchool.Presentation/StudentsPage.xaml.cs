@@ -29,15 +29,16 @@ namespace LanguageSchool.Presentation
         {
             studentBLL = _studentBLL;
             InitializeComponent();
-            StudentsList = new ObservableCollection<Student>(MainWindow.studentBLL.GetAll());
+            StudentsList = new ObservableCollection<Student>(studentBLL.GetAll());
             studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
             
             this.DataContext = this;
+            studentRegistrationControl.StudentBLL = studentBLL;
         }
 
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("StartPage.xaml", UriKind.Relative));
+            this.NavigationService.GoBack();
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)

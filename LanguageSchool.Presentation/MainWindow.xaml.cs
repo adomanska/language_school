@@ -23,12 +23,12 @@ namespace LanguageSchool.Presentation
     public partial class MainWindow : Window
     {
         static private LanguageSchoolContext context = new LanguageSchoolContext();
-        static public StudentBLL studentBLL = new StudentBLL(context);
+        static private StudentBLL studentBLL = new StudentBLL(context);
         static private ClassBLL classBLL = new ClassBLL(context);
         static private LanguageBLL languageBLL = new LanguageBLL(context);
         static private LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
         static private StudentsPage studentsPage = new StudentsPage(studentBLL);
-        static private ClassesPage classesPage = new ClassesPage(classBLL, languageBLL, languageLevelBLL);
+        static private ClassesPage classesPage = new ClassesPage(classBLL, languageBLL,languageLevelBLL);
 
         public MainWindow()
         {

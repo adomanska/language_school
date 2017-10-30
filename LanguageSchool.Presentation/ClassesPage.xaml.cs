@@ -33,7 +33,7 @@ namespace LanguageSchool.Presentation
         }
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("StartPage.xaml", UriKind.Relative));
+            this.NavigationService.GoBack();
         }
     }
 }
