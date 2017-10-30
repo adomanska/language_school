@@ -17,8 +17,34 @@ namespace TestApp
         static private LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
         static void Main(string[] args)
         {
-            Console.WriteLine("Do you want to add new student? Y/N");
+            Console.WriteLine("Do you want to find student? Y/N");
             string ans = Console.ReadLine();
+            if (ans == "Y")
+            {
+                Console.Write("Email:");
+                string email = Console.ReadLine();
+                try
+                {
+                    Student st = studentBLL.FindByEmail(email);
+                    Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
+                    Console.Write("LastName:");
+                    string lastName = Console.ReadLine();
+                    //st = studentBLL.FindByLastName(lastName);
+                    Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
+
+                    studentBLL.UpdateFirstName(st.Email, "Zofia");
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception:" + e.Message);
+                }
+
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("Do you want to add new student? Y/N");
+            ans = Console.ReadLine();
             if (ans == "Y")
             {
                 Console.WriteLine("---NEW STUDENT---");
