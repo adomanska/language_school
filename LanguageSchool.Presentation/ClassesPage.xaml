@@ -18,6 +18,10 @@
         </Grid.ColumnDefinitions>
         <DockPanel>
             <StackPanel Width="150" DockPanel.Dock="Left">
+                <Label FontWeight="Bold" HorizontalAlignment="Center" Margin="5,10,5,5"
+                       FontSize="25">
+                    Filtre
+                </Label>
                 <Label FontWeight="DemiBold" Margin="5,10,5,5">Class Name:</Label>
                 <TextBox Name="soughtClassName" Height="{Binding ElementName=soughtLanguage, Path=ActualHeight}"
                          Margin="5,5,5,5"/>
@@ -57,12 +61,96 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
-        <StackPanel Grid.Column="1">
-            <TextBox Name="className"/>
-            <Button Click="addClass_Click">Add</Button>
-            <TextBox Name="langName"/>
-            <Button Name="addLanguage" Click="addLanguage_Click">Add lang</Button>
-        </StackPanel>
+        <Border BorderBrush="AliceBlue" BorderThickness="3"
+                Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel>
+                <Label VerticalAlignment="Center" VerticalContentAlignment="Center"
+                       FontSize="25" FontWeight="Bold" >
+                    Add new Class
+                </Label>
+                <Label HorizontalAlignment="Left">Class Name:</Label>
+                <TextBox Name="classNameTextBox" Width="200" Height="30"
+                         VerticalContentAlignment="Center"/>
+                <Label HorizontalAlignment="Left">Language:</Label>
+                <RadioButton Name="existingLanguageRadioButton" IsChecked="True">
+                    Existing language
+                </RadioButton>
+                <ComboBox Name="languageComboBox" IsEnabled="{Binding ElementName=existingLanguageRadioButton, Path=IsChecked}"
+                          Height="30">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageName}" Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <RadioButton Name="newLanguageRadioButton" IsChecked="False">
+                    New language
+                </RadioButton>
+                <TextBox Name="newLanguageTextBox" IsEnabled="{Binding ElementName=newLanguageRadioButton, Path=IsChecked}"
+                         Height="30" VerticalContentAlignment="Center"/>
+                <Label HorizontalAlignment="Left">Language Level:</Label>
+                <ComboBox Name="languageLevelComboBox" Height="30">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageLevelSignature}" Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label HorizontalAlignment="Left">Day of Week:</Label>
+                <ComboBox Name="dayOfWeekComboBox" Height="30">
+                    <ComboBoxItem>
+                        <Label Content="Monday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Tuesday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Wednesday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Thursday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Friday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Saturday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Sunday" Height="30"/>
+                    </ComboBoxItem>
+                </ComboBox>
+                <Label HorizontalAlignment="Left">Time:</Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                        <TextBox Name="startHour" Height="30" Width="30"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <Label>:</Label>
+                        <TextBox Name="startMinute" Height="30" Width="30"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+                    <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Content="->"/>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <TextBox Name="endMinute" Height="30" Width="30" DockPanel.Dock="Right"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label HorizontalAlignment="Right">:</Label>
+                    <TextBox Name="endHour" Height="30" Width="30"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Button Height="50" Width="100" Margin="20" Name="addClass"
+                        Click="addClass_Click">
+                    Add
+                </Button>
+            </StackPanel>
+        </Border>
         <Button Name="goToStartPage" Grid.Row="1" Margin="20,0,0,0"
                 Width="100" Height="50" HorizontalAlignment="Left"
                 Click="goToStartPage_Click">
