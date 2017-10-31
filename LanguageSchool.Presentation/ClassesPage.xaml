@@ -8,8 +8,63 @@
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="ClassesPage">
     <Grid>
-        <Button Name="goToStartPage"
-                Width="100" Height="50"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            <StackPanel Width="150" DockPanel.Dock="Left">
+                <Label FontWeight="DemiBold" Margin="5,10,5,5">Class Name:</Label>
+                <TextBox Name="soughtClassName" Height="{Binding ElementName=soughtLanguage, Path=ActualHeight}"
+                         Margin="5,5,5,5"/>
+                <Label FontWeight="DemiBold" Margin="5,10,5,5">Language:</Label>
+                <ComboBox Name="soughtLanguage" SelectedIndex="0" Margin="5,5,5,5" Height="30">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageName}" Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label FontWeight="DemiBold" Margin="5,10,5,5">Language Level:</Label>
+                <ComboBox Name="soughtLevel" SelectedIndex="0" Margin="5,5,5,5" Height="30">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageLevelSignature}"
+                                   Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Name="searchButton"  Margin="15,40,15,5"
+                        Height="{Binding ElementName=soughtLanguage, Path=ActualHeight}"
+                        Click="searchButton_Click">
+                    Search
+                </Button>
+            </StackPanel>
+            <ListBox Name="classesListBox" ItemsSource="{Binding}" Margin="5">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding ClassName}" FontWeight="DemiBold"></Run>
+                            <LineBreak/>
+                            <Run Text="{Binding Language.LanguageName}"></Run>
+                            <Run Text="{Binding LanguageLevel.LanguageLevelSignature}" Foreground="Red"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+        <StackPanel Grid.Column="1">
+            <TextBox Name="className"/>
+            <Button Click="addClass_Click">Add</Button>
+            <TextBox Name="langName"/>
+            <Button Name="addLanguage" Click="addLanguage_Click">Add lang</Button>
+        </StackPanel>
+        <Button Name="goToStartPage" Grid.Row="1" Margin="20,0,0,0"
+                Width="100" Height="50" HorizontalAlignment="Left"
                 Click="goToStartPage_Click">
             Go To Start Page
         </Button>
