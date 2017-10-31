@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.Model;
+using System.Data.Entity;
 
 namespace LanguageSchool.DataAccess
 {
@@ -14,12 +15,13 @@ namespace LanguageSchool.DataAccess
         public ClassDAL(LanguageSchoolContext context)
         {
             db = context;
+            db.Classes.Load();
         }
-        public List<Class> GetAll()
+        public DbSet<Class> GetAll()
         {
             try
             {
-                return db.Classes.ToList();
+                return db.Classes;
             }
             catch
             {
