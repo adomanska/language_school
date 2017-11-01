@@ -33,8 +33,6 @@ namespace LanguageSchool.Presentation
 
             studentBLL.GetAll().Load();
             studentsListBox.ItemsSource = studentBLL.GetAll().Local;
-
-            this.DataContext = this;
         }
 
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
@@ -44,31 +42,18 @@ namespace LanguageSchool.Presentation
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if(searchBox.Text == "")
             {
-                if(searchBox.Text == "")
-                {
-                    studentBLL.GetAll().Load();
-                    studentsListBox.ItemsSource = studentBLL.GetAll().Local;
-                }
-                else if ((bool)lastNameRadioButton.IsChecked)
-                {
-                    StudentsList = new ObservableCollection<Student>(studentBLL.FindByLastName(searchBox.Text));
-                    studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
-                }
-                else if ((bool)emailRadioButton.IsChecked)
-                {
-                    Student student = studentBLL.FindByEmail(searchBox.Text);
-                    StudentsList = new ObservableCollection<Student>();
-                    StudentsList.Add(student);
-                    studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
-                }
+                studentsListBox.Items.Filter = null;
             }
-            catch(Exception ex)
+            else if ((bool)lastNameRadioButton.IsChecked)
             {
-                searchErrorTextBlock.Text = ex.Message;
+                studentsListBox.Items.Filter = studentBLL.GetFilterByLastNamePredicate(searchBox.Text);
             }
-            
+            else if ((bool)emailRadioButton.IsChecked)
+            {
+                studentsListBox.Items.Filter = studentBLL.GetFilterByEmailPredicate(searchBox.Text);
+            }
         }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
@@ -110,6 +95,16 @@ namespace LanguageSchool.Presentation
                 editErrormessage.Text = exception.Message;
             }
             
+        }
+
+        private void alphabeticallSortCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)alphabeticallSortCheckBox.IsChecked)
+            {
+                studentsListBox.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("LastName", System.ComponentModel.ListSortDirection.Ascending));
+                studentsListBox.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("FirstName", System.ComponentModel.ListSortDirection.Ascending));
+            }
+            else studentsListBox.Items.SortDescriptions.Clear();
         }
     }
 }

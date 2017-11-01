@@ -83,6 +83,33 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
+        public Predicate<object> GetFilterByEmailPredicate(string email)
+        {
+            Predicate<object> filtre = item =>
+            {
+                Student student = item as Student;
+                if (student.Email != email)
+                    return false;
+                else
+                    return true;
+            };
+
+            return filtre;
+        }
+
+        public Predicate<object> GetFilterByLastNamePredicate(string lastName)
+        {
+            Predicate<object> filtre = item =>
+            {
+                Student student = item as Student;
+                if (student.LastName != StandarizeInput(lastName))
+                    return false;
+                else
+                    return true;
+            };
+
+            return filtre;
+        }
         public IQueryable<Student> FindByLastName(string lastName)
         {
             try
