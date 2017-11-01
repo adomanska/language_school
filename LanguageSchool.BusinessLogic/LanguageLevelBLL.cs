@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.Model;
 using LanguageSchool.DataAccess;
+using System.Data.Entity;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -16,7 +17,7 @@ namespace LanguageSchool.BusinessLogic
         {
             languageLevelDAL = new LanguageLevelDAL(context);
         }
-        public List<LanguageLevel> GetAll()
+        public DbSet<LanguageLevel> GetAll()
         {
             try
             {

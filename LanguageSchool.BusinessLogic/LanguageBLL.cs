@@ -7,6 +7,7 @@ using LanguageSchool.Model;
 using LanguageSchool.DataAccess;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Data.Entity;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -20,7 +21,7 @@ namespace LanguageSchool.BusinessLogic
             languageDAL = new LanguageDAL(context);
             existingLanguages = JArray.Parse(@File.ReadAllText("LanguagesList.json"));
         }
-        public List<Language> GetAll()
+        public DbSet<Language> GetAll()
         {
             try
             {
@@ -31,10 +32,17 @@ namespace LanguageSchool.BusinessLogic
                 throw;
             }
         }
+
+        public bool Exists(string languageName)
+        {
+            return GetAll().ToList().Exists(l => l.LanguageName == languageName);
+        }
         public void Add(string languageName)
         {
             if (!existingLanguages.Values().Contains(languageName))
                 throw new Exception("Language doesn't exist");
+            if (Exists(languageName))
+                throw new Exception("Language already exists in database");
             Language language = new Language { LanguageName = languageName };
             try
             {

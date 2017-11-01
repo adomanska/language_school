@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.DataAccess;
 using LanguageSchool.Model;
+using System.Data.Entity;
+using System.Collections.ObjectModel;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -16,7 +18,7 @@ namespace LanguageSchool.BusinessLogic
         {
             classDAL = new ClassDAL(context);
         }
-        public List<Class> GetAll()
+        public DbSet<Class> GetAll()
         {
             try
             {
@@ -40,6 +42,44 @@ namespace LanguageSchool.BusinessLogic
             {
                 throw;
             }
+        }
+
+        public Predicate<object> GetFilterPredicate(string className, Language language, LanguageLevel languageLevel)
+        {
+            Predicate<object> filtre = o =>
+            {
+                Class c = o as Class;
+                if (!c.ClassName.Contains(className))
+                    return false;
+                if (language!=null && c.LanguageRefID!= language.LanguageID)
+                    return false;
+                if (languageLevel!=null && c.LanguageLevelRefID != languageLevel.LanguageLevelID)
+                    return false;
+                else
+                    return true;
+            };
+
+            return filtre;
+        }
+
+        private bool IsValidTime(string _startHour, string _startMinute, string _endHour, string _endMinute)
+        {
+            int startHour, startMinute, endHour=-1, endMinute;
+            if(Int32.TryParse(_startHour, out startHour) && Int32.TryParse(_endHour, out endHour))
+            {
+                if (startHour < 0 || startHour >= 24 || endHour < 0 || endHour >= 24)
+                    return false;
+                if (startHour > endHour)
+                    return false;
+            }
+            if (Int32.TryParse(_startMinute, out startMinute) && Int32.TryParse(_endMinute, out endMinute))
+            {
+                if (startMinute < 0 || startMinute >= 24 || endMinute < 0 || endMinute >= 24)
+                    return false;
+                if (startHour == endHour && startMinute > endMinute)
+                    return false;
+            }
+            return true;
         }
     }
 }
