@@ -32,7 +32,7 @@ namespace TestApp
                     //st = studentBLL.FindByLastName(lastName);
                     Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
 
-                    studentBLL.UpdateFirstName(st.Email, "Zofia");
+                    //studentBLL.Update(st.Email, "Zofia");
 
                 }
                 catch (Exception e)

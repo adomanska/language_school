@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LanguageSchool.BusinessLogic;
 using LanguageSchool.Model;
+using System.Data.Entity;
 
 namespace LanguageSchool.Presentation
 {
@@ -29,11 +30,11 @@ namespace LanguageSchool.Presentation
         {
             studentBLL = _studentBLL;
             InitializeComponent();
-            StudentsList = new ObservableCollection<Student>(studentBLL.GetAll());
-            studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
-            
+
+            studentBLL.GetAll().Load();
+            studentsListBox.ItemsSource = studentBLL.GetAll().Local;
+
             this.DataContext = this;
-            studentRegistrationControl.StudentBLL = studentBLL;
         }
 
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
@@ -45,21 +46,68 @@ namespace LanguageSchool.Presentation
         {
             try
             {
-                if ((bool)lastNameRadioButton.IsChecked)
+                if(searchBox.Text == "")
+                {
+                    studentBLL.GetAll().Load();
+                    studentsListBox.ItemsSource = studentBLL.GetAll().Local;
+                }
+                else if ((bool)lastNameRadioButton.IsChecked)
                 {
                     StudentsList = new ObservableCollection<Student>(studentBLL.FindByLastName(searchBox.Text));
                     studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
                 }
                 else if ((bool)emailRadioButton.IsChecked)
                 {
-                    StudentsList.Clear();
-                    StudentsList.Add(studentBLL.FindByEmail(searchBox.Text));
+                    Student student = studentBLL.FindByEmail(searchBox.Text);
+                    StudentsList = new ObservableCollection<Student>();
+                    StudentsList.Add(student);
                     studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
                 }
             }
             catch(Exception ex)
             {
                 searchErrorTextBlock.Text = ex.Message;
+            }
+            
+        }
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                studentBLL.Add(textBoxFirstName.Text, textBoxLastName.Text, textBoxEmail.Text, textBoxPhone.Text);
+                textBoxFirstName.Text = "";
+                textBoxLastName.Text = "";
+                textBoxEmail.Text = "";
+                textBoxPhone.Text = "";
+            }
+            catch (Exception exception)
+            {
+                errormessage.Text = exception.Message;
+            }
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            editPopup.IsOpen = true;
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            editPopup.IsOpen = false;
+        }
+
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            Student oldStudent = (Student)studentsListBox.SelectedItem;
+            try
+            {
+                studentBLL.Update(oldStudent.Email, editTextBoxFirstName.Text, editTextBoxLastName.Text, editTextBoxEmail.Text, editTextBoxPhone.Text);
+                editPopup.IsOpen = false;
+            }
+            catch(Exception exception)
+            {
+                studentsListBox.SelectedItem = oldStudent;
+                editErrormessage.Text = exception.Message;
             }
             
         }

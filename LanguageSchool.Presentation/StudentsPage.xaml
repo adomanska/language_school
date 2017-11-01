@@ -13,12 +13,43 @@
             <ColumnDefinition Width="435"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="goToStartPage" HorizontalAlignment="Right" Margin="0,400,181,0"
+        <Button Name="goToStartPage" Grid.Column="0" HorizontalAlignment="Right" Margin="0,400,60.2,79"
                 Width="100" Height="50"
                 Click="goToStartPage_Click" RenderTransformOrigin="0.636,-1.516">
             Go To Start Page
         </Button>
-        <controls:StudentRegistrationView x:Name="studentRegistrationControl" Grid.Column="0" Width="435" HorizontalAlignment="Left" Margin="1,55,0,202"/>
+        <Button Name="editButton" Grid.Column="0" Width="100" Height="40" Margin="275,350,60.2,0" VerticalAlignment="Top" Click="editButton_Click" IsEnabled="{Binding ElementName=studentsListBox, Path=SelectedItems.Count}">Edit</Button>
+        <Popup x:Name="editPopup" Placement="Center">
+            <Grid Height="300" Width="435" Background="Orange">
+                <TextBlock Height="20" HorizontalAlignment="Left" Margin="33,148,0,0" x:Name ="editErrormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,30,0,0" Name="editTextBlockFirstname" Text="First Name:" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,53,0,0" Name="editTextBlockLastName" Text="Last Name:" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,79,0,0" Name="editTextBlockEmailId" Text="Email ID:" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,107,0,0" Name="editTextBlockPhone" Text="Phone Number:" VerticalAlignment="Top" Width="110"  />
+
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,30,0,0" Name="editTextBoxFirstName" Text="{Binding ElementName=studentsListBox, Path=SelectedItem.FirstName}" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,57,0,0" Name="editTextBoxLastName" Text="{Binding ElementName=studentsListBox, Path=SelectedItem.LastName}" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Name="editTextBoxEmail" Text="{Binding ElementName=studentsListBox, Path=SelectedItem.Email, Mode=OneWay}" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,0" Name="editTextBoxPhone" Text="{Binding ElementName=studentsListBox, Path=SelectedItem.PhoneNumber, Mode=OneWay}" VerticalAlignment="Top" Width="222" />
+
+                <Button Content="Save changes" Height="23" HorizontalAlignment="Left" Margin="172,184,0,0" Name="SaveChangesButton" VerticalAlignment="Top" Width="80" Click="SaveChanges_Click" RenderTransformOrigin="0.511,1.012"/>
+                <Button Content="Cancell" Height="23" Width="70" HorizontalAlignment="Right" Name="cancelButton" Margin="0,184,107,93" Click="cancelButton_Click"/>
+            </Grid>
+        </Popup>
+        <Grid Height="300" Margin="10,86,9.2,214" Grid.Column="0">
+            <TextBlock Height="20" HorizontalAlignment="Left" Margin="33,148,0,0" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" />
+            <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,30,0,0" Name="textBlockFirstname" Text="First Name:" VerticalAlignment="Top" Width="110" />
+            <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,53,0,0" Name="textBlockLastName" Text="Last Name:" VerticalAlignment="Top" Width="110" />
+            <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,79,0,0" Name="textBlockEmailId" Text="Email ID:" VerticalAlignment="Top" Width="110" />
+            <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,107,0,0" Name="textBlockPhone" Text="Phone Number:" VerticalAlignment="Top" Width="110"  />
+
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="172,30,0,0" Name="textBoxFirstName" VerticalAlignment="Top" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="172,57,0,0" Name="textBoxLastName" VerticalAlignment="Top" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Name="textBoxEmail" VerticalAlignment="Top" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,0" Name="textBoxPhone" VerticalAlignment="Top" Width="222" />
+
+            <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="172,184,0,0" Name="SaveButton" VerticalAlignment="Top" Width="70" Click="Save_Click" RenderTransformOrigin="0.511,1.012"/>
+        </Grid>
         <Grid Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
@@ -37,11 +68,11 @@
             <ListBox Name="studentsListBox" ItemsSource="{Binding studentsList}" Grid.Row="2" Grid.ColumnSpan="2" AlternationCount="2" FontFamily="Arial" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Stretch" VerticalAlignment="Top">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel LastChildFill="True" Height="80" Width="Auto" HorizontalAlignment="Left">
+                        <DockPanel LastChildFill="True" Height="Auto" Width="Auto" HorizontalAlignment="Left">
                             <TextBlock DockPanel.Dock="Top" FontFamily="Arial" FontSize="18" Margin="10" VerticalAlignment="Center">
-                        <Run Text="Name: " FontWeight="Bold"/>
-                        <Run Text="{Binding LastName}" FontWeight="Normal"/>
-                        <Run Text="{Binding FirstName}" FontWeight="Normal"/>
+                        <!--<Run Text="Name: " FontWeight="Bold"/>-->
+                        <Run Text="{Binding LastName}" Typography.Capitals="AllSmallCaps" FontWeight="Bold" FontSize="26"/>
+                        <Run Text="{Binding FirstName}" Typography.Capitals="AllSmallCaps" FontWeight="Bold" FontSize="26"/>
                             </TextBlock>
                             <TextBlock  DockPanel.Dock="Bottom" FontFamily="Arial" FontSize="18" Margin="10" VerticalAlignment="Center">
                         <Run Text="Email: " FontWeight="Bold"/>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LanguageSchool.DataAccess;
 using LanguageSchool.Model;
 using System.Text.RegularExpressions;
+using System.Data.Entity;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -44,7 +45,7 @@ namespace LanguageSchool.BusinessLogic
 
             return true;
         }
-        public List<Student> GetAll()
+        public DbSet<Student> GetAll()
         {
             try
             {
@@ -82,7 +83,7 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public List<Student> FindByLastName(string lastName)
+        public IQueryable<Student> FindByLastName(string lastName)
         {
             try
             {
@@ -94,14 +95,12 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void UpdateFirstName(string id, string firstName)
+        public void Update(string id, string firstName, string lastName, string email, string phoneNumber = "")
         {
             try
             {
-                if (!firstNameRegex.IsMatch(firstName))
-                    throw new Exception("Invalid First Name");
-
-                studentDAL.UpdateFirstName(id, StandarizeInput(firstName));
+                IsValidData(firstName, lastName, email, phoneNumber);
+                studentDAL.Update(id, StandarizeInput(firstName), StandarizeInput(lastName), email, phoneNumber == "" ? null : phoneNumber);
             }
             catch
             {
