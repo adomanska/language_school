@@ -71,6 +71,20 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
+        public void SignForClass(string studentID, Class languageClass)
+        {
+            StudentToClass studentToClass = new StudentToClass { StudentRefID = studentID, ClassRefID = languageClass.ClassID };
+            try
+            {
+                studentDAL.SignForClass(studentToClass);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        
+
         public Student FindByEmail(string email)
         {
             try
@@ -87,7 +101,7 @@ namespace LanguageSchool.BusinessLogic
         {
             Predicate<object> filtre = item =>
             {
-                Student student = item as Student;
+                dynamic student = item;
                 if (!student.Email.Contains(email))
                     return false;
                 else

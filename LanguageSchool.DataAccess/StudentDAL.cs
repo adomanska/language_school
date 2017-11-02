@@ -40,6 +40,19 @@ namespace LanguageSchool.DataAccess
             }
         }
 
+        public void SignForClass(StudentToClass studentToClass)
+        {
+            try
+            {
+                db.StudentsToClasses.Add(studentToClass);
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Student is already signed for this class");
+            }
+        }
+
         public Student FindByEmail(string email)
         {
             try

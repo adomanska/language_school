@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LanguageSchool.Presentation"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="StudentsPage">
@@ -14,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <DockPanel>
-                <TextBox Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Height="30" HorizontalAlignment="Center" DockPanel.Dock="Left"  Margin="50,10,10,10"/>
+                <TextBox Controls:TextBoxHelper.Watermark="Search student..." Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Height="30" HorizontalAlignment="Center" DockPanel.Dock="Left"  Margin="50,10,10,10"/>
             </DockPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -60,9 +61,9 @@
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,107,0,0" Name="textBlockPhone" Text="Phone Number:" VerticalAlignment="Top" Width="110"  />
 
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="172,30,0,0" Name="textBoxFirstName" Text="{Binding FirstName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
-                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,57,0,0" Name="textBoxLastName" Text="{Binding LastName}" VerticalAlignment="Top" Width="222" />
-                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Name="textBoxEmail" Text="{Binding Email}" VerticalAlignment="Top" Width="222" />
-                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,0" Name="textBoxPhone" Text="{Binding PhoneNumber}" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,57,0,0" Name="textBoxLastName" Text="{Binding LastName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Name="textBoxEmail" Text="{Binding Email, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,111" Name="textBoxPhone" Text="{Binding PhoneNumber, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" Width="222" />
 
                 <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="172,184,0,0" Name="SaveButton" Command="{Binding AddStudentCommand}" VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.511,1.012"/>
             </Grid>
@@ -79,14 +80,20 @@
                 <Label Content="Language"/>
                 <Label Content="Language Level" Grid.Row="1"/>
                 <Label Content="Class Name" Grid.Row="2"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
-                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding SelectedLevel}"/>
-                <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}" DisplayMemberPath="ClassName"/>
+                <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" Height="50"/>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding SelectedLevel}" Height="50"/>
+                <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}" DisplayMemberPath="ClassName" Height="50"/>
             </Grid>
-            <DockPanel Grid.Row="2">
-                <Button Content="Edit" Command="{Binding EditCommand}" Width="60" Height="30" DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                <Button Content="Go To Start Page" Width="100" Height="30" HorizontalAlignment="Center" Click="goToStartPage_Click"/>
-            </DockPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Edit" Grid.Column="0" Command="{Binding EditCommand}" Width="60" Height="30"/>
+                <Button Content="Sign up" Command="{Binding SignForClassCommand}" Grid.Column="1" Width="60" Height="30"/>
+                <Button Content="Go To Start Page" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" Click="goToStartPage_Click"/>
+            </Grid>
         </Grid>
         <Popup x:Name="editPopup" Placement="Center" IsOpen="{Binding IsOpenEditPopup}">
             <Grid Height="300" Width="435" Background="Orange">
