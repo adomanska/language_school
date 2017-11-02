@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LanguageSchool.DataAccess;
 using LanguageSchool.Model;
 using System.Text.RegularExpressions;
+using System.Data.Entity;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -39,12 +40,12 @@ namespace LanguageSchool.BusinessLogic
                 throw new Exception("Invalid Last Name");
             if (!emailRegex.IsMatch(email))
                 throw new Exception("Invalid Email Address");
-            if (phoneNumber != "" && !phoneNumberRegex.IsMatch(phoneNumber))
+            if (phoneNumber != null && phoneNumber != "" && !phoneNumberRegex.IsMatch(phoneNumber))
                 throw new Exception("Invalid Phone Number");
 
             return true;
         }
-        public List<Student> GetAll()
+        public DbSet<Student> GetAll()
         {
             try
             {
@@ -82,7 +83,34 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public List<Student> FindByLastName(string lastName)
+        public Predicate<object> GetFilterByEmailPredicate(string email)
+        {
+            Predicate<object> filtre = item =>
+            {
+                Student student = item as Student;
+                if (!student.Email.Contains(email))
+                    return false;
+                else
+                    return true;
+            };
+
+            return filtre;
+        }
+
+        public Predicate<object> GetFilterByLastNamePredicate(string lastName)
+        {
+            Predicate<object> filtre = item =>
+            {
+                Student student = item as Student;
+                if (!student.LastName.ToLower().Contains(lastName.ToLower()))
+                    return false;
+                else
+                    return true;
+            };
+
+            return filtre;
+        }
+        public IQueryable<Student> FindByLastName(string lastName)
         {
             try
             {
@@ -94,14 +122,12 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void UpdateFirstName(string id, string firstName)
+        public void Update(string id, string firstName, string lastName, string email, string phoneNumber = "")
         {
             try
             {
-                if (!firstNameRegex.IsMatch(firstName))
-                    throw new Exception("Invalid First Name");
-
-                studentDAL.UpdateFirstName(id, StandarizeInput(firstName));
+                IsValidData(firstName, lastName, email, phoneNumber);
+                studentDAL.Update(id, StandarizeInput(firstName), StandarizeInput(lastName), email, phoneNumber == "" ? null : phoneNumber);
             }
             catch
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.Model;
@@ -15,11 +16,11 @@ namespace LanguageSchool.DataAccess
         {
             db = context;
         }
-        public List<Student> GetAll()
+        public DbSet<Student> GetAll()
         {
             try
             {
-                return db.Students.ToList();
+                return db.Students;
             }
             catch
             {
@@ -55,15 +56,14 @@ namespace LanguageSchool.DataAccess
             }
         }
 
-        public List<Student> FindByLastName(string lastName)
+        public IQueryable<Student> FindByLastName(string lastName)
         {
             try
             {
-                List<Student> students = db.Students
-                    .Where(st => st.LastName == lastName)
-                    .ToList();
-
-                if (students.Count == 0)
+                var students = db.Students
+                    .Where(st => st.LastName == lastName);
+                    
+                if (students.Count() == 0)
                     throw new Exception("Student with such last name doesn't exist");
 
                 return students;
@@ -74,13 +74,18 @@ namespace LanguageSchool.DataAccess
             }
         }
 
-        public void UpdateFirstName(string id, string newFirstName)
+        public void Update(string emailID, string firstName, string lastName, string email, string phoneNumber)
         {
             try
             {
-                Student existingStudent = FindByEmail(id);
+                Student existingStudent = FindByEmail(emailID);
                 if (existingStudent != null)
-                    existingStudent.FirstName = newFirstName;
+                {
+                    existingStudent.FirstName = firstName;
+                    existingStudent.LastName = lastName;
+                    existingStudent.Email = email;
+                    existingStudent.PhoneNumber = phoneNumber;
+                }
 
                 db.Entry(existingStudent).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();

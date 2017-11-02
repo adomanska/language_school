@@ -27,7 +27,7 @@ namespace LanguageSchool.Presentation
         static private ClassBLL classBLL = new ClassBLL(context);
         static private LanguageBLL languageBLL = new LanguageBLL(context);
         static private LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
-        static private StudentsPage studentsPage = new StudentsPage(studentBLL);
+        static private StudentsPage2 studentsPage = new StudentsPage2(studentBLL);
         static private ClassesPage classesPage = new ClassesPage(classBLL, languageBLL,languageLevelBLL);
 
         public MainWindow()

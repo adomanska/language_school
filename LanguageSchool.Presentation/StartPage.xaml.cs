@@ -21,9 +21,9 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StartPage : Page
     {
-        StudentsPage studentsPage;
+        StudentsPage2 studentsPage;
         ClassesPage classesPage;
-        public StartPage(StudentsPage _studentsPage, ClassesPage _classesPage)
+        public StartPage(StudentsPage2 _studentsPage, ClassesPage _classesPage)
         {
             InitializeComponent();
             studentsPage = _studentsPage;

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LanguageSchool.BusinessLogic;
 using LanguageSchool.Model;
+using System.Data.Entity;
 
 namespace LanguageSchool.Presentation
 {
@@ -29,11 +30,9 @@ namespace LanguageSchool.Presentation
         {
             studentBLL = _studentBLL;
             InitializeComponent();
-            StudentsList = new ObservableCollection<Student>(studentBLL.GetAll());
-            studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
-            
-            this.DataContext = this;
-            studentRegistrationControl.StudentBLL = studentBLL;
+
+            studentBLL.GetAll().Load();
+            studentsListBox.ItemsSource = studentBLL.GetAll().Local;
         }
 
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
@@ -43,25 +42,69 @@ namespace LanguageSchool.Presentation
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
+            if(searchBox.Text == "")
+            {
+                studentsListBox.Items.Filter = null;
+            }
+            else if ((bool)lastNameRadioButton.IsChecked)
+            {
+                studentsListBox.Items.Filter = studentBLL.GetFilterByLastNamePredicate(searchBox.Text);
+            }
+            else if ((bool)emailRadioButton.IsChecked)
+            {
+                studentsListBox.Items.Filter = studentBLL.GetFilterByEmailPredicate(searchBox.Text);
+            }
+        }
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
-                if ((bool)lastNameRadioButton.IsChecked)
-                {
-                    StudentsList = new ObservableCollection<Student>(studentBLL.FindByLastName(searchBox.Text));
-                    studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
-                }
-                else if ((bool)emailRadioButton.IsChecked)
-                {
-                    StudentsList.Clear();
-                    StudentsList.Add(studentBLL.FindByEmail(searchBox.Text));
-                    studentsListBox.ItemsSource = CollectionViewSource.GetDefaultView(StudentsList);
-                }
+                studentBLL.Add(textBoxFirstName.Text, textBoxLastName.Text, textBoxEmail.Text, textBoxPhone.Text);
+                textBoxFirstName.Text = "";
+                textBoxLastName.Text = "";
+                textBoxEmail.Text = "";
+                textBoxPhone.Text = "";
             }
-            catch(Exception ex)
+            catch (Exception exception)
             {
-                searchErrorTextBlock.Text = ex.Message;
+                errormessage.Text = exception.Message;
+            }
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            editPopup.IsOpen = true;
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            editPopup.IsOpen = false;
+        }
+
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            Student oldStudent = (Student)studentsListBox.SelectedItem;
+            try
+            {
+                studentBLL.Update(oldStudent.Email, editTextBoxFirstName.Text, editTextBoxLastName.Text, editTextBoxEmail.Text, editTextBoxPhone.Text);
+                editPopup.IsOpen = false;
+            }
+            catch(Exception exception)
+            {
+                studentsListBox.SelectedItem = oldStudent;
+                editErrormessage.Text = exception.Message;
             }
             
+        }
+
+        private void alphabeticallSortCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)alphabeticallSortCheckBox.IsChecked)
+            {
+                studentsListBox.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("LastName", System.ComponentModel.ListSortDirection.Ascending));
+                studentsListBox.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("FirstName", System.ComponentModel.ListSortDirection.Ascending));
+            }
+            else studentsListBox.Items.SortDescriptions.Clear();
         }
     }
 }
