@@ -16,7 +16,7 @@ namespace LanguageSchool.DataAccess
         {
             db = context;
         }
-        public DbSet<Student> GetAll()
+        public IQueryable<Student> GetAll()
         {
             try
             {

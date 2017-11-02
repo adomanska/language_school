@@ -12,13 +12,18 @@ using LanguageSchool.Model;
 using System.Data.Entity;
 using System.Windows.Data;
 using PropertyChanged;
+using System.Text.RegularExpressions;
 
 namespace LanguageSchool.Presentation
 {
    [AddINotifyPropertyChangedInterface]
-    public class StudentPageViewModel: INotifyPropertyChanged
+    public class StudentPageViewModel: INotifyPropertyChanged, IDataErrorInfo
     {
         StudentBLL studentBLL;
+        ClassBLL classBLL;
+        LanguageLevelBLL languageLevelBLL;
+        LanguageBLL languageBLL;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -70,8 +75,44 @@ namespace LanguageSchool.Presentation
 
         public bool IsOpenEditPopup { get; set; }
       
-        public Student SelectedStudent { get; set; }
-        public Student EditedStudent { get; set; }
+        public StudentModel SelectedStudent { get; set; }
+        public StudentModel EditedStudent { get; set; }
+
+        public List<string> Languages { get; set; }
+        public string SelectedLanguage { get; set; }
+        public List<string> LanguageLevels { get; set; }
+        public string SelectedLevel { get; set; }
+        public List<Class> Classes { get; set; }
+        public Class SelectedClass { get; set; }
+
+        private void LoadLanguages()
+        {
+            Languages = languageBLL.GetAll().Select(x => x.LanguageName).ToList();
+            SelectedLanguage = Languages.FirstOrDefault();
+        }
+
+        private void LoadLevels()
+        {
+            LanguageLevels = languageLevelBLL.GetLevels(SelectedLanguage);
+            SelectedLevel = LanguageLevels.FirstOrDefault();
+        }
+
+        private void LoadClasses()
+        {
+            Classes = classBLL.GetClasses(SelectedLanguage, SelectedLevel);
+            SelectedClass = Classes.FirstOrDefault();
+        }
+
+        private void OnLanguageChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == nameof(SelectedLanguage))
+            {
+                LoadLevels();
+                LoadClasses();
+            }
+            if (e.PropertyName == nameof(SelectedLevel))
+                LoadClasses();
+        }
         
         public ICommand AddStudentCommand { get; set; }
         public ICommand FilterCommand { get; set; }
@@ -88,20 +129,55 @@ namespace LanguageSchool.Presentation
             }
         }
 
-        public StudentPageViewModel(StudentBLL _studentBLL)
+        private bool CanAddStudent(object o)
+        {
+            return string.IsNullOrEmpty(Error);
+        }
+
+        public string Error { get; set; }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = null;
+                if(columnName == nameof(FirstName))
+                {
+                    Regex firstNameRegex = new Regex(@"[A-Z][a-z]*");
+                    if (String.IsNullOrEmpty(FirstName) || !firstNameRegex.IsMatch(FirstName))
+                        error = "Invalid First Name";
+                }
+                Error = error;
+                return error;
+            }
+        }
+
+        public StudentPageViewModel(StudentBLL _studentBLL, ClassBLL _classBLL, LanguageLevelBLL _languageLevelBLL, LanguageBLL _languageBLL)
         {
             studentBLL = _studentBLL;
-            studentBLL.GetAll().Load();
-            _Students = CollectionViewSource.GetDefaultView(studentBLL.GetAll().Local);
+            classBLL = _classBLL;
+            languageLevelBLL = _languageLevelBLL;
+            languageBLL = _languageBLL;
+
+            var coll = new ObservableCollection<StudentModel>(studentBLL.GetAll().Select(x=>new StudentModel()
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber
+            }));
+            _Students = CollectionViewSource.GetDefaultView(coll);
 
             IsLastNameFilterChecked = true;
             IsOpenEditPopup = false;
 
-            AddStudentCommand = new RelayCommand(AddStudent);
+            AddStudentCommand = new RelayCommand(AddStudent, CanAddStudent);
             FilterCommand = new RelayCommand(Filter);
             EditCommand = new RelayCommand(Edit);
             CancelCommand = new RelayCommand(Cancel);
             SaveChangesCommand = new RelayCommand(SaveChanges);
+            PropertyChanged += this.OnLanguageChanged;
+            LoadLanguages();
         }
 
         void AddStudent(object param)
@@ -125,7 +201,7 @@ namespace LanguageSchool.Presentation
 
         void Edit(object param)
         {
-            Student editedStudent = new Student();
+            StudentModel editedStudent = new StudentModel();
             editedStudent.FirstName = SelectedStudent.FirstName;
             editedStudent.LastName = SelectedStudent.LastName;
             editedStudent.Email = SelectedStudent.Email;

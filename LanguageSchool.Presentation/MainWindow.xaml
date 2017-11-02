@@ -1,9 +1,10 @@
-﻿<Window x:Class="LanguageSchool.Presentation.MainWindow"
+﻿<mahapps:MetroWindow x:Class="LanguageSchool.Presentation.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LanguageSchool.Presentation"
+        xmlns:mahapps ="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Height="600" Width="1000"
         MinHeight="600" MinWidth="1000">
@@ -12,4 +13,4 @@
         <Frame Name="navigationFrame" NavigationUIVisibility="Hidden">
         </Frame>
     </Border>
-</Window>
+</mahapps:MetroWindow>

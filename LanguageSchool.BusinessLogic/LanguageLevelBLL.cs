@@ -28,5 +28,10 @@ namespace LanguageSchool.BusinessLogic
                 throw;
             }
         }
+
+        public List<string> GetLevels(string language)
+        {
+            return languageLevelDAL.GetLevels(language);
+        }
     }
 }

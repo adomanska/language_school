@@ -81,5 +81,11 @@ namespace LanguageSchool.BusinessLogic
             }
             return true;
         }
+
+        public List<Class> GetClasses(string language, string level)
+        {
+            return classDAL.GetClasess(language, level);
+        }
     }
+
 }

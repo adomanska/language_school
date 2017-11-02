@@ -84,13 +84,8 @@
     <Compile Include="StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StudentModel.cs" />
     <Compile Include="StudentPageViewModel.cs" />
-    <Compile Include="StudentRegistrationView.xaml.cs">
-      <DependentUpon>StudentRegistrationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="StudentsPage.xaml.cs">
-      <DependentUpon>StudentsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="StudentsPage2.xaml.cs">
       <DependentUpon>StudentsPage2.xaml</DependentUpon>
     </Compile>
@@ -111,14 +106,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="StartPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StudentRegistrationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StudentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

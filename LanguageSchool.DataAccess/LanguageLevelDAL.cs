@@ -28,5 +28,15 @@ namespace LanguageSchool.DataAccess
                 throw;
             }
         }
+
+        public List<string> GetLevels(string language)
+        {
+            var lan = db.Languages.Where(l => l.LanguageName == language).FirstOrDefault();
+            if(lan != null)
+            {
+                return db.Classes.Where(c => c.Language.LanguageID == lan.LanguageID).Select(x=>x.LanguageLevel.LanguageLevelSignature).Distinct().ToList();
+            }
+            return null;
+        }
     }
 }

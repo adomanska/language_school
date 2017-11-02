@@ -45,11 +45,11 @@ namespace LanguageSchool.BusinessLogic
 
             return true;
         }
-        public DbSet<Student> GetAll()
+        public List<Student> GetAll()
         {
             try
             {
-                return studentDAL.GetAll();
+                return studentDAL.GetAll().ToList();
             }
             catch
             {
@@ -101,7 +101,7 @@ namespace LanguageSchool.BusinessLogic
         {
             Predicate<object> filtre = item =>
             {
-                Student student = item as Student;
+                dynamic student = item;
                 if (!student.LastName.ToLower().Contains(lastName.ToLower()))
                     return false;
                 else

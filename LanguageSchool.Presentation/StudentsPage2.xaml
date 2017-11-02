@@ -59,12 +59,29 @@
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,79,0,0" Name="textBlockEmailId" Text="Email ID:" VerticalAlignment="Top" Width="110" />
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,107,0,0" Name="textBlockPhone" Text="Phone Number:" VerticalAlignment="Top" Width="110"  />
 
-                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,30,0,0" Name="textBoxFirstName" Text="{Binding FirstName}" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="172,30,0,0" Name="textBoxFirstName" Text="{Binding FirstName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="172,57,0,0" Name="textBoxLastName" Text="{Binding LastName}" VerticalAlignment="Top" Width="222" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Name="textBoxEmail" Text="{Binding Email}" VerticalAlignment="Top" Width="222" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,0" Name="textBoxPhone" Text="{Binding PhoneNumber}" VerticalAlignment="Top" Width="222" />
 
                 <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="172,184,0,0" Name="SaveButton" Command="{Binding AddStudentCommand}" VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.511,1.012"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Language"/>
+                <Label Content="Language Level" Grid.Row="1"/>
+                <Label Content="Class Name" Grid.Row="2"/>
+                <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding SelectedLevel}"/>
+                <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}" DisplayMemberPath="ClassName"/>
             </Grid>
             <DockPanel Grid.Row="2">
                 <Button Content="Edit" Command="{Binding EditCommand}" Width="60" Height="30" DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="30,0,0,0"/>

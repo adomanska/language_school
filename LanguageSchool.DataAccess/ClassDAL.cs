@@ -40,6 +40,11 @@ namespace LanguageSchool.DataAccess
                 throw;
             }
         }
+        
+        public List<Class> GetClasess(string language, string level)
+        {
+            return db.Classes.Where(x => x.LanguageLevel.LanguageLevelSignature == level && x.Language.LanguageName == language).ToList();
+        }
      
     }
 }
