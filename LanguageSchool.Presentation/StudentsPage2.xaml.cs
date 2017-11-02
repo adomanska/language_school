@@ -26,13 +26,11 @@ namespace LanguageSchool.Presentation
     public partial class StudentsPage2 : Page
     {
         public ObservableCollection<Student> StudentsList { get; set; }
-        StudentBLL studentBLL;
-        public StudentsPage2(StudentBLL _studentBLL)
+        public StudentsPage2(StudentPageViewModel vm)
         {
-            studentBLL = _studentBLL;
             InitializeComponent();
 
-            this.DataContext = new StudentPageViewModel(_studentBLL);
+            this.DataContext = vm;
         }
 
         private void goToStartPage_Click(object sender, RoutedEventArgs e)

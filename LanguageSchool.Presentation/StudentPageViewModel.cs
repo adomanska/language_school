@@ -11,60 +11,24 @@ using LanguageSchool.BusinessLogic;
 using LanguageSchool.Model;
 using System.Data.Entity;
 using System.Windows.Data;
+using PropertyChanged;
 
 namespace LanguageSchool.Presentation
 {
-   
-    class StudentPageViewModel: INotifyPropertyChanged
+   [AddINotifyPropertyChangedInterface]
+    public class StudentPageViewModel: INotifyPropertyChanged
     {
         StudentBLL studentBLL;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        string _firstName;
-        public string FirstName
-        {
-            get { return _firstName; }
-            set
-            {
-                _firstName = value;
-                OnPropertyChanged("FirstName");
-            }
-        }
+        public string FirstName { get; set; }
 
-        string _lastName;
-        public string LastName
-        {
-            get { return _lastName; }
-            set
-            {
-                _lastName = value;
-                OnPropertyChanged("LastName");
-            }
-        }
-
-        string _email;
-        public string Email
-        {
-            get { return _email; }
-            set
-            {
-                _email = value;
-                OnPropertyChanged("Email");
-            }
-        }
-
-        string _phoneNumber;
-        public string PhoneNumber
-        {
-            get { return _phoneNumber; }
-            set
-            {
-                _phoneNumber = value;
-                OnPropertyChanged("PhoneNumber");
-            }
-        }
-
+        public string LastName { get; set; }
+        public string Email { get; set; }
+       
+        public string PhoneNumber { get; set; }
+        
         bool _isAlphabeticallSortSelected;
         public bool IsAlphabeticallSortSelected
         {
@@ -104,45 +68,11 @@ namespace LanguageSchool.Presentation
         public bool IsLastNameFilterChecked { get; set; }
         public bool IsEmailFilterChecked { get; set; }
 
-        bool _isOpenEditPopup;
-        public bool IsOpenEditPopup
-        {
-            get { return _isOpenEditPopup; }
-            set
-            {
-                _isOpenEditPopup = value;
-                OnPropertyChanged("IsOpenEditPopup");
-            }
-        }
-
-        Student _selectedStudent;
-        public Student SelectedStudent
-        {
-            get { return _selectedStudent; }
-            set
-            {
-                if (_selectedStudent != value)
-                {
-                    _selectedStudent = value as Student;
-                    OnPropertyChanged("SelectedStudent");
-                }
-            }
-        }
-
-        Student _editedStudent;
-        public Student EditedStudent
-        {
-            get { return _editedStudent; }
-            set
-            {
-                if (_editedStudent != value)
-                {
-                    _editedStudent = value as Student;
-                    OnPropertyChanged("EditedStudent");
-                }
-            }
-        }
-
+        public bool IsOpenEditPopup { get; set; }
+      
+        public Student SelectedStudent { get; set; }
+        public Student EditedStudent { get; set; }
+        
         public ICommand AddStudentCommand { get; set; }
         public ICommand FilterCommand { get; set; }
         public ICommand EditCommand { get; set; }

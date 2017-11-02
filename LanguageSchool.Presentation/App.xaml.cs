@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using LanguageSchool.BusinessLogic;
+using LanguageSchool.Model;
 
 namespace LanguageSchool.Presentation
 {
@@ -13,5 +15,22 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            LanguageSchoolContext context = new LanguageSchoolContext();
+            StudentBLL studentBLL = new StudentBLL(context);
+            StudentPageViewModel sVM = new StudentPageViewModel(studentBLL);
+            StudentsPage2 studentPage = new StudentsPage2(sVM);
+
+            LanguageBLL languageBLL = new LanguageBLL(context);
+            LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
+
+            ClassBLL classBLL = new ClassBLL(context);
+            ClassesPage classPage = new ClassesPage(classBLL, languageBLL, languageLevelBLL);
+            var mainWindow = new MainWindow(studentPage, classPage);
+
+            Current.MainWindow = mainWindow;
+            mainWindow.Show();
+        }
     }
 }

@@ -22,18 +22,16 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
-        static private LanguageSchoolContext context = new LanguageSchoolContext();
-        static private StudentBLL studentBLL = new StudentBLL(context);
-        static private ClassBLL classBLL = new ClassBLL(context);
-        static private LanguageBLL languageBLL = new LanguageBLL(context);
-        static private LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
-        static private StudentsPage2 studentsPage = new StudentsPage2(studentBLL);
-        static private ClassesPage classesPage = new ClassesPage(classBLL, languageBLL,languageLevelBLL);
-
         public MainWindow()
         {
             InitializeComponent();
-            navigationFrame.Content = new StartPage(studentsPage, classesPage);
+            //navigationFrame.Content = new StartPage(studentsPage, classesPage);
+        }
+
+        public MainWindow(StudentsPage2 studentPage, ClassesPage classPage)
+        {
+            InitializeComponent();
+            navigationFrame.Content = new StartPage(studentPage, classPage);
         }
     }
 }
