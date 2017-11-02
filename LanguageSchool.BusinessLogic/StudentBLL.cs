@@ -40,7 +40,7 @@ namespace LanguageSchool.BusinessLogic
                 throw new Exception("Invalid Last Name");
             if (!emailRegex.IsMatch(email))
                 throw new Exception("Invalid Email Address");
-            if (phoneNumber != "" && !phoneNumberRegex.IsMatch(phoneNumber))
+            if (phoneNumber != null && phoneNumber != "" && !phoneNumberRegex.IsMatch(phoneNumber))
                 throw new Exception("Invalid Phone Number");
 
             return true;
@@ -88,7 +88,7 @@ namespace LanguageSchool.BusinessLogic
             Predicate<object> filtre = item =>
             {
                 Student student = item as Student;
-                if (student.Email != email)
+                if (!student.Email.Contains(email))
                     return false;
                 else
                     return true;
@@ -102,7 +102,7 @@ namespace LanguageSchool.BusinessLogic
             Predicate<object> filtre = item =>
             {
                 Student student = item as Student;
-                if (student.LastName != StandarizeInput(lastName))
+                if (!student.LastName.ToLower().Contains(lastName.ToLower()))
                     return false;
                 else
                     return true;
