@@ -10,9 +10,9 @@ using System.Data.Entity;
 
 namespace LanguageSchool.BusinessLogic
 {
-    public class StudentBLL
+    public class StudentBLL: IStudentBLL
     {
-        private StudentDAL studentDAL;
+        private IStudentDAL studentDAL;
         private Regex firstNameRegex;
         private Regex lastNameRegex;
         private Regex emailRegex;

@@ -19,7 +19,7 @@ namespace LanguageSchool.Presentation
    [AddINotifyPropertyChangedInterface]
     public class StudentPageViewModel: INotifyPropertyChanged, IDataErrorInfo
     {
-        StudentBLL studentBLL;
+        IStudentBLL studentBLL;
         ClassBLL classBLL;
         LanguageLevelBLL languageLevelBLL;
         LanguageBLL languageBLL;
@@ -169,7 +169,7 @@ namespace LanguageSchool.Presentation
             }
         }
 
-        public StudentPageViewModel(StudentBLL _studentBLL, ClassBLL _classBLL, LanguageLevelBLL _languageLevelBLL, LanguageBLL _languageBLL)
+        public StudentPageViewModel(IStudentBLL _studentBLL, ClassBLL _classBLL, LanguageLevelBLL _languageLevelBLL, LanguageBLL _languageBLL)
         {
             studentBLL = _studentBLL;
             classBLL = _classBLL;

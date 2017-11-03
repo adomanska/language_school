@@ -8,7 +8,7 @@ using LanguageSchool.Model;
 
 namespace LanguageSchool.DataAccess
 {
-    public class StudentDAL
+    public class StudentDAL: IStudentDAL
     {
         private LanguageSchoolContext db;
 

@@ -21,9 +21,9 @@ namespace LanguageSchool.Presentation
             LanguageBLL languageBLL = new LanguageBLL(context);
             LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
             ClassBLL classBLL = new ClassBLL(context);
+            IStudentBLL studentBLL = new StudentBLL(context);
 
-            
-            StudentBLL studentBLL = new StudentBLL(context);
+
             StudentPageViewModel sVM = new StudentPageViewModel(studentBLL, classBLL, languageLevelBLL, languageBLL);
             StudentsPage2 studentPage = new StudentsPage2(sVM);
             

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassBLL.cs" />
+    <Compile Include="Interfaces\IStudentBLL.cs" />
     <Compile Include="LanguageBLL.cs" />
     <Compile Include="LanguageLevelBLL.cs" />
     <Compile Include="StudentBLL.cs" />
