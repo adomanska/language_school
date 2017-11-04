@@ -71,7 +71,7 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void SignForClass(string studentID, Class languageClass)
+        public void SignForClass(int studentID, Class languageClass)
         {
             StudentToClass studentToClass = new StudentToClass { StudentRefID = studentID, ClassRefID = languageClass.ClassID };
             try

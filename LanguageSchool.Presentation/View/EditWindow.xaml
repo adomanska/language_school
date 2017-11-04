@@ -15,10 +15,10 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,79,0,0" Name="editTextBlockEmailId" Text="Email ID:" VerticalAlignment="Top" Width="110" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="33,107,0,0" Name="editTextBlockPhone" Text="Phone Number:" VerticalAlignment="Top" Width="110"  />
 
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,30,0,0" Name="editTextBoxFirstName" Text="{Binding FirstName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,57,0,0" Name="editTextBoxLastName" Text="{Binding EditedStudent.LastName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Name="editTextBoxEmail" Text="{Binding EditedStudent.Email, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,0" Name="editTextBoxPhone" Text="{Binding EditedStudent.PhoneNumber, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,30,0,0" Text="{Binding FirstName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,57,0,0" Text="{Binding LastName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Text="{Binding Email, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,0" Text="{Binding PhoneNumber, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
 
         <Button Content="Save changes" Command="{ Binding SaveChangesCommand}" Height="23" HorizontalAlignment="Left" Margin="172,184,0,0" Name="SaveChangesButton" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.511,1.012"/>
         <Button Content="Cancell" Command="{Binding CancelCommand}" Height="23" Width="70" HorizontalAlignment="Right" Name="cancelButton" Margin="0,184,51,91" />

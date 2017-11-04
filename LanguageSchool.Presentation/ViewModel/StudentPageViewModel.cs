@@ -17,12 +17,14 @@ using System.Text.RegularExpressions;
 namespace LanguageSchool.Presentation
 {
    [AddINotifyPropertyChangedInterface]
-    public class StudentPageViewModel: INotifyPropertyChanged, IDataErrorInfo
+    public class StudentPageViewModel:  INotifyPropertyChanged, IDataErrorInfo
     {
         IStudentBLL studentBLL;
         ClassBLL classBLL;
         LanguageLevelBLL languageLevelBLL;
         LanguageBLL languageBLL;
+
+        EditWindowViewModel editWindowVM;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -112,7 +114,18 @@ namespace LanguageSchool.Presentation
             if (e.PropertyName == nameof(SelectedLevel))
                 LoadClasses();
         }
-        
+
+        string _exceptionMessage;
+        public string ExceptionMessage
+        {
+            get { return _exceptionMessage; }
+            set
+            {
+                _exceptionMessage = value;
+                MessageBox.Show(_exceptionMessage, "Error message");
+            }
+        }
+
         public ICommand AddStudentCommand { get; set; }
         public ICommand FilterCommand { get; set; }
         public ICommand EditCommand { get; set; }
@@ -129,7 +142,6 @@ namespace LanguageSchool.Presentation
             }
         }
 
-        
 
         public string Error { get; set; }
 
@@ -176,8 +188,11 @@ namespace LanguageSchool.Presentation
             languageLevelBLL = _languageLevelBLL;
             languageBLL = _languageBLL;
 
-            var coll = new ObservableCollection<StudentModel>(studentBLL.GetAll().Select(x=>new StudentModel()
+            editWindowVM = new EditWindowViewModel(studentBLL);
+
+            var coll = new ObservableCollection<StudentModel>(studentBLL.GetAll().Select(x => new StudentModel()
             {
+                ID = x.ID,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
@@ -202,7 +217,15 @@ namespace LanguageSchool.Presentation
 
         void AddStudent(object param)
         {
-            studentBLL.Add(FirstName, LastName, Email, PhoneNumber);
+            try
+            {
+                studentBLL.Add(FirstName, LastName, Email, PhoneNumber);
+            }
+            catch(Exception ex)
+            {
+                ExceptionMessage = ex.Message;
+            }
+            
             OnPropertyChanged("Students");
         }
 
@@ -213,7 +236,14 @@ namespace LanguageSchool.Presentation
 
         private void SignForClass(object o)
         {
-            studentBLL.SignForClass(SelectedStudent.Email, SelectedClass);
+            try
+            {
+                studentBLL.SignForClass(SelectedStudent.ID, SelectedClass);
+            }
+            catch(Exception ex)
+            {
+                ExceptionMessage = ex.Message;
+            }
         }
 
         private bool CanUseSelectedStudent(object o)
@@ -236,15 +266,23 @@ namespace LanguageSchool.Presentation
 
         void Edit(object param)
         {
-            StudentModel editedStudent = new StudentModel();
-            editedStudent.FirstName = SelectedStudent.FirstName;
-            editedStudent.LastName = SelectedStudent.LastName;
-            editedStudent.Email = SelectedStudent.Email;
-            editedStudent.PhoneNumber = SelectedStudent.PhoneNumber;
+            //StudentModel editedStudent = new StudentModel();
+            //editedStudent.FirstName = SelectedStudent.FirstName;
+            //editedStudent.LastName = SelectedStudent.LastName;
+            //editedStudent.Email = SelectedStudent.Email;
+            //editedStudent.PhoneNumber = SelectedStudent.PhoneNumber;
 
-            EditedStudent = editedStudent;
+            //EditedStudent = editedStudent;
 
-            IsOpenEditPopup = true;
+            editWindowVM.FirstName = SelectedStudent.FirstName;
+            editWindowVM.LastName = SelectedStudent.LastName;
+            editWindowVM.Email = SelectedStudent.Email;
+            editWindowVM.PhoneNumber = SelectedStudent.PhoneNumber;
+
+            EditWindow editWindow = new EditWindow(editWindowVM);
+            editWindow.ShowDialog();
+            
+            //IsOpenEditPopup = true;
         }
 
         void Cancel(object param)

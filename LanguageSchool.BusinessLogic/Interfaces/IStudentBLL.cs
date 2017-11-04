@@ -12,7 +12,7 @@ namespace LanguageSchool.BusinessLogic
     {
         List<Student> GetAll();
         void Add(string firstName, string lastName, string email, string phoneNumber = "");
-        void SignForClass(string studentID, Class languageClass);
+        void SignForClass(int studentID, Class languageClass);
         Student FindByEmail(string email);
         Predicate<object> GetFilterByEmailPredicate(string email);
         Predicate<object> GetFilterByLastNamePredicate(string lastName);

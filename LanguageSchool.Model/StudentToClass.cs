@@ -12,7 +12,7 @@ namespace LanguageSchool.Model
     {
         [Key]
         [Column(Order = 0)]
-        public string StudentRefID { get; set; }
+        public int StudentRefID { get; set; }
         [Key]
         [Column(Order =1)]
         public int ClassRefID { get; set; }

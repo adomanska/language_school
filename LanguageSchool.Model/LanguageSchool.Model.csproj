@@ -53,6 +53,15 @@
     <Compile Include="LanguageLevel.cs" />
     <Compile Include="LanguageSchoolContext.cs" />
     <Compile Include="LanguageSchoolContextInitializer.cs" />
+    <Compile Include="Migrations\201711041411269_InitialCreate.cs" />
+    <Compile Include="Migrations\201711041411269_InitialCreate.Designer.cs">
+      <DependentUpon>201711041411269_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711041451054_addStudentIDToStudent.cs" />
+    <Compile Include="Migrations\201711041451054_addStudentIDToStudent.Designer.cs">
+      <DependentUpon>201711041451054_addStudentIDToStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentToClass.cs" />
@@ -60,6 +69,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711041411269_InitialCreate.resx">
+      <DependentUpon>201711041411269_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711041451054_addStudentIDToStudent.resx">
+      <DependentUpon>201711041451054_addStudentIDToStudent.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
