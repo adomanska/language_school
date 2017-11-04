@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace LanguageSchool.BusinessLogic
 {
-    public class LanguageLevelBLL
+    public class LanguageLevelBLL: ILanguageLevelBLL
     {
         private LanguageLevelDAL languageLevelDAL;
 

@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace LanguageSchool.DataAccess
 {
-    public class ClassDAL
+    public class ClassDAL: IClassDAL
     {
         private LanguageSchoolContext db;
 

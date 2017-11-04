@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 
 namespace LanguageSchool.BusinessLogic
 {
-    public class ClassBLL
+    public class ClassBLL: IClassBLL
     {
         private ClassDAL classDAL;
 

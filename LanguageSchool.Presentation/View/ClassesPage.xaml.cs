@@ -84,8 +84,7 @@ namespace LanguageSchool.Presentation
             {
                 try
                 {
-                    languageBLL.Add(newLanguageTextBox.Text);
-                    languageID = languageBLL.GetAll().Count()-1;
+                    languageID = languageBLL.Add(newLanguageTextBox.Text);
                 }
                 catch
                 {
@@ -103,24 +102,5 @@ namespace LanguageSchool.Presentation
                 throw;
             }
         }
-
-        //private void addLanguage_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        languageBLL.Add(langName.Text);
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        string exS = "";
-        //        foreach (var eve in ex.EntityValidationErrors)
-        //        {
-        //            exS += String.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:\n", eve.Entry.Entity.GetType().Name, eve.Entry.State);
-        //            foreach (var ve in eve.ValidationErrors)
-        //                exS += String.Format("- Property: \"{0}\", Error: \"{1}\"\n", ve.PropertyName, ve.ErrorMessage);
-        //        }
-        //        MessageBox.Show(exS);
-        //    }
-        //}
     }
 }
