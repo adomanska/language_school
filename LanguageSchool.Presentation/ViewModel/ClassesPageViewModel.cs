@@ -10,6 +10,7 @@ using LanguageSchool.Model;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using LanguageSchool.Presentation.View;
 
 namespace LanguageSchool.Presentation
 {
@@ -19,6 +20,7 @@ namespace LanguageSchool.Presentation
         IClassBLL classBLL;
         ILanguageLevelBLL languageLevelBLL;
         ILanguageBLL languageBLL;
+        EditClassWindowViewModel eCVM;
 
         public ICollectionView Classes { get; set; }
         public Class SelectedClass { get; set; }
@@ -40,22 +42,28 @@ namespace LanguageSchool.Presentation
 
         public ICommand AddClassCommand { get; set; }
         public ICommand FilterCommand { get; set; }
+        public ICommand EditCommand { get; set; }
 
         public ClassesPageViewModel(IClassBLL _classBLL, ILanguageLevelBLL _languageLevelBLL, ILanguageBLL _languageBLL)
         {
             classBLL = _classBLL;
             languageLevelBLL = _languageLevelBLL;
             languageBLL = _languageBLL;
+            eCVM = new EditClassWindowViewModel(classBLL, languageBLL);
             Classes = CollectionViewSource.GetDefaultView(classBLL.GetAll().Local);
             Classes.SortDescriptions.Add(new System.ComponentModel.SortDescription("ClassName", System.ComponentModel.ListSortDirection.Ascending));
 
             AddClassCommand = new RelayCommand(AddClass);
             FilterCommand = new RelayCommand(Filter);
+            EditCommand = new RelayCommand(Edit);
             Languages = CollectionViewSource.GetDefaultView(languageBLL.GetAll().Local);
             Languages.SortDescriptions.Add(new System.ComponentModel.SortDescription("LanguageName", System.ComponentModel.ListSortDirection.Ascending));
             LanguageLevels = CollectionViewSource.GetDefaultView(languageLevelBLL.GetAll().Local);
 
             IsExistingLanguage = true;
+
+            eCVM.Languages = Languages;
+            eCVM.LanguageLevels = LanguageLevels;
         }
 
         void AddClass(object param)
@@ -89,6 +97,19 @@ namespace LanguageSchool.Presentation
         {
             Classes.Filter = classBLL.GetFilterPredicate(SearchedText,IsLanguageFilterChecked ? SearchedLanguage : null,IsLevelFilterChecked? SearchedLevel:null);
             OnPropertyChanged("Classes");
+        }
+
+        void Edit(object param)
+        {
+            eCVM.NewClassName = SelectedClass.ClassName;
+            eCVM.NewLanguage = SelectedClass.Language;
+            eCVM.NewLanguageLevel = SelectedClass.LanguageLevel;
+            eCVM.NewDay = 1;
+            eCVM.SelectedClass = SelectedClass;
+
+            EditClassWindow editClassWindow = new EditClassWindow(eCVM);
+            editClassWindow.ShowDialog();
+            Classes.Refresh();
         }
         public string this[string columnName]
         {
@@ -134,11 +155,7 @@ namespace LanguageSchool.Presentation
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

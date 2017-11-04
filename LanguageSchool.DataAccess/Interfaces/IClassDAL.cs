@@ -13,5 +13,6 @@ namespace LanguageSchool.DataAccess
         DbSet<Class> GetAll();
         void Add(Class _class);
         List<Class> GetClasess(string language, string level);
+        void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day);
     }
 }

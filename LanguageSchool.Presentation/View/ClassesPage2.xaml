@@ -175,7 +175,8 @@
             Go To Start Page
         </Button>
         <Button Grid.Row="1" HorizontalAlignment="Right"
-                Height="50" Width="100" Margin="5" Background="AliceBlue">
+                Height="50" Width="100" Margin="5" Background="AliceBlue"
+                Command="{Binding EditCommand}">
             Edit
         </Button>
     </Grid>
