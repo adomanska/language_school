@@ -86,6 +86,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModel\ClassesPageViewModel.cs" />
+    <Compile Include="ViewModel\EditClassWindowiewModel.cs" />
     <Compile Include="ViewModel\EditWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\StudentPageViewModel.cs" />
@@ -94,6 +95,10 @@
     </Compile>
     <Compile Include="View\ClassesPage2.xaml.cs">
       <DependentUpon>ClassesPage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditClassWindow.xaml.cs">
+      <DependentUpon>EditClassWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="View\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
@@ -161,6 +166,10 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="View\ClassesPage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="View\EditClassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>

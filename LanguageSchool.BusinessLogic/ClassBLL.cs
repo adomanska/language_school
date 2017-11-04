@@ -29,6 +29,7 @@ namespace LanguageSchool.BusinessLogic
                 throw;
             }
         }
+
         public void Add(string className, DateTime startTime, DateTime endTime, DayOfWeek day, int languageID, int languageLevelID )
         {
             if (endTime.CompareTo(startTime) < 0)
@@ -44,6 +45,17 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
+        public void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day)
+        {
+            try
+            {
+                classDAL.Update(_class, className, language, languageLevel, day);
+            }
+            catch
+            {
+                throw;
+            }
+        }
         public Predicate<object> GetFilterPredicate(string className, Language language, LanguageLevel languageLevel)
         {
             Predicate<object> filtre = o =>

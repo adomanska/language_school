@@ -25,7 +25,6 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class ClassesPage2 : Page
     {
-        public ObservableCollection<Class> ClasesList { get; set; }
         public ClassesPage2(ClassesPageViewModel _classesPageViewModel)
         {
             InitializeComponent();

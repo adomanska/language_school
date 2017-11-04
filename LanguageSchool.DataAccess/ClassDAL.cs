@@ -45,6 +45,23 @@ namespace LanguageSchool.DataAccess
         {
             return db.Classes.Where(x => x.LanguageLevel.LanguageLevelSignature == level && x.Language.LanguageName == language).ToList();
         }
+
+        public void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day)
+        {
+            try
+            {
+                _class.ClassName = className;
+                _class.Language = language;
+                _class.LanguageLevel = languageLevel;
+                _class.Day = day;
+                db.Entry(_class).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Class cannot be updated");
+            }
+        }
      
     }
 }
