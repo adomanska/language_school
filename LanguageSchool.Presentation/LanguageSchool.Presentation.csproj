@@ -76,17 +76,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\ClassModel.cs" />
+    <Compile Include="Models\LanguageLevelModel.cs" />
+    <Compile Include="Models\LanguageModel.cs" />
+    <Compile Include="Models\StudentModel.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Compile Include="StudentModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\ClassesPageViewModel.cs" />
     <Compile Include="ViewModel\EditWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\StudentPageViewModel.cs" />
     <Compile Include="View\ClassesPage.xaml.cs">
       <DependentUpon>ClassesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClassesPage2.xaml.cs">
+      <DependentUpon>ClassesPage2.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
@@ -150,6 +157,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\ClassesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="View\ClassesPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>

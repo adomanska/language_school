@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.BusinessLogic
 {
-    interface IClassBLL
+    public interface IClassBLL
     {
         DbSet<Class> GetAll();
         void Add(string className, DateTime startTime, DateTime endTime, DayOfWeek day, int languageID, int languageLevelID);

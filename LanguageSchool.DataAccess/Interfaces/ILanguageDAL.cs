@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.DataAccess
 {
-    interface ILanguageDAL
+    public interface ILanguageDAL
     {
         DbSet<Language> GetAll();
         void Add(Language language);

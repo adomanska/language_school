@@ -12,7 +12,7 @@ namespace LanguageSchool.BusinessLogic
 {
     public class ClassBLL: IClassBLL
     {
-        private ClassDAL classDAL;
+        IClassDAL classDAL;
 
         public ClassBLL(LanguageSchoolContext context)
         {
@@ -49,7 +49,7 @@ namespace LanguageSchool.BusinessLogic
             Predicate<object> filtre = o =>
             {
                 Class c = o as Class;
-                if (!c.ClassName.Contains(className))
+                if (className!=null && !c.ClassName.Contains(className))
                     return false;
                 if (language!=null && c.LanguageRefID!= language.LanguageID)
                     return false;

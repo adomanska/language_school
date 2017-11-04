@@ -18,16 +18,17 @@ namespace LanguageSchool.Presentation
         protected override void OnStartup(StartupEventArgs e)
         {
             LanguageSchoolContext context = new LanguageSchoolContext();
-            LanguageBLL languageBLL = new LanguageBLL(context);
-            LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
-            ClassBLL classBLL = new ClassBLL(context);
+            ILanguageBLL languageBLL = new LanguageBLL(context);
+            ILanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
+            IClassBLL classBLL = new ClassBLL(context);
             IStudentBLL studentBLL = new StudentBLL(context);
 
 
             StudentPageViewModel sVM = new StudentPageViewModel(studentBLL, classBLL, languageLevelBLL, languageBLL);
             StudentsPage2 studentPage = new StudentsPage2(sVM);
-            
-            ClassesPage classPage = new ClassesPage(classBLL, languageBLL, languageLevelBLL);
+
+            ClassesPageViewModel cVM = new ClassesPageViewModel(classBLL, languageLevelBLL, languageBLL);
+            ClassesPage2 classPage = new ClassesPage2(cVM);
             var mainWindow = new MainWindow(studentPage, classPage);
 
             Current.MainWindow = mainWindow;

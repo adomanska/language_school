@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.DataAccess
 {
-    interface ILanguageLevelDAL
+    public interface ILanguageLevelDAL
     {
         DbSet<LanguageLevel> GetAll();
         List<string> GetLevels(string language);

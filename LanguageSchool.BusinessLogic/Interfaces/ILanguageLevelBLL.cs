@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.BusinessLogic
 {
-    interface ILanguageLevelBLL
+    public interface ILanguageLevelBLL
     {
         DbSet<LanguageLevel> GetAll();
         List<string> GetLevels(string language);

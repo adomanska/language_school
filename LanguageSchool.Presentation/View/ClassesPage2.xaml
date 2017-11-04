@@ -1,0 +1,182 @@
+﻿<Page x:Class="LanguageSchool.Presentation.ClassesPage2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LanguageSchool.Presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="ClassesPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            <StackPanel Width="200" DockPanel.Dock="Left">
+                <Label FontWeight="Bold" HorizontalAlignment="Center" Margin="5,10,5,5"
+                       FontSize="25">
+                    Filtre
+                </Label>
+                <Label FontWeight="DemiBold" Margin="5,10,5,5">Class Name:</Label>
+                <TextBox Height="{Binding ElementName=soughtLanguage, Path=ActualHeight}"
+                         Margin="5,5,5,5" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding IsLanguageFilterChecked}"  Margin="5,5,0,5" VerticalAlignment="Center"/>
+                    <Label FontWeight="DemiBold" Margin="0,5,5,5">Language:</Label>
+                </StackPanel>
+                <ComboBox SelectedIndex="0" Margin="5,5,5,5" Height="30"
+                          ItemsSource="{Binding Languages}" SelectedItem="{Binding SearchedLanguage}"
+                          IsEnabled="{Binding IsLanguageFilterChecked}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageName}" Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding IsLevelFilterChecked}"  Margin="5,5,0,5" VerticalAlignment="Center"/>
+                    <Label FontWeight="DemiBold" Margin="0,5,5,5">Language Level:</Label>
+                </StackPanel>
+                <ComboBox SelectedIndex="0" Margin="5,5,5,5" Height="30"
+                          ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding SearchedLevel}"
+                          IsEnabled="{Binding IsLevelFilterChecked}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageLevelSignature}"
+                                   Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Margin="15,40,15,5"
+                        Height="{Binding ElementName=soughtLanguage, Path=ActualHeight}"
+                        Command="{Binding FilterCommand}">
+                    Search
+                </Button>
+            </StackPanel>
+            <ListBox ItemsSource="{Binding Classes}" Margin="20,20,0,0" Name="classesListBox"
+                     SelectedItem="{Binding SelectedClass}"
+                     BorderBrush="AliceBlue" BorderThickness="5">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding ClassName}" FontWeight="DemiBold"></Run>
+                            <LineBreak/>
+                            <Run Text="{Binding Language.LanguageName}"></Run>
+                            <Run Text="{Binding LanguageLevel.LanguageLevelSignature}" Foreground="Red"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+        <Border BorderBrush="AliceBlue" BorderThickness="3" CornerRadius="20,0,20,0"
+                Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Margin="20,10,20,10">
+                <Label VerticalAlignment="Center" VerticalContentAlignment="Center"
+                       FontSize="25" FontWeight="Bold" >
+                    Add new Class
+                </Label>
+                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Class Name:</Label>
+                <TextBox Width="200" Height="30" Margin="0,0,0,3"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding NewClassName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Language:</Label>
+                <RadioButton IsChecked="{Binding IsExistingLanguage, UpdateSourceTrigger=PropertyChanged}" Margin="3" VerticalContentAlignment="Center">
+                    Existing language
+                </RadioButton>
+                <ComboBox IsEnabled="{Binding IsExistingLanguage}" Margin="0,0,0,3"
+                          Height="30" SelectedItem="{Binding NewLanguage, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Languages}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageName}" Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <RadioButton Name="newLanguageRadioButton" IsChecked="False"
+                             Margin="3" VerticalContentAlignment="Center">
+                    New language
+                </RadioButton>
+                <TextBox IsEnabled="{Binding ElementName=newLanguageRadioButton, Path=IsChecked}"
+                         Height="30" VerticalContentAlignment="Center"
+                         Text="{Binding NewLanguageName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Language Level:</Label>
+                <ComboBox Name="languageLevelComboBox" Height="30" Margin="0,0,0,3"
+                          ItemsSource="{Binding LanguageLevels}"
+                          SelectedItem="{Binding NewLanguageLevel, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LanguageLevelSignature}" Height="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Day of Week:</Label>
+                <ComboBox Name="dayOfWeekComboBox" Height="30" Margin="0,0,0,3"
+                          SelectedIndex="{Binding NewDay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem>
+                        <Label Content="Monday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Tuesday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Wednesday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Thursday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Friday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Saturday" Height="30"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <Label Content="Sunday" Height="30"/>
+                    </ComboBoxItem>
+                </ComboBox>
+                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Time:</Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                        <TextBox Name="startHour" Height="30" Width="30"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <Label>:</Label>
+                        <TextBox Name="startMinute" Height="30" Width="30"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+                    <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Content="->"/>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <TextBox Name="endMinute" Height="30" Width="30" DockPanel.Dock="Right"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label HorizontalAlignment="Right">:</Label>
+                    <TextBox Name="endHour" Height="30" Width="30"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Button Height="50" Width="100" Margin="20" Name="addClass"
+                        Command="{Binding AddClassCommand}">
+                    Add
+                </Button>
+            </StackPanel>
+        </Border>
+        <Button Name="goToStartPage" Grid.Row="1" Margin="20,0,0,0"
+                Width="150" Height="50" HorizontalAlignment="Left"
+                Click="goToStartPage_Click">
+            Go To Start Page
+        </Button>
+        <Button Grid.Row="1" HorizontalAlignment="Right"
+                Height="50" Width="100" Margin="5" Background="AliceBlue">
+            Edit
+        </Button>
+    </Grid>
+</Page>

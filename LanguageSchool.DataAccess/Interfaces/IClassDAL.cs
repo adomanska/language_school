@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.DataAccess
 {
-    interface IClassDAL
+    public interface IClassDAL
     {
         DbSet<Class> GetAll();
         void Add(Class _class);

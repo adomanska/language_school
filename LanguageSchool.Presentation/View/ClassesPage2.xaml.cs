@@ -14,24 +14,26 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LanguageSchool.BusinessLogic;
 using LanguageSchool.Model;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace LanguageSchool.Presentation
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ClassesPage.xaml
     /// </summary>
-    public partial class MainWindow 
+    public partial class ClassesPage2 : Page
     {
-        public MainWindow()
+        public ObservableCollection<Class> ClasesList { get; set; }
+        public ClassesPage2(ClassesPageViewModel _classesPageViewModel)
         {
             InitializeComponent();
-            //navigationFrame.Content = new StartPage(studentsPage, classesPage);
+            this.DataContext = _classesPageViewModel;
         }
-
-        public MainWindow(StudentsPage2 studentPage, ClassesPage2 classPage)
+        private void goToStartPage_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            navigationFrame.Content = new StartPage(studentPage, classPage);
+            this.NavigationService.GoBack();
         }
     }
 }

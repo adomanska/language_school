@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.BusinessLogic
 {
-    interface ILanguageBLL
+    public interface ILanguageBLL
     {
         DbSet<Language> GetAll();
         int Add(string languageName);
+        bool Exists(string languageName);
+        bool IsValidLanguage(string languageName);
     }
 }
