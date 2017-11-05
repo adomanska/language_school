@@ -9,19 +9,11 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using LanguageSchool.BusinessLogic;
+using System.Windows;
 
 namespace LanguageSchool.Presentation
 {
-    public class CloseInformationEventArgs: EventArgs
-    {
-        public StudentModel ResultStudent { get;}
-
-        public CloseInformationEventArgs(StudentModel studentModel)
-        {
-            ResultStudent = studentModel;
-        }
-    }
-
+    
     [AddINotifyPropertyChangedInterface]
     public class EditWindowViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
@@ -36,13 +28,23 @@ namespace LanguageSchool.Presentation
             CancelCommand = new RelayCommand(Cancel);
             SaveChangesCommand = new RelayCommand(SaveChanges);
         }
-        public StudentModel SelectedStudent;
 
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+
+        string _exceptionMessage;
+        public string ExceptionMessage
+        {
+            get { return _exceptionMessage; }
+            set
+            {
+                _exceptionMessage = value;
+                MessageBox.Show(_exceptionMessage, "Error message");
+            }
+        }
 
         public string Error { get; set; }
 
@@ -98,9 +100,9 @@ namespace LanguageSchool.Presentation
                 StudentModel sm = new StudentModel { FirstName = this.FirstName, LastName = this.LastName, Email = this.Email, PhoneNumber = this.PhoneNumber };
                 Informed?.Invoke(this, new CloseInformationEventArgs(sm));
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                throw;
+                ExceptionMessage = ex.Message;
             }
         }
 

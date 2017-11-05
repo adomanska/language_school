@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using LanguageSchool.BusinessLogic;
 using LanguageSchool.Model;
 using System.Data.Entity;
+using MahApps.Metro.Controls.Dialogs;
 
 
 namespace LanguageSchool.Presentation
@@ -29,6 +30,7 @@ namespace LanguageSchool.Presentation
         {
             InitializeComponent();
             this.DataContext = vm;
+
             Loaded += (x, e) =>
             {
                 NavigationService.Navigated += NavigationService_Navigated;

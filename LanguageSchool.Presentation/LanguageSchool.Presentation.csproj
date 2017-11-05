@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CloseInformationEventArgs.cs" />
     <Compile Include="View\ClassesPage.xaml.cs">
       <DependentUpon>ClassesPage.xaml</DependentUpon>
     </Compile>
@@ -95,9 +96,6 @@
     <Compile Include="ViewModel\StudentPageViewModel.cs" />
     <Compile Include="View\StudentsPage2.xaml.cs">
       <DependentUpon>StudentsPage2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Page Include="View\ClassesPage.xaml">
       <SubType>Designer</SubType>
@@ -126,10 +124,6 @@
     <Page Include="View\StudentsPage2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Window1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

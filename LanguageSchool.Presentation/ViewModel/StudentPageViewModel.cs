@@ -55,18 +55,11 @@ namespace LanguageSchool.Presentation
             set
             {
                 _searchedText = value;
-                //if (_searchedText == "")
-                //    //Students.Filter = null;
-                //else
-                //    Filter(null);
-
-                //RaisePropertyChanged("Students");
             }
         }
         public bool IsLastNameFilterChecked { get; set; }
         public bool IsEmailFilterChecked { get; set; }
 
-        public bool IsOpenEditPopup { get; set; }
       
         public StudentModel SelectedStudent { get; set; }
         public StudentModel EditedStudent { get; set; }
@@ -127,12 +120,7 @@ namespace LanguageSchool.Presentation
         public ICommand SaveChangesCommand { get; set; }
         public ICommand SignForClassCommand { get; set; }
 
-        public ObservableCollection<StudentModel> Students
-        {
-            get;set;
-        }
-
-
+        public ObservableCollection<StudentModel> Students { get; set; }
         public string Error { get; set; }
 
         public string this[string columnName]
@@ -181,10 +169,8 @@ namespace LanguageSchool.Presentation
             editWindowVM = new EditWindowViewModel(studentBLL);
             
             IsLastNameFilterChecked = true;
-            IsOpenEditPopup = false;
 
             AddStudentCommand = new RelayCommand(AddStudent, CanAddStudent);
-            FilterCommand = new RelayCommand(Filter);
             EditCommand = new RelayCommand(Edit, CanUseSelectedStudent);
             SignForClassCommand = new RelayCommand(SignForClass, CanUseSelectedStudent);
             SearchCommand = new RelayCommand(o => Search(o));
@@ -204,8 +190,8 @@ namespace LanguageSchool.Presentation
             {
                 ExceptionMessage = ex.Message;
             }
-            
-            RaisePropertyChanged("Students");
+
+            OnPageNumberChange();
         }
 
         private bool CanAddStudent(object o)
@@ -230,29 +216,9 @@ namespace LanguageSchool.Presentation
             return SelectedStudent != null;
         }
 
-        void Filter(object param)
-        {
-            //if (IsLastNameFilterChecked)
-            //{
-            //    Students.Filter = studentBLL.GetFilterByLastNamePredicate(SearchedText);
-            //}
-            //else if (IsEmailFilterChecked)
-            //{
-            //    Students.Filter = studentBLL.GetFilterByEmailPredicate(SearchedText);
-            //}
-            //OnPropertyChanged("Students");
-        }
 
         void Edit(object param)
         {
-            //StudentModel editedStudent = new StudentModel();
-            //editedStudent.FirstName = SelectedStudent.FirstName;
-            //editedStudent.LastName = SelectedStudent.LastName;
-            //editedStudent.Email = SelectedStudent.Email;
-            //editedStudent.PhoneNumber = SelectedStudent.PhoneNumber;
-
-            //EditedStudent = editedStudent;
-
             editWindowVM.ID = SelectedStudent.ID;
             editWindowVM.FirstName = SelectedStudent.FirstName;
             editWindowVM.LastName = SelectedStudent.LastName;
@@ -260,15 +226,15 @@ namespace LanguageSchool.Presentation
             editWindowVM.PhoneNumber = SelectedStudent.PhoneNumber;
 
             EditWindow editWindow = new EditWindow(editWindowVM);
+
             editWindowVM.Informed += (x, e) =>
             {
                 editWindow.Close();
                 if (e.ResultStudent != null)
                     Search(null, PageNumber);
             };
+
             editWindow.ShowDialog();
-            
-            //IsOpenEditPopup = true;
         }
 
         public ICommand SearchCommand { get; set; }
@@ -290,6 +256,7 @@ namespace LanguageSchool.Presentation
                 IsSorted = IsAlphabeticallSortSelected,
                 Filter = IsEmailFilterChecked ? DataAccess.SearchBy.Email : DataAccess.SearchBy.LastName
             });
+
             Students = new ObservableCollection<StudentModel>(result.students.Select(x=>new StudentModel()
             {
                 ID = x.ID,
@@ -298,6 +265,7 @@ namespace LanguageSchool.Presentation
                 Email = x.Email,
                 PhoneNumber = x.PhoneNumber
             }));
+
             PageCount = result.pageCount;
             PageNumber = page;
         }

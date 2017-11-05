@@ -58,11 +58,21 @@ namespace LanguageSchool.BusinessLogic
         }
         public void Add(string firstName, string lastName, string email, string phoneNumber="")
         {
-            IsValidData(firstName, lastName, email, phoneNumber);
-
-            Student student = new Student { FirstName = StandarizeInput(firstName), LastName = StandarizeInput(lastName), Email = email, PhoneNumber = phoneNumber=="" ? null : phoneNumber };
             try
             {
+                Student existingStudent = studentDAL.FindByEmail(email);
+                if (existingStudent != null)
+                    throw new Exception("Student with such email already exists");
+
+                IsValidData(firstName, lastName, email, phoneNumber);
+
+                Student student = new Student {
+                    FirstName = StandarizeInput(firstName),
+                    LastName = StandarizeInput(lastName),
+                    Email = email,
+                    PhoneNumber = phoneNumber == "" ? null : phoneNumber
+                };
+
                 studentDAL.Add(student);
             }
             catch
@@ -85,61 +95,14 @@ namespace LanguageSchool.BusinessLogic
         }
         
 
-        public Student FindByEmail(string email)
-        {
-            try
-            {
-                return studentDAL.FindByEmail(email);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public Predicate<object> GetFilterByEmailPredicate(string email)
-        {
-            Predicate<object> filtre = item =>
-            {
-                dynamic student = item;
-                if (!student.Email.Contains(email))
-                    return false;
-                else
-                    return true;
-            };
-
-            return filtre;
-        }
-
-        public Predicate<object> GetFilterByLastNamePredicate(string lastName)
-        {
-            Predicate<object> filtre = item =>
-            {
-                dynamic student = item;
-                if (!student.LastName.ToLower().Contains(lastName.ToLower()))
-                    return false;
-                else
-                    return true;
-            };
-
-            return filtre;
-        }
-        public IQueryable<Student> FindByLastName(string lastName)
-        {
-            try
-            {
-                return studentDAL.FindByLastName(StandarizeInput(lastName));
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
         public void Update(int id, string firstName, string lastName, string email, string phoneNumber = "")
         {
             try
             {
+                Student existingStudent = studentDAL.FindByEmail(email);
+                if (existingStudent != null && existingStudent.ID != id)
+                    throw new Exception("Student with such email already exists");
+
                 IsValidData(firstName, lastName, email, phoneNumber);
                 studentDAL.Update(id, StandarizeInput(firstName), StandarizeInput(lastName), email, phoneNumber == "" ? null : phoneNumber);
             }

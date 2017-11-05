@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 
 namespace LanguageSchool.DataAccess
 {
+    public enum SearchBy { Email, LastName };
     public class StudentDAL: IStudentDAL
     {
         private LanguageSchoolContext db;
@@ -56,36 +57,8 @@ namespace LanguageSchool.DataAccess
 
         public Student FindByEmail(string email)
         {
-            try
-            {
-                Student student = db.Students.FirstOrDefault(x => x.Email == email);
-                if(student == null)
-                    throw new Exception("Student with such email doesn't exist");
-
-                return student;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public IQueryable<Student> FindByLastName(string lastName)
-        {
-            try
-            {
-                var students = db.Students
-                    .Where(st => st.LastName == lastName);
-                    
-                if (students.Count() == 0)
-                    throw new Exception("Student with such last name doesn't exist");
-
-                return students;
-            }
-            catch
-            {
-                throw;
-            }
+            Student student = db.Students.FirstOrDefault(x => x.Email == email);
+            return student;
         }
 
         public void Update(int id, string firstName, string lastName, string email, string phoneNumber)
@@ -132,6 +105,5 @@ namespace LanguageSchool.DataAccess
         }
        
     }
-
-    public enum SearchBy { Email, LastName};
+    
 }
