@@ -10,9 +10,9 @@ using System.Collections.ObjectModel;
 
 namespace LanguageSchool.BusinessLogic
 {
-    public class ClassBLL
+    public class ClassBLL: IClassBLL
     {
-        private ClassDAL classDAL;
+        IClassDAL classDAL;
 
         public ClassBLL(LanguageSchoolContext context)
         {
@@ -29,6 +29,7 @@ namespace LanguageSchool.BusinessLogic
                 throw;
             }
         }
+
         public void Add(string className, DateTime startTime, DateTime endTime, DayOfWeek day, int languageID, int languageLevelID )
         {
             if (endTime.CompareTo(startTime) < 0)
@@ -44,12 +45,23 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
+        public void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day)
+        {
+            try
+            {
+                classDAL.Update(_class, className, language, languageLevel, day);
+            }
+            catch
+            {
+                throw;
+            }
+        }
         public Predicate<object> GetFilterPredicate(string className, Language language, LanguageLevel languageLevel)
         {
             Predicate<object> filtre = o =>
             {
                 Class c = o as Class;
-                if (!c.ClassName.Contains(className))
+                if (className!=null && !c.ClassName.Contains(className))
                     return false;
                 if (language!=null && c.LanguageRefID!= language.LanguageID)
                     return false;

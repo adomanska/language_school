@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassDAL.cs" />
+    <Compile Include="Interfaces\IClassDAL.cs" />
+    <Compile Include="Interfaces\ILanguageDAL.cs" />
+    <Compile Include="Interfaces\ILanguageLevelDAL.cs" />
     <Compile Include="Interfaces\IStudentDAL.cs" />
     <Compile Include="LanguageDAL.cs" />
     <Compile Include="LanguageLevelDAL.cs" />

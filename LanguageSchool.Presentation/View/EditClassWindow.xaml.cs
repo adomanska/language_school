@@ -10,28 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LanguageSchool.BusinessLogic;
-using LanguageSchool.Model;
 
 namespace LanguageSchool.Presentation
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EditClassWindow.xaml
     /// </summary>
-    public partial class MainWindow 
+    public partial class EditClassWindow : Window
     {
-        public MainWindow()
+        public EditClassWindow(EditClassWindowViewModel editClassWindowViewModel)
         {
             InitializeComponent();
-            //navigationFrame.Content = new StartPage(studentsPage, classesPage);
+            this.DataContext = editClassWindowViewModel;
         }
 
-        public MainWindow(StudentsPage2 studentPage, ClassesPage2 classPage)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            navigationFrame.Content = new StartPage(studentPage, classPage);
+            this.Close();
         }
     }
 }

@@ -25,10 +25,10 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class ClassesPage : Page
     {
-        ClassBLL classBLL;
-        LanguageBLL languageBLL;
-        LanguageLevelBLL languageLevelBLL;
-        public ClassesPage(ClassBLL _classBLL, LanguageBLL _languageBLL, LanguageLevelBLL _languageLevelBLL)
+        IClassBLL classBLL;
+        ILanguageBLL languageBLL;
+        ILanguageLevelBLL languageLevelBLL;
+        public ClassesPage(IClassBLL _classBLL, ILanguageBLL _languageBLL, ILanguageLevelBLL _languageLevelBLL)
         {
             classBLL = _classBLL;
             languageBLL = _languageBLL;
@@ -52,26 +52,6 @@ namespace LanguageSchool.Presentation
             this.NavigationService.GoBack();
         }
 
-        //private void addClass_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string lang = className.Text;
-        //    try
-        //    {
-        //        classBLL.Add(lang, DateTime.Now, DateTime.Now.AddHours(2), DayOfWeek.Monday, ((Language)soughtLanguage.SelectedItem).LanguageID, ((LanguageLevel)soughtLevel.SelectedItem).LanguageLevelID);
-        //    }
-        //    catch(DbEntityValidationException ex)
-        //    {
-        //        string exS = "";
-        //        foreach (var eve in ex.EntityValidationErrors)
-        //        {
-        //            exS+=String.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:\n",eve.Entry.Entity.GetType().Name, eve.Entry.State);
-        //            foreach (var ve in eve.ValidationErrors)
-        //                exS += String.Format("- Property: \"{0}\", Error: \"{1}\"\n", ve.PropertyName, ve.ErrorMessage);
-        //        }
-        //        MessageBox.Show(exS);
-        //    }
-        //}
-
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             classesListBox.Items.Filter = classBLL.GetFilterPredicate(soughtClassName.Text, soughtLanguage.SelectedItem as Language, soughtLevel.SelectedItem as LanguageLevel);
@@ -84,8 +64,7 @@ namespace LanguageSchool.Presentation
             {
                 try
                 {
-                    languageBLL.Add(newLanguageTextBox.Text);
-                    languageID = languageBLL.GetAll().Count()-1;
+                    languageID = languageBLL.Add(newLanguageTextBox.Text);
                 }
                 catch
                 {
@@ -103,24 +82,5 @@ namespace LanguageSchool.Presentation
                 throw;
             }
         }
-
-        //private void addLanguage_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        languageBLL.Add(langName.Text);
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        string exS = "";
-        //        foreach (var eve in ex.EntityValidationErrors)
-        //        {
-        //            exS += String.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:\n", eve.Entry.Entity.GetType().Name, eve.Entry.State);
-        //            foreach (var ve in eve.ValidationErrors)
-        //                exS += String.Format("- Property: \"{0}\", Error: \"{1}\"\n", ve.PropertyName, ve.ErrorMessage);
-        //        }
-        //        MessageBox.Show(exS);
-        //    }
-        //}
     }
 }

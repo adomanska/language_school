@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using LanguageSchool.BusinessLogic;
+using LanguageSchool.Model;
 using System.Windows;
 
 namespace LanguageSchool.Presentation

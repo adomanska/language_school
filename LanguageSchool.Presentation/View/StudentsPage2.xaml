@@ -56,9 +56,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Grid Grid.Row="1" Margin="0,20,0,20">
-            <Button Content="EDIT" Grid.Column="0" Command="{Binding EditCommand}" Width="80" Height="30" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Right"/>
+            <Button Content="EDIT" Grid.Column="0" Command="{Binding EditCommand}" Width="80" Height="30" HorizontalAlignment="Right"/>
             <Controls:NumericUpDown Minimum="1" Maximum="{Binding PageCount}" Value="{Binding PageNumber}" HorizontalAlignment="Center"/>
-            <Button Content="Go To Start Page" Grid.Column="2" Width="100" Height="30" Click="goToStartPage_Click" HorizontalAlignment="Left"/>
+            <Button Content="Go To Start Page" Grid.Column="2" Width="150" Height="30" Click="goToStartPage_Click" HorizontalAlignment="Left"/>
         </Grid>
         <Grid Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -88,7 +88,7 @@
                 <TextBox Grid.Column="1" Grid.Row="2" MinHeight="30" MaxHeight="40" Margin="10,10,10,10" Name="textBoxEmail" Text="{Binding Email, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Column="1" Grid.Row="3" MinHeight="30" MaxHeight="40" Margin="10,10,10,10" Name="textBoxPhone" Text="{Binding PhoneNumber, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Button Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" Content="Save" Height="23" HorizontalAlignment="Left" Name="SaveButton" Command="{Binding AddStudentCommand}"  Width="80" Style="{StaticResource AccentedSquareButtonStyle}"/>
+                <Button Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" Content="Save" Height="23" HorizontalAlignment="Left" Name="SaveButton" Command="{Binding AddStudentCommand}"  Width="80"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -112,7 +112,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Sign up" Command="{Binding SignForClassCommand}" Grid.Column="1" Width="80" Height="30" Style="{DynamicResource SquareButtonStyle}" HorizontalAlignment="Left" />
+                <Button Content="Sign up" Command="{Binding SignForClassCommand}" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Left" />
             </Grid>
         </Grid>
     </Grid>

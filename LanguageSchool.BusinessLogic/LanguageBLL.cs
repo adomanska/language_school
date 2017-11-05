@@ -11,9 +11,9 @@ using System.Data.Entity;
 
 namespace LanguageSchool.BusinessLogic
 {
-    public class LanguageBLL
+    public class LanguageBLL: ILanguageBLL
     {
-        private LanguageDAL languageDAL;
+        ILanguageDAL languageDAL;
         JArray existingLanguages;
 
         public LanguageBLL(LanguageSchoolContext context)
@@ -37,7 +37,12 @@ namespace LanguageSchool.BusinessLogic
         {
             return GetAll().ToList().Exists(l => l.LanguageName == languageName);
         }
-        public void Add(string languageName)
+
+        public bool IsValidLanguage(string languageName)
+        {
+            return existingLanguages.Values().Contains(languageName);
+        }
+        public int Add(string languageName)
         {
             if (!existingLanguages.Values().Contains(languageName))
                 throw new Exception("Language doesn't exist");
@@ -52,6 +57,8 @@ namespace LanguageSchool.BusinessLogic
             {
                 throw;
             }
+
+            return language.LanguageID;
         }
     }
 }

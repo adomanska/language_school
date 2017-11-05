@@ -20,9 +20,9 @@ namespace LanguageSchool.Presentation
     public class StudentPageViewModel:  INotifyPropertyChanged, IDataErrorInfo
     {
         IStudentBLL studentBLL;
-        ClassBLL classBLL;
-        LanguageLevelBLL languageLevelBLL;
-        LanguageBLL languageBLL;
+        IClassBLL classBLL;
+        ILanguageLevelBLL languageLevelBLL;
+        ILanguageBLL languageBLL;
 
         EditWindowViewModel editWindowVM;
 
@@ -159,7 +159,7 @@ namespace LanguageSchool.Presentation
             }
         }
 
-        public StudentPageViewModel(IStudentBLL _studentBLL, ClassBLL _classBLL, LanguageLevelBLL _languageLevelBLL, LanguageBLL _languageBLL)
+        public StudentPageViewModel(IStudentBLL _studentBLL, IClassBLL _classBLL, ILanguageLevelBLL _languageLevelBLL, ILanguageBLL _languageBLL)
         {
             studentBLL = _studentBLL;
             classBLL = _classBLL;
