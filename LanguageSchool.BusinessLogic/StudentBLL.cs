@@ -136,7 +136,7 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void Update(string id, string firstName, string lastName, string email, string phoneNumber = "")
+        public void Update(int id, string firstName, string lastName, string email, string phoneNumber = "")
         {
             try
             {
@@ -149,5 +149,23 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
+        public (List<Student> students, int pageCount) Search(StudentFilter filter)
+        {
+            var query = studentDAL.Search(filter.Filter, filter.Text, filter.IsSorted);
+            var count = Math.Ceiling(((double)query.Count()) / filter.PageSize);
+            var list = query.Skip(filter.PageSize * (filter.PageNumber - 1)).Take(filter.PageSize).ToList();
+
+            return (list, (int)count);
+        }
+    }
+
+    public class StudentFilter
+    {
+        public string Text { get; set; }
+        public SearchBy Filter { get; set; }
+        public bool IsSorted { get; set; }
+
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
     }
 }

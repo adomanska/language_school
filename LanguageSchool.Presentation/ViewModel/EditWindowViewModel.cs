@@ -38,6 +38,7 @@ namespace LanguageSchool.Presentation
         }
         public StudentModel SelectedStudent;
 
+        public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -93,7 +94,9 @@ namespace LanguageSchool.Presentation
         {
             try
             {
-                studentBLL.Update(Email, FirstName, LastName, Email, PhoneNumber);
+                studentBLL.Update(ID, FirstName, LastName, Email, PhoneNumber);
+                StudentModel sm = new StudentModel { FirstName = this.FirstName, LastName = this.LastName, Email = this.Email, PhoneNumber = this.PhoneNumber };
+                Informed?.Invoke(this, new CloseInformationEventArgs(sm));
             }
             catch (Exception exception)
             {

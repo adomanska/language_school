@@ -25,12 +25,21 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StudentsPage2 : Page
     {
-        public ObservableCollection<Student> StudentsList { get; set; }
         public StudentsPage2(StudentPageViewModel vm)
         {
             InitializeComponent();
-
             this.DataContext = vm;
+            Loaded += (x, e) =>
+            {
+                NavigationService.Navigated += NavigationService_Navigated;
+            };
+        }
+
+        private void NavigationService_Navigated(object sender, NavigationEventArgs e)
+        {
+            var vm = ((StudentPageViewModel)DataContext);
+            vm?.Refresh();
+            vm?.RaisePropertyChanged(null);
         }
 
         private void goToStartPage_Click(object sender, RoutedEventArgs e)

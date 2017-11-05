@@ -13,9 +13,14 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <StackPanel Grid.Column="0">
             <DockPanel>
                 <TextBox Controls:TextBoxHelper.Watermark="Search student..." Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Height="30" HorizontalAlignment="Center" DockPanel.Dock="Left"  Margin="50,10,10,10"/>
+                <Button Content="Search" Command="{Binding SearchCommand}" Width="50" VerticalAlignment="Center"/>
             </DockPanel>
             <Grid Margin="40,5,40,5">
                 <Grid.ColumnDefinitions>
@@ -48,7 +53,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Column="1">
+        <DockPanel Grid.Row="1">
+            <Controls:NumericUpDown Minimum="1" Maximum="{Binding PageCount}" Value="{Binding PageNumber}" HorizontalAlignment="Center"/>
+        </DockPanel>
+        <Grid Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="2*"/>

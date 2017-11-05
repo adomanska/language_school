@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.Model;
+using System.Linq.Expressions;
 
 namespace LanguageSchool.DataAccess
 {
@@ -57,7 +58,7 @@ namespace LanguageSchool.DataAccess
         {
             try
             {
-                Student student = db.Students.Find(email);
+                Student student = db.Students.FirstOrDefault(x => x.Email == email);
                 if(student == null)
                     throw new Exception("Student with such email doesn't exist");
 
@@ -87,11 +88,11 @@ namespace LanguageSchool.DataAccess
             }
         }
 
-        public void Update(string emailID, string firstName, string lastName, string email, string phoneNumber)
+        public void Update(int id, string firstName, string lastName, string email, string phoneNumber)
         {
             try
             {
-                Student existingStudent = FindByEmail(emailID);
+                Student existingStudent = db.Students.Find(id);
                 if (existingStudent != null)
                 {
                     existingStudent.FirstName = firstName;
@@ -109,5 +110,28 @@ namespace LanguageSchool.DataAccess
             }
             
         }
+
+        public IQueryable<Student> Search(SearchBy type, string text, bool sorted)
+        {
+            var query = db.Students.AsQueryable();
+            Expression<Func<Student, string>> expression;
+            if (type == SearchBy.Email)
+            {
+                expression = x => x.Email;
+                if(text != null) query = query.Where(x => x.Email.Contains(text));
+            }
+            else
+            {
+                expression = x => x.LastName;
+                if (text != null) query = query.Where(x => x.LastName.Contains(text));
+            }
+            query = query.OrderBy(x => x.ID);
+            if (sorted)
+                query = query.OrderBy(expression);
+            return query;
+        }
+       
     }
+
+    public enum SearchBy { Email, LastName};
 }

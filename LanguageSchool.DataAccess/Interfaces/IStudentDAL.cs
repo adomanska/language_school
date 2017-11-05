@@ -14,7 +14,8 @@ namespace LanguageSchool.DataAccess
         void SignForClass(StudentToClass studentToClass);
         Student FindByEmail(string email);
         IQueryable<Student> FindByLastName(string lastName);
-        void Update(string emailID, string firstName, string lastName, string email, string phoneNumber);
+        void Update(int ID, string firstName, string lastName, string email, string phoneNumber);
+        IQueryable<Student> Search(SearchBy type, string text, bool sorted);
 
     }
 }

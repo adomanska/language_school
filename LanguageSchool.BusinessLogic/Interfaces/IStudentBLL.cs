@@ -17,7 +17,8 @@ namespace LanguageSchool.BusinessLogic
         Predicate<object> GetFilterByEmailPredicate(string email);
         Predicate<object> GetFilterByLastNamePredicate(string lastName);
         IQueryable<Student> FindByLastName(string lastName);
-        void Update(string id, string firstName, string lastName, string email, string phoneNumber = "");
+        void Update(int id, string firstName, string lastName, string email, string phoneNumber = "");
+        (List<Student> students, int pageCount) Search(StudentFilter filter);
 
     }
 }
