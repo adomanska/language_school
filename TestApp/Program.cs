@@ -25,14 +25,14 @@ namespace TestApp
                 string email = Console.ReadLine();
                 try
                 {
-                    Student st = studentBLL.FindByEmail(email);
-                    Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
-                    Console.Write("LastName:");
-                    string lastName = Console.ReadLine();
-                    //st = studentBLL.FindByLastName(lastName);
-                    Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
+                    //Student st = studentBLL.FindByEmail(email);
+                    //Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
+                    //Console.Write("LastName:");
+                    //string lastName = Console.ReadLine();
+                    ////st = studentBLL.FindByLastName(lastName);
+                    //Console.WriteLine(st.FirstName + " " + st.LastName + " " + st.Email);
 
-                    //studentBLL.Update(st.Email, "Zofia");
+                    ////studentBLL.Update(st.Email, "Zofia");
 
                 }
                 catch (Exception e)
