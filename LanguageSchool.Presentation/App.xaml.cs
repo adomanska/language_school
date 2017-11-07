@@ -17,6 +17,7 @@ namespace LanguageSchool.Presentation
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
             LanguageSchoolContext context = new LanguageSchoolContext();
             ILanguageBLL languageBLL = new LanguageBLL(context);
             ILanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
