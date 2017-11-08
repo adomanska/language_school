@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using LanguageSchool.Presentation;
+using System.Windows;
 
 namespace LanguageSchool.Presentation
 {
@@ -22,10 +23,12 @@ namespace LanguageSchool.Presentation
         ILanguageBLL languageBLL;
         EditClassWindowViewModel eCVM;
 
-        public ICollectionView Classes { get; set; }
+        public ObservableCollection<Class> Classes { get; set; }
         public Class SelectedClass { get; set; }
         public ICollectionView Languages { get; set; }
         public ICollectionView LanguageLevels { get; set; }
+        public int PageNumber { get; set; }
+        public int PageCount { get; set; }
 
         public Language SearchedLanguage { get; set; }
         public LanguageLevel SearchedLevel { get; set; }
@@ -41,8 +44,9 @@ namespace LanguageSchool.Presentation
         public int? NewDay { get; set; } 
 
         public ICommand AddClassCommand { get; set; }
-        public ICommand FilterCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand ChangePageCommand { get; set; }
 
         public ClassesPageViewModel(IClassBLL _classBLL, ILanguageLevelBLL _languageLevelBLL, ILanguageBLL _languageBLL)
         {
@@ -50,18 +54,20 @@ namespace LanguageSchool.Presentation
             languageLevelBLL = _languageLevelBLL;
             languageBLL = _languageBLL;
             eCVM = new EditClassWindowViewModel(classBLL, languageBLL);
-            Classes = CollectionViewSource.GetDefaultView(classBLL.GetAll().Local);
-            Classes.SortDescriptions.Add(new System.ComponentModel.SortDescription("ClassName", System.ComponentModel.ListSortDirection.Ascending));
+            Classes = new ObservableCollection<Class>(classBLL.GetAll());
+            //Classes.SortDescriptions.Add(new System.ComponentModel.SortDescription("ClassName", System.ComponentModel.ListSortDirection.Ascending));
 
             AddClassCommand = new RelayCommand(AddClass);
-            FilterCommand = new RelayCommand(Filter);
             EditCommand = new RelayCommand(Edit);
+            SearchCommand = new RelayCommand(o => Search(o));
+            ChangePageCommand = new RelayCommand(OnPageNumberChange);
             Languages = CollectionViewSource.GetDefaultView(languageBLL.GetAll().Local);
             Languages.SortDescriptions.Add(new System.ComponentModel.SortDescription("LanguageName", System.ComponentModel.ListSortDirection.Ascending));
-            LanguageLevels = CollectionViewSource.GetDefaultView(languageLevelBLL.GetAll().Local);
+            LanguageLevels = CollectionViewSource.GetDefaultView(languageLevelBLL.GetAll());
 
             IsExistingLanguage = true;
-
+            PageNumber = 1;
+            Search(null);
             eCVM.Languages = Languages;
             eCVM.LanguageLevels = LanguageLevels;
         }
@@ -84,32 +90,59 @@ namespace LanguageSchool.Presentation
                 languageID = NewLanguage.LanguageID;
             try
             {
-                classBLL.Add(NewClassName, DateTime.Now, DateTime.Now.AddHours(2), DayOfWeek.Saturday, languageID , NewLanguageLevel.LanguageLevelID);
+                classBLL.Add(NewClassName, DateTime.Now, DateTime.Now.AddHours(2), (DayOfWeek)NewDay, languageID , NewLanguageLevel.LanguageLevelID);
             }
             catch
             {
                 throw;
             }
 
-            OnPropertyChanged("Classes");
+            OnPageNumberChange(null);
+            
         }
-        void Filter(object param)
+
+        private void OnPageNumberChange(object param)
         {
-            Classes.Filter = classBLL.GetFilterPredicate(SearchedText,IsLanguageFilterChecked ? SearchedLanguage : null,IsLevelFilterChecked? SearchedLevel:null);
-            OnPropertyChanged("Classes");
+            Search(null, PageNumber);
+        }
+        public void Search(object o, int page = 1)
+        {
+            var result = classBLL.Search(new ClassFilter()
+            {
+                PageNumber = page,
+                PageSize = 4,
+                ClassName = SearchedText,
+                Language = IsLanguageFilterChecked ? SearchedLanguage : null,
+                LanguageLevel = IsLevelFilterChecked ? SearchedLevel : null
+            });
+
+            PageCount = result.pageCount;
+            PageNumber = page;
+
+            Classes = new ObservableCollection<Class>(result.classes.Select(x => new Class()
+            {
+                ClassID = x.ClassID,
+                ClassName = x.ClassName,
+                Language = x.Language,
+                LanguageLevel = x.LanguageLevel,
+                Day = x.Day,
+                StartTime  =x.StartTime,
+                EndTime = x.EndTime
+            }));
         }
 
         void Edit(object param)
         {
+            if (SelectedClass == null)
+                return;
             eCVM.NewClassName = SelectedClass.ClassName;
             eCVM.NewLanguage = SelectedClass.Language;
             eCVM.NewLanguageLevel = SelectedClass.LanguageLevel;
-            eCVM.NewDay = 1;
-            eCVM.SelectedClass = SelectedClass;
-
+            eCVM.NewDay = System.Convert.ToInt32(SelectedClass.Day);
+            eCVM.ClassID = SelectedClass.ClassID;
             EditClassWindow editClassWindow = new EditClassWindow(eCVM);
             editClassWindow.ShowDialog();
-            Classes.Refresh();
+            OnPageNumberChange(null);
         }
         public string this[string columnName]
         {
@@ -153,7 +186,7 @@ namespace LanguageSchool.Presentation
         public string Error { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -10,7 +10,7 @@ namespace LanguageSchool.DataAccess
 {
     public interface ILanguageLevelDAL
     {
-        DbSet<LanguageLevel> GetAll();
+        IQueryable<LanguageLevel> GetAll();
         List<string> GetLevels(string language);
     }
 }

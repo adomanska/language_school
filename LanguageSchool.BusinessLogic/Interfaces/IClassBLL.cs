@@ -10,10 +10,11 @@ namespace LanguageSchool.BusinessLogic
 {
     public interface IClassBLL
     {
-        DbSet<Class> GetAll();
+        List<Class> GetAll();
         void Add(string className, DateTime startTime, DateTime endTime, DayOfWeek day, int languageID, int languageLevelID);
         Predicate<object> GetFilterPredicate(string className, Language language, LanguageLevel languageLevel);
         List<Class> GetClasses(string language, string level);
-        void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day);
+        void Update(int classID, string className, int languageID, LanguageLevel languageLevel, DayOfWeek day);
+        (List<Class> classes, int pageCount) Search(ClassFilter filter);
     }
 }

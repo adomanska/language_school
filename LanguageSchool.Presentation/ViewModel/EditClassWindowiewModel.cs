@@ -39,6 +39,7 @@ namespace LanguageSchool.Presentation
         public string NewLanguageName { get; set; }
         public LanguageLevel NewLanguageLevel { get; set; }
         public int? NewDay { get; set; }
+        public int ClassID { get; set; }
 
         public string Error { get; set; }
 
@@ -91,9 +92,23 @@ namespace LanguageSchool.Presentation
 
         void SaveChanges(object param)
         {
+            int langID = 0;
+            if (!IsExistingLanguage)
+            {
+                try
+                {
+                    langID = languageBLL.Add(NewLanguageName);
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+            else
+                langID = NewLanguage.LanguageID;
             try
             {
-                classBLL.Update(SelectedClass, NewClassName, NewLanguage, NewLanguageLevel, DayOfWeek.Saturday);
+                classBLL.Update(ClassID, NewClassName, langID, NewLanguageLevel, (DayOfWeek)NewDay);
             }
             catch (Exception exception)
             {

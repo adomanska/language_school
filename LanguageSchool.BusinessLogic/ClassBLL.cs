@@ -18,11 +18,11 @@ namespace LanguageSchool.BusinessLogic
         {
             classDAL = new ClassDAL(context);
         }
-        public DbSet<Class> GetAll()
+        public List<Class> GetAll()
         {
             try
             {
-                return classDAL.GetAll();
+                return classDAL.GetAll().ToList();
             }
             catch
             {
@@ -45,11 +45,11 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day)
+        public void Update(int classID, string className, int languageID, LanguageLevel languageLevel, DayOfWeek day)
         {
             try
             {
-                classDAL.Update(_class, className, language, languageLevel, day);
+                classDAL.Update(classID, className, languageID, languageLevel.LanguageLevelID, day);
             }
             catch
             {
@@ -61,11 +61,11 @@ namespace LanguageSchool.BusinessLogic
             Predicate<object> filtre = o =>
             {
                 Class c = o as Class;
-                if (className!=null && !c.ClassName.Contains(className))
+                if (className != null && !c.ClassName.Contains(className))
                     return false;
-                if (language!=null && c.LanguageRefID!= language.LanguageID)
+                if (language != null && c.LanguageRefID != language.LanguageID)
                     return false;
-                if (languageLevel!=null && c.LanguageLevelRefID != languageLevel.LanguageLevelID)
+                if (languageLevel != null && c.LanguageLevelRefID != languageLevel.LanguageLevelID)
                     return false;
                 else
                     return true;
@@ -98,6 +98,24 @@ namespace LanguageSchool.BusinessLogic
         {
             return classDAL.GetClasess(language, level);
         }
+
+        public (List<Class> classes, int pageCount) Search(ClassFilter filter)
+        {
+            var resultCollection = classDAL.Search(filter.ClassName, filter.Language == null ? -1 : filter.Language.LanguageID, filter.LanguageLevel == null ? -1 : filter.LanguageLevel.LanguageLevelID);
+            var count = Math.Ceiling(((double)resultCollection.Count()) / filter.PageSize);
+            var list = resultCollection.OrderBy(x=> x.ClassName).Skip(filter.PageSize * (filter.PageNumber - 1)).Take(filter.PageSize).ToList();
+
+            return (list, (int)count);
+        }
     }
 
+    public class ClassFilter
+    {
+        public string ClassName { get; set; }
+        public Language Language { get; set; }
+        public LanguageLevel LanguageLevel{ get; set; }
+
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+    }
 }

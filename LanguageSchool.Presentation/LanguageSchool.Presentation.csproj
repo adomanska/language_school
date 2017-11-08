@@ -92,9 +92,6 @@
     <Compile Include="ViewModel\EditWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\StudentPageViewModel.cs" />
-    <Compile Include="View\ClassesPage.xaml.cs">
-      <DependentUpon>ClassesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ClassesPage2.xaml.cs">
       <DependentUpon>ClassesPage2.xaml</DependentUpon>
     </Compile>
@@ -164,10 +161,6 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\ClassesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="View\ClassesPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>

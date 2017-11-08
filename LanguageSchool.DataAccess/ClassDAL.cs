@@ -17,7 +17,7 @@ namespace LanguageSchool.DataAccess
             db = context;
             db.Classes.Load();
         }
-        public DbSet<Class> GetAll()
+        public IQueryable<Class> GetAll()
         {
             try
             {
@@ -46,21 +46,36 @@ namespace LanguageSchool.DataAccess
             return db.Classes.Where(x => x.LanguageLevel.LanguageLevelSignature == level && x.Language.LanguageName == language).ToList();
         }
 
-        public void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day)
+        public void Update(int classID, string className, int languageID, int languageLevelID, DayOfWeek day)
         {
             try
             {
-                _class.ClassName = className;
-                _class.Language = language;
-                _class.LanguageLevel = languageLevel;
-                _class.Day = day;
-                db.Entry(_class).State = System.Data.Entity.EntityState.Modified;
+                var obj = db.Classes.Where(x => x.ClassID == classID).FirstOrDefault();
+                obj.ClassName = className;
+                obj.LanguageRefID = languageID;
+                obj.LanguageLevelRefID = languageLevelID;
+                obj.Day = day;
+                db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Class cannot be updated");
+                throw new Exception("Class cannot be updated: "+e.Message);
             }
+        }
+
+        public IQueryable<Class> Search (string className, int languageID, int languageLevelID)
+        {
+            IQueryable<Class> resultCollection = db.Classes.AsQueryable();
+
+            if (languageID != -1)
+                resultCollection = resultCollection.Where(x => x.LanguageRefID == languageID);
+            if (languageLevelID != -1)
+                resultCollection = resultCollection.Where(x => x.LanguageLevelRefID == languageLevelID);
+            if (className != null)
+                resultCollection = resultCollection.Where(x => x.ClassName.Contains(className));
+
+            return resultCollection;
         }
      
     }
