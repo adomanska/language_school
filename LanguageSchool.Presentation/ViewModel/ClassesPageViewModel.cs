@@ -110,7 +110,7 @@ namespace LanguageSchool.Presentation
             var result = classBLL.Search(new ClassFilter()
             {
                 PageNumber = page,
-                PageSize = 4,
+                PageSize = 10,
                 ClassName = SearchedText,
                 Language = IsLanguageFilterChecked ? SearchedLanguage : null,
                 LanguageLevel = IsLevelFilterChecked ? SearchedLevel : null

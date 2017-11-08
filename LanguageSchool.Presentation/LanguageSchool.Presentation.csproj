@@ -186,6 +186,14 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\A1.png" />
+    <Resource Include="Images\A2.png" />
+    <Resource Include="Images\B1.png" />
+    <Resource Include="Images\B2.png" />
+    <Resource Include="Images\C1.png" />
+    <Resource Include="Images\C2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
