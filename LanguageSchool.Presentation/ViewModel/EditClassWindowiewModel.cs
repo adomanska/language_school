@@ -27,7 +27,7 @@ namespace LanguageSchool.Presentation
             languageBLL = _languageBLL;
 
             CancelCommand = new RelayCommand(Cancel);
-            SaveChangesCommand = new RelayCommand(SaveChanges);
+            SaveChangesCommand = new RelayCommand(SaveChanges, CanSaveClass);
             IsExistingLanguage = true;
         }
 
@@ -35,11 +35,26 @@ namespace LanguageSchool.Presentation
 
         public string NewClassName { get; set; }
         public Language NewLanguage { get; set; }
-        public bool IsExistingLanguage { get; set; }
+        private bool isExistingLanguage;
+        public bool IsExistingLanguage
+        {
+            get
+            {
+                return isExistingLanguage;
+            }
+            set
+            {
+                isExistingLanguage = value;
+                OnPropertyChanged("NewLanguage");
+                OnPropertyChanged("NewLanguageName");
+            }
+        }
         public string NewLanguageName { get; set; }
         public LanguageLevel NewLanguageLevel { get; set; }
         public int? NewDay { get; set; }
         public int ClassID { get; set; }
+        public TimeSpan NewStartTime { get; set; }
+        public TimeSpan NewEndTime { get; set; }
 
         public string Error { get; set; }
 
@@ -54,11 +69,6 @@ namespace LanguageSchool.Presentation
                     if (NewClassName == "" || NewClassName == null)
                         error = "Class Name cannot be blank";
                 }
-                if (columnName == nameof(NewLanguage) && IsExistingLanguage)
-                {
-                    if (NewLanguage == null)
-                        error = "You have to select language";
-                }
                 if (columnName == nameof(NewLanguageName) && !IsExistingLanguage)
                 {
                     if (languageBLL.Exists(NewLanguageName))
@@ -66,15 +76,10 @@ namespace LanguageSchool.Presentation
                     if (!languageBLL.IsValidLanguage(NewLanguageName) || NewLanguageName == null)
                         error = "Invalid language name";
                 }
-                if (columnName == nameof(NewLanguageLevel))
+                if (columnName == nameof(NewEndTime))
                 {
-                    if (NewLanguageLevel == null)
-                        error = "You have to select language level";
-                }
-                if (columnName == nameof(NewDay))
-                {
-                    if (NewDay == null)
-                        error = "You have to select day";
+                   if (NewStartTime > NewEndTime)
+                        error = "Start time has to beearlier than end time";
                 }
 
                 Error = error;
@@ -108,14 +113,33 @@ namespace LanguageSchool.Presentation
                 langID = NewLanguage.LanguageID;
             try
             {
-                classBLL.Update(ClassID, NewClassName, langID, NewLanguageLevel, (DayOfWeek)NewDay);
+                classBLL.Update(ClassID, NewClassName, NewStartTime.Hours, NewStartTime.Minutes, NewEndTime.Hours, NewEndTime.Minutes, langID, NewLanguageLevel, (DayOfWeek)NewDay);
             }
-            catch (Exception exception)
+            catch
             {
                 throw;
             }
         }
 
+        private bool CanSaveClass(object o)
+        {
+            if (String.IsNullOrEmpty(NewClassName))
+                return false;
+            if (IsExistingLanguage && NewLanguage == null)
+                return false;
+            if (!IsExistingLanguage)
+            {
+                if (String.IsNullOrEmpty(NewLanguageName) || languageBLL.Exists(NewLanguageName) || !languageBLL.IsValidLanguage(NewLanguageName))
+                    return false;
+            }
+            if (NewDay == null)
+                return false;
+            if (NewStartTime == null || NewEndTime == null)
+                return false;
+            if (NewEndTime < NewStartTime)
+                return false;
+            return true;
+        }
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

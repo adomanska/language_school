@@ -46,7 +46,7 @@ namespace LanguageSchool.DataAccess
             return db.Classes.Where(x => x.LanguageLevel.LanguageLevelSignature == level && x.Language.LanguageName == language).ToList();
         }
 
-        public void Update(int classID, string className, int languageID, int languageLevelID, DayOfWeek day)
+        public void Update(int classID, string className,string startTime, string endTime, int languageID, int languageLevelID, DayOfWeek day)
         {
             try
             {
@@ -55,6 +55,8 @@ namespace LanguageSchool.DataAccess
                 obj.LanguageRefID = languageID;
                 obj.LanguageLevelRefID = languageLevelID;
                 obj.Day = day;
+                obj.StartTime = startTime;
+                obj.EndTime = endTime;
                 db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }

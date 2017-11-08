@@ -30,11 +30,16 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void Add(string className, DateTime startTime, DateTime endTime, DayOfWeek day, int languageID, int languageLevelID )
+        public void Add(string className, int startHour, int startMinute, int endHour, int endMinute, DayOfWeek day, int languageID, int languageLevelID )
         {
-            if (endTime.CompareTo(startTime) < 0)
-                throw new Exception("Start Time cannot be earlier than End Time");
-            Class _class = new Class { ClassName = className, StartTime = startTime, EndTime = endTime, Day = day, LanguageRefID=languageID, LanguageLevelRefID=languageLevelID };
+            Class _class = new Class {
+                ClassName = className,
+                StartTime = startHour.ToString("00")+":"+startMinute.ToString("00"),
+                EndTime = endHour.ToString("00")+":"+endMinute.ToString("00"),
+                Day = day,
+                LanguageRefID = languageID,
+                LanguageLevelRefID = languageLevelID
+            };
             try
             {
                 classDAL.Add(_class);
@@ -45,11 +50,11 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void Update(int classID, string className, int languageID, LanguageLevel languageLevel, DayOfWeek day)
+        public void Update(int classID, string className, int startHour, int startMinute, int endHour, int endMinute, int languageID, LanguageLevel languageLevel, DayOfWeek day)
         {
             try
             {
-                classDAL.Update(classID, className, languageID, languageLevel.LanguageLevelID, day);
+                classDAL.Update(classID, className, startHour.ToString("00")+":"+startMinute.ToString("00"), endHour.ToString("00")+":"+endMinute.ToString("00"), languageID, languageLevel.LanguageLevelID, day);
             }
             catch
             {

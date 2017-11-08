@@ -13,7 +13,7 @@ namespace LanguageSchool.DataAccess
         IQueryable<Class> GetAll();
         void Add(Class _class);
         List<Class> GetClasess(string language, string level);
-        void Update(int classID, string className, int languageID, int languageLevelID, DayOfWeek day);
+        void Update(int classID, string className,string startTime, string endTime, int languageID, int languageLevelID, DayOfWeek day);
         IQueryable<Class> Search(string className, int languageID, int languageLevelID);
     }
 }

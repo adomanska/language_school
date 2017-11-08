@@ -38,10 +38,24 @@ namespace LanguageSchool.Presentation
 
         public string NewClassName { get; set; }
         public Language NewLanguage { get; set; }
-        public bool IsExistingLanguage { get; set; }
+        private bool isExistingLanguage;
+        public bool IsExistingLanguage {
+            get
+            {
+                return isExistingLanguage;
+            }
+            set
+            {
+                isExistingLanguage = value;
+                OnPropertyChanged("NewLanguage");
+                OnPropertyChanged("NewLanguageName");
+            }
+        }
         public string NewLanguageName { get; set; }
         public LanguageLevel NewLanguageLevel { get; set; }
         public int? NewDay { get; set; } 
+        public TimeSpan? NewStartTime { get; set; }
+        public TimeSpan? NewEndTime { get; set; }
 
         public ICommand AddClassCommand { get; set; }
         public ICommand SearchCommand { get; set; }
@@ -57,8 +71,8 @@ namespace LanguageSchool.Presentation
             Classes = new ObservableCollection<Class>(classBLL.GetAll());
             //Classes.SortDescriptions.Add(new System.ComponentModel.SortDescription("ClassName", System.ComponentModel.ListSortDirection.Ascending));
 
-            AddClassCommand = new RelayCommand(AddClass);
-            EditCommand = new RelayCommand(Edit);
+            AddClassCommand = new RelayCommand(AddClass, CanAddClass);
+            EditCommand = new RelayCommand(Edit, CanEditClass);
             SearchCommand = new RelayCommand(o => Search(o));
             ChangePageCommand = new RelayCommand(OnPageNumberChange);
             Languages = CollectionViewSource.GetDefaultView(languageBLL.GetAll().Local);
@@ -67,6 +81,8 @@ namespace LanguageSchool.Presentation
 
             IsExistingLanguage = true;
             PageNumber = 1;
+            NewStartTime = null;
+            NewEndTime = null;
             Search(null);
             eCVM.Languages = Languages;
             eCVM.LanguageLevels = LanguageLevels;
@@ -90,7 +106,13 @@ namespace LanguageSchool.Presentation
                 languageID = NewLanguage.LanguageID;
             try
             {
-                classBLL.Add(NewClassName, DateTime.Now, DateTime.Now.AddHours(2), (DayOfWeek)NewDay, languageID , NewLanguageLevel.LanguageLevelID);
+                classBLL.Add(NewClassName, NewStartTime.Value.Hours,NewStartTime.Value.Minutes, NewEndTime.Value.Hours, NewEndTime.Value.Minutes, (DayOfWeek)NewDay, languageID , NewLanguageLevel.LanguageLevelID);
+                NewLanguageLevel = null;
+                NewLanguage = null;
+                NewClassName = null;
+                NewLanguageName = null;
+                NewStartTime=NewEndTime = null;
+                NewDay = null;
             }
             catch
             {
@@ -139,6 +161,8 @@ namespace LanguageSchool.Presentation
             eCVM.NewLanguage = SelectedClass.Language;
             eCVM.NewLanguageLevel = SelectedClass.LanguageLevel;
             eCVM.NewDay = System.Convert.ToInt32(SelectedClass.Day);
+            eCVM.NewStartTime = new TimeSpan(Int32.Parse(SelectedClass.StartTime.Substring(0, 2)), Int32.Parse(SelectedClass.StartTime.Substring(3, 2)), 0);
+            eCVM.NewEndTime = new TimeSpan(Int32.Parse(SelectedClass.EndTime.Substring(0, 2)), Int32.Parse(SelectedClass.EndTime.Substring(3, 2)), 0);
             eCVM.ClassID = SelectedClass.ClassID;
             EditClassWindow editClassWindow = new EditClassWindow(eCVM);
             editClassWindow.ShowDialog();
@@ -152,20 +176,28 @@ namespace LanguageSchool.Presentation
 
                 if(columnName==nameof(NewClassName))
                 {
-                    if (NewClassName == "" || NewClassName==null)
+                    if (String.IsNullOrEmpty(NewClassName))
                         error = "Class Name cannot be blank";
                 }
-                if(columnName==nameof(NewLanguage) && IsExistingLanguage)
+                if (IsExistingLanguage)
                 {
-                    if (NewLanguage == null)
-                        error = "You have to select language";
+                    if (columnName == nameof(NewLanguage))
+                    {
+                        if (NewLanguage == null)
+                            error = "You have to select language";
+                    }
                 }
-                if(columnName==nameof(NewLanguageName) && !IsExistingLanguage)
+                if (!IsExistingLanguage)
                 {
-                    if (languageBLL.Exists(NewLanguageName))
-                        error = "Language with such name already exists";
-                    if (!languageBLL.IsValidLanguage(NewLanguageName) || NewLanguageName==null)
-                        error = "Invalid language name";
+                    if (columnName == nameof(NewLanguageName))
+                    {
+                        if (String.IsNullOrEmpty(NewLanguageName))
+                            error = "You have to enter new language name";
+                        if (languageBLL.Exists(NewLanguageName))
+                            error = "Language with such name already exists";
+                        if (!languageBLL.IsValidLanguage(NewLanguageName) || NewLanguageName == null)
+                            error = "Invalid language name";
+                    }
                 }
                 if(columnName==nameof(NewLanguageLevel))
                 {
@@ -177,14 +209,50 @@ namespace LanguageSchool.Presentation
                     if (NewDay == null)
                         error = "You have to select day";
                 }
-
+                if(columnName==nameof(NewStartTime))
+                {
+                    if (NewStartTime == null)
+                        error = "You have to select start time";
+                }
+                if (columnName == nameof(NewEndTime))
+                {
+                    if (NewStartTime == null)
+                        error = "Yo have to select start time first";
+                    if (NewEndTime == null)
+                        error = "You have to select end time";
+                    else if (NewStartTime != null && NewStartTime > NewEndTime)
+                        error = "Start time has to beearlier than end time";
+                }
                 Error = error;
                 return error;
             }
         }
-
         public string Error { get; set; }
 
+        private bool CanAddClass(object o)
+        {
+            if (String.IsNullOrEmpty(NewClassName))
+                return false;
+            if (IsExistingLanguage && NewLanguage == null)
+                return false;
+            if (!IsExistingLanguage)
+            {
+                if (String.IsNullOrEmpty(NewLanguageName) || languageBLL.Exists(NewLanguageName) || !languageBLL.IsValidLanguage(NewLanguageName))
+                    return false;
+            }
+            if (NewDay == null)
+                return false;
+            if (NewStartTime==null || NewEndTime==null)
+                return false;
+            if (NewEndTime < NewStartTime)
+                return false;
+            return true;
+        }
+
+        private bool CanEditClass(object o)
+        {
+            return SelectedClass != null;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)
         {
