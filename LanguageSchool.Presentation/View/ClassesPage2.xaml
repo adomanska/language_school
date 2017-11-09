@@ -21,6 +21,13 @@
         <BitmapImage x:Key="home" UriSource="/Images/home2.png"/>
         <BitmapImage x:Key="closedDoor" UriSource="/Images/closedDoor2.png"/>
         <BitmapImage x:Key="openedDoor" UriSource="/Images/openedDoor2.png"/>
+        <BitmapImage x:Key="monday" UriSource="/Images/icons8-monday.png"/>
+        <BitmapImage x:Key="tuesday" UriSource="/Images/icons8-tuesday.png"/>
+        <BitmapImage x:Key="wednesday" UriSource="/Images/icons8-wednesday.png"/>
+        <BitmapImage x:Key="thursday" UriSource="/Images/icons8-thursday.png"/>
+        <BitmapImage x:Key="friday" UriSource="/Images/icons8-friday.png"/>
+        <BitmapImage x:Key="saturday" UriSource="/Images/icons8-saturday.png"/>
+        <BitmapImage x:Key="sunday" UriSource="/Images/icons8-sunday.png"/>
     </Page.Resources>
     <AdornerDecorator>
     <Grid>
@@ -89,13 +96,57 @@
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="60"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center">
-                                    <Run Text="{Binding ClassName}" FontWeight="DemiBold"
-                                         FontSize="16"/>
-                                    <LineBreak/>
-                                    <Run Text="{Binding Language.LanguageName}"></Run>
-                                </TextBlock>
-                                <Image Grid.Column="1" Height="30" VerticalAlignment="Center">
+                                <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="4*"/>
+                                            <RowDefinition Height="3*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <Run Text="{Binding ClassName}" FontWeight="DemiBold"
+                                                 FontSize="16"/>
+                                            <Run Text=" ("/>
+                                            <Run Text="{Binding Language.LanguageName}"></Run>
+                                            <Run Text=")"/>
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                            <Image Height="18" VerticalAlignment="Top">
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Day}" Value="0">
+                                                            <Setter Property="Source" Value="{StaticResource monday}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Day}" Value="1">
+                                                            <Setter Property="Source" Value="{StaticResource tuesday}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Day}" Value="2">
+                                                            <Setter Property="Source" Value="{StaticResource wednesday}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Day}" Value="3">
+                                                            <Setter Property="Source" Value="{StaticResource thursday}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Day}" Value="4">
+                                                            <Setter Property="Source" Value="{StaticResource friday}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Day}" Value="5">
+                                                            <Setter Property="Source" Value="{StaticResource saturday}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Day}" Value="6">
+                                                            <Setter Property="Source" Value="{StaticResource sunday}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                            <TextBlock>
+                                                <Run Text=" "/>
+                                                <Run Text="{Binding StartTime}"/>
+                                                <Run Text=" -> "/>
+                                                <Run Text="{Binding EndTime}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Image Grid.Column="1" Height="30" VerticalAlignment="Center">
                                     <Image.Style>
                                         <Style TargetType="{x:Type Image}">
                                             <Style.Triggers>
@@ -137,71 +188,71 @@
                 </Controls:NumericUpDown>
             </Grid>
         </DockPanel>
-        <Border BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="3" CornerRadius="20,0,20,0"
+            <Border BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="3" CornerRadius="20,0,20,0"
                 Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel Margin="20,10,20,10">
-                <Label VerticalAlignment="Center" VerticalContentAlignment="Center"
+                <StackPanel Margin="20,10,20,10">
+                    <Label VerticalAlignment="Center" VerticalContentAlignment="Center"
                        FontSize="25" FontWeight="Bold" >
-                    Add new Class
-                </Label>
-                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Class Name:</Label>
-                <TextBox Width="200" Height="30" Margin="0,0,0,3"
+                        Add new Class
+                    </Label>
+                    <Label HorizontalAlignment="Left" FontWeight="DemiBold">Class Name:</Label>
+                    <TextBox Width="200" Height="30" Margin="0,0,0,3"
                          VerticalContentAlignment="Center"
                          Text="{Binding NewClassName,  Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Language:</Label>
-                <RadioButton IsChecked="{Binding IsExistingLanguage, UpdateSourceTrigger=PropertyChanged}" Margin="3" VerticalContentAlignment="Center">
-                    Existing language
-                </RadioButton>
-                <ComboBox IsEnabled="{Binding IsExistingLanguage}" Margin="0,0,0,3"
+                    <Label HorizontalAlignment="Left" FontWeight="DemiBold">Language:</Label>
+                    <RadioButton IsChecked="{Binding IsExistingLanguage, UpdateSourceTrigger=PropertyChanged}" Margin="3" VerticalContentAlignment="Center">
+                        Existing language
+                    </RadioButton>
+                    <ComboBox IsEnabled="{Binding IsExistingLanguage}" Margin="0,0,0,3"
                           Height="30" SelectedItem="{Binding NewLanguage, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}" ItemsSource="{Binding Languages}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding LanguageName}" Height="30"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <RadioButton Name="newLanguageRadioButton" IsChecked="False"
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding LanguageName}" Height="30"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <RadioButton Name="newLanguageRadioButton" IsChecked="False"
                              Margin="3" VerticalContentAlignment="Center">
-                    New language
-                </RadioButton>
-                <TextBox IsEnabled="{Binding ElementName=newLanguageRadioButton, Path=IsChecked}"
+                        New language
+                    </RadioButton>
+                    <TextBox IsEnabled="{Binding ElementName=newLanguageRadioButton, Path=IsChecked}"
                          Height="30" VerticalContentAlignment="Center"
                          Text="{Binding NewLanguageName, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Language Level:</Label>
-                <ComboBox Name="languageLevelComboBox" Height="30" Margin="0,0,0,3"
+                    <Label HorizontalAlignment="Left" FontWeight="DemiBold">Language Level:</Label>
+                    <ComboBox Name="languageLevelComboBox" Height="30" Margin="0,0,0,3"
                           ItemsSource="{Binding LanguageLevels}"
                           SelectedItem="{Binding NewLanguageLevel, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding LanguageLevelSignature}" Height="30"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Label HorizontalAlignment="Left" FontWeight="DemiBold">Day of Week:</Label>
-                <ComboBox Name="dayOfWeekComboBox" Height="30" Margin="0,0,0,3"
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding LanguageLevelSignature}" Height="30"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Label HorizontalAlignment="Left" FontWeight="DemiBold">Day of Week:</Label>
+                    <ComboBox Name="dayOfWeekComboBox" Height="30" Margin="0,0,0,3"
                           SelectedIndex="{Binding NewDay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBoxItem>
-                        <Label Content="Monday" Height="30"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <Label Content="Tuesday" Height="30"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <Label Content="Wednesday" Height="30"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <Label Content="Thursday" Height="30"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <Label Content="Friday" Height="30"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <Label Content="Saturday" Height="30"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <Label Content="Sunday" Height="30"/>
-                    </ComboBoxItem>
-                </ComboBox>
+                        <ComboBoxItem>
+                            <Label Content="Monday" Height="30"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label Content="Tuesday" Height="30"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label Content="Wednesday" Height="30"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label Content="Thursday" Height="30"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label Content="Friday" Height="30"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label Content="Saturday" Height="30"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label Content="Sunday" Height="30"/>
+                        </ComboBoxItem>
+                    </ComboBox>
                     <Label HorizontalAlignment="Left" FontWeight="DemiBold">Time:</Label>
                     <StackPanel Orientation="Horizontal">
                         <Label Width="40">Start:</Label>
@@ -242,13 +293,18 @@
                              Text="{Binding NewEndMinute, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                 </Grid>-->
-                <Button Height="50" Width="100" Margin="20" Name="addClass"
+                    <Button Height="50" Width="100" Margin="20" Name="addClass"
                         Command="{Binding AddClassCommand}">
-                    Add
-                </Button>
-            </StackPanel>
-        </Border>
+                        Add
+                    </Button>
+                </StackPanel>
+            </Border>
             <Button Name="goToStartPage" Grid.Row="1" Margin="10,0,0,10"
+                Width="130" Height="50" HorizontalAlignment="Left"
+                Click="goToStartPage_Click">
+                Go To Start Page
+            </Button>
+            <!--<Button Name="goToStartPage" Grid.Row="1" Margin="10,0,0,10"
                 Width="60" Height="60" HorizontalAlignment="Left"
                 Click="goToStartPage_Click" Background="Transparent" BorderThickness="0">
                 <Image>
@@ -265,7 +321,7 @@
                         </Style>
                     </Image.Style>
                 </Image>
-            </Button>
+            </Button>-->
         <Button Grid.Row="1" HorizontalAlignment="Right"
                 Height="50" Width="100" Margin="5"
                 Command="{Binding EditCommand}">

@@ -205,6 +205,18 @@
     <Resource Include="Images\openedDoor2.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\languages.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icons8-friday.png" />
+    <Resource Include="Images\icons8-monday.png" />
+    <Resource Include="Images\icons8-saturday.png" />
+    <Resource Include="Images\icons8-sunday.png" />
+    <Resource Include="Images\icons8-thursday.png" />
+    <Resource Include="Images\icons8-tuesday.png" />
+    <Resource Include="Images\icons8-wednesday.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\phone.png" />
   </ItemGroup>
   <ItemGroup>
