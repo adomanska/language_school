@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LanguageSchool.Presentation"
         xmlns:mahapps ="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="EditWindow" Height="300" Width="435"
+        Title="Edit Informations" Height="300" Width="435"
         WindowStartupLocation="CenterScreen">
     <Grid Height="300" Width="435">
         <TextBlock Height="20" HorizontalAlignment="Left" Margin="33,148,0,0" x:Name ="editErrormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" />
@@ -20,7 +20,7 @@
         <TextBox Height="23" HorizontalAlignment="Left" Margin="172,85,0,0" Text="{Binding Email, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="172,113,0,0" Text="{Binding PhoneNumber, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
 
-        <Button Content="Save changes" Command="{ Binding SaveChangesCommand}" Height="23" HorizontalAlignment="Left" Margin="172,184,0,0" Name="SaveChangesButton" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.511,1.012"/>
-        <Button Content="Cancell" Command="{Binding CancelCommand}" Height="23" Width="70" HorizontalAlignment="Right" Name="cancelButton" Margin="0,184,51,91" />
+        <Button Content="Save changes" Command="{ Binding SaveChangesCommand}" Height="23" HorizontalAlignment="Left" Margin="172,184,0,0" Name="SaveChangesButton" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.511,1.012"/>
+        <Button Content="Cancell" Command="{Binding CancelCommand}" Height="23" Width="90" HorizontalAlignment="Right" Name="cancelButton" Margin="0,184,51,91" />
     </Grid>
 </Window>
