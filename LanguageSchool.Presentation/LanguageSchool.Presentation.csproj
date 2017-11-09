@@ -201,6 +201,18 @@
     <Resource Include="Images\closedDoor2.png" />
     <Resource Include="Images\openedDoor2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\languages.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icons8-friday.png" />
+    <Resource Include="Images\icons8-monday.png" />
+    <Resource Include="Images\icons8-saturday.png" />
+    <Resource Include="Images\icons8-sunday.png" />
+    <Resource Include="Images\icons8-thursday.png" />
+    <Resource Include="Images\icons8-tuesday.png" />
+    <Resource Include="Images\icons8-wednesday.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
