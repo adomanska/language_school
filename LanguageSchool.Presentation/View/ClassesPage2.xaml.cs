@@ -29,6 +29,16 @@ namespace LanguageSchool.Presentation
         {
             InitializeComponent();
             this.DataContext = _classesPageViewModel;
+            Loaded += (x, e) =>
+            {
+                NavigationService.Navigated += NavigationService_Navigated;
+            };
+        }
+
+        private void NavigationService_Navigated(object sender, NavigationEventArgs e)
+        {
+            var vm = ((ClassesPageViewModel)DataContext);
+            vm?.OnPropertyChanged(null);
         }
         private void goToStartPage_Click(object sender, RoutedEventArgs e)
         {

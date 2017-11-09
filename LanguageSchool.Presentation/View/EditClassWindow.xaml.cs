@@ -17,7 +17,7 @@ namespace LanguageSchool.Presentation
     /// <summary>
     /// Interaction logic for EditClassWindow.xaml
     /// </summary>
-    public partial class EditClassWindow : Window
+    public partial class EditClassWindow
     {
         public EditClassWindow(EditClassWindowViewModel editClassWindowViewModel)
         {

@@ -10,9 +10,10 @@ namespace LanguageSchool.DataAccess
 {
     public interface IClassDAL
     {
-        DbSet<Class> GetAll();
+        IQueryable<Class> GetAll();
         void Add(Class _class);
         List<Class> GetClasess(string language, string level);
-        void Update(Class _class, string className, Language language, LanguageLevel languageLevel, DayOfWeek day);
+        void Update(int classID, string className,string startTime, string endTime, int languageID, int languageLevelID, DayOfWeek day);
+        IQueryable<Class> Search(string className, int languageID, int languageLevelID);
     }
 }

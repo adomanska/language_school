@@ -15,9 +15,9 @@ namespace LanguageSchool.Model
         [Required]
         public string ClassName { get; set; }
         [Required]
-        public DateTime StartTime { get; set; }
+        public string StartTime { get; set; }
         [Required]
-        public DateTime EndTime { get; set; }
+        public string EndTime { get; set; }
         [Required]
         public DayOfWeek Day { get; set; }
 

@@ -17,7 +17,7 @@ namespace LanguageSchool.DataAccess
             db = context;
             db.LanguageLevels.Load();
         }
-        public DbSet<LanguageLevel> GetAll()
+        public IQueryable<LanguageLevel> GetAll()
         {
             try
             {

@@ -17,11 +17,11 @@ namespace LanguageSchool.BusinessLogic
         {
             languageLevelDAL = new LanguageLevelDAL(context);
         }
-        public DbSet<LanguageLevel> GetAll()
+        public List<LanguageLevel> GetAll()
         {
             try
             {
-                return languageLevelDAL.GetAll();
+                return languageLevelDAL.GetAll().ToList();
             }
             catch
             {

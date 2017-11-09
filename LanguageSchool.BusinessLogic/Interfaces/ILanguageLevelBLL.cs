@@ -10,7 +10,7 @@ namespace LanguageSchool.BusinessLogic
 {
     public interface ILanguageLevelBLL
     {
-        DbSet<LanguageLevel> GetAll();
+        List<LanguageLevel> GetAll();
         List<string> GetLevels(string language);
     }
 }

@@ -92,9 +92,6 @@
     <Compile Include="ViewModel\EditWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\StudentPageViewModel.cs" />
-    <Compile Include="View\ClassesPage.xaml.cs">
-      <DependentUpon>ClassesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ClassesPage2.xaml.cs">
       <DependentUpon>ClassesPage2.xaml</DependentUpon>
     </Compile>
@@ -164,10 +161,6 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\ClassesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="View\ClassesPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -192,6 +185,21 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\A1.png" />
+    <Resource Include="Images\A2.png" />
+    <Resource Include="Images\B1.png" />
+    <Resource Include="Images\B2.png" />
+    <Resource Include="Images\C1.png" />
+    <Resource Include="Images\C2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\home2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\closedDoor2.png" />
+    <Resource Include="Images\openedDoor2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />
