@@ -10,6 +10,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="StudentsPage">
+    <Page.Resources>
+        <local:PhoneNumberConverter x:Key="PhoneNumberConverter"/>
+        <BitmapImage x:Key="phone" UriSource="/Images/phone2.png"/>
+        <BitmapImage x:Key="noPhone" UriSource="/Images/no-phones.png"/>
+    </Page.Resources>
     <AdornerDecorator>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,108 +22,147 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="0">
-            <DockPanel>
-                <TextBox Controls:TextBoxHelper.Watermark="Search student..." Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" Height="30" HorizontalAlignment="Center" DockPanel.Dock="Left"  Margin="50,10,10,10"/>
-                <Button Content="Search" Command="{Binding SearchCommand}" Width="100" VerticalAlignment="Center"/>
-            </DockPanel>
-            <Grid Margin="40,5,40,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DockPanel Margin="10" HorizontalAlignment="Center">
+                    <TextBox Controls:TextBoxHelper.Watermark="Search student..." Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" 
+                        HorizontalAlignment="Center" Width="350"/>
+                    <Button Content="Search" Command="{Binding SearchCommand}" Width="100" VerticalAlignment="Center" Margin="40,0,0,0"/>
+                </DockPanel>
+                <Grid Grid.Row="1" Margin="10" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <RadioButton Content="By Last Name" Grid.Column="0" IsChecked="{Binding IsLastNameFilterChecked}"/>
-                <RadioButton Content="By Email" Grid.Column="1" IsChecked="{Binding IsEmailFilterChecked}" HorizontalAlignment="Center"/>
-                <CheckBox Content="Sort alphabetically" IsChecked="{Binding IsAlphabeticallSortSelected}" Grid.Column="2"/>
+                        <RadioButton Content="By Last Name" Grid.Column="0" IsChecked="{Binding IsLastNameFilterChecked}" HorizontalAlignment="Center"/>
+                        <RadioButton Content="By Email" Grid.Column="1" IsChecked="{Binding IsEmailFilterChecked}" HorizontalAlignment="Center"/>
+                        <CheckBox Content="Sort alphabetically" IsChecked="{Binding IsAlphabeticallSortSelected}" Grid.Column="2" HorizontalAlignment="Center"/>
+                </Grid>
             </Grid>
-        </StackPanel>
-        <ListBox Name="studentsListBox" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" Grid.Column="0"  AlternationCount="2" FontFamily="Arial" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Margin="0,80,0,0">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel LastChildFill="True" Height="Auto" Width="Auto" HorizontalAlignment="Left">
-                        <TextBlock DockPanel.Dock="Top" FontFamily="Arial" FontSize="18" Margin="10" VerticalAlignment="Center">
-                        <Run Text="Name: " FontWeight="Bold"/>
-                        <Run Text="{Binding LastName}" Typography.Capitals="AllSmallCaps" FontWeight="Bold" FontSize="26"/>
-                        <Run Text="{Binding FirstName}" Typography.Capitals="AllSmallCaps" FontWeight="Bold" FontSize="26"/>
-                        </TextBlock>
-                        <TextBlock  DockPanel.Dock="Bottom" FontFamily="Arial" FontSize="18" Margin="10" VerticalAlignment="Center">
-                        <Run Text="Email: " FontWeight="Bold"/>
-                        <Run Text="{Binding Email}" FontWeight="Normal"/>
-                        <Run Text="     Phone Number: " FontWeight="Bold" />
-                        <Run Text="{Binding PhoneNumber}" FontWeight="Normal"/>
-                        </TextBlock>
-                    </DockPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Grid Grid.Row="1" Margin="0,20,0,20">
+            <ListBox Grid.Row="1" Margin="10" Name="studentsListBox" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" Grid.Column="0"  
+                 AlternationCount="2" FontFamily="Arial" HorizontalContentAlignment="Stretch" VerticalAlignment="Top"
+                 BorderBrush="AliceBlue" BorderThickness="5">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="Auto" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Margin="5" FontSize="18"  VerticalAlignment="Center">
+                                <Run Text="{Binding LastName}" FontWeight="Bold" />
+                                <Run Text="{Binding FirstName}" FontWeight="Bold" />
+                            </TextBlock>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5" VerticalAlignment="Center">
+                                <Image Height="25" Source="/Images/email.png"/>
+                                <TextBlock VerticalAlignment="Center" FontSize="16">
+                                    <Run Text=" "/>
+                                    <Run Text="{Binding Email}"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center">
+                                <Image Height="25" Source="/Images/phone2.png">
+                                    <Image.Style>
+                                        <Style TargetType="{x:Type Image}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding PhoneNumber, Converter={StaticResource PhoneNumberConverter}}" Value="True">
+                                                    <Setter Property="Source" Value="{StaticResource phone}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding PhoneNumber, Converter={StaticResource PhoneNumberConverter}}" Value="False">
+                                                    <Setter Property="Source" Value="{StaticResource noPhone}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <TextBlock VerticalAlignment="Center" FontSize="16">
+                                    <Run Text=" "/>
+                                    <Run Text="{Binding PhoneNumber}"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Grid Grid.Row="2" Margin="0,20,0,20">
             <Button Content="EDIT" Grid.Column="0" Command="{Binding EditCommand}" Width="80" Height="30" HorizontalAlignment="Right"/>
             <Controls:NumericUpDown Minimum="1" Maximum="{Binding PageCount}" Value="{Binding PageNumber}" HorizontalAlignment="Center"/>
             <Button Content="Go To Start Page" Grid.Column="2" Width="150" Height="30" Click="goToStartPage_Click" HorizontalAlignment="Left"/>
         </Grid>
-        <Grid Grid.Column="1" Grid.RowSpan="2">
+        <Grid Grid.Column="1" Grid.RowSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
-            <Grid Margin="20,40,20,20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="12*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Margin="10,10,10,10" MinHeight="30" VerticalAlignment="Center" Name="textBlockFirstname" Content="First Name:"/>
-                <Label Grid.Row="1" Margin="10,10,10,10" MinHeight="30" MaxHeight="40" VerticalAlignment="Center" Name="textBlockLastName" Content="Last Name:" />
-                <Label Grid.Row="2" Margin="10,10,10,10" MinHeight="30" MaxHeight="40" VerticalAlignment="Center" Name="textBlockEmailId" Content="Email ID:" />
-                <Label Grid.Row="3" Margin="10,10,10,10" MinHeight="30" MaxHeight="40" VerticalAlignment="Center" Name="textBlockPhone" Content="Phone Number:" />
+                <Border BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="3" CornerRadius="20,0,20,0" Margin="20" MaxWidth="500">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label  Content="Register new student" Grid.ColumnSpan="2" FontSize="25" FontWeight="Bold"/>
 
-                <TextBox Grid.Column="1" Grid.Row="0" MinHeight="30" MaxHeight="40" Margin="10,10,10,10" 
-                         Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Grid.Column="1" Grid.Row="1" MinHeight="30" MaxHeight="40" Margin="10,10,10,10" 
-                         Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Column="1" Grid.Row="2" MinHeight="30" MaxHeight="40" Margin="10,10,10,10" 
-                         Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Column="1" Grid.Row="3" MinHeight="30" MaxHeight="40" Margin="10,10,10,10" 
-                         Text="{Binding PhoneNumber, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="1" Margin="10,10,10,5" Height="30" VerticalAlignment="Center" Content="First Name:" FontWeight="DemiBold"/>
+                        <Label Grid.Row="2" Margin="10,10,10,5" Height="30" VerticalAlignment="Center" Content="Last Name:" FontWeight="DemiBold"/>
+                        <Label Grid.Row="3" Margin="10,10,10,5" Height="30" VerticalAlignment="Center" Content="Email ID:" FontWeight="DemiBold"/>
+                        <Label Grid.Row="4" Margin="10,10,10,5" Height="30" VerticalAlignment="Center" Content="Phone Number:" FontWeight="DemiBold"/>
 
-                <Button Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" Content="Save" Height="23" HorizontalAlignment="Left" Name="SaveButton" Command="{Binding AddStudentCommand}"  Width="80"/>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="Language"/>
-                <Label Content="Language Level" Grid.Row="1"/>
-                <Label Content="Class Name" Grid.Row="2"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" Height="50"/>
-                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding SelectedLevel}" Height="50"/>
-                <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}" DisplayMemberPath="ClassName" Height="50"/>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Content="Sign up" Command="{Binding SignForClassCommand}" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Left" />
-            </Grid>
+                        <TextBox Grid.Column="1" Grid.Row="1" Height="30" Margin="10,10,10,5" 
+                        Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" Height="30" Margin="10,10,10,5" 
+                        Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Grid.Column="1" Grid.Row="3" Height="30" Margin="10,10,10,5" 
+                        Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Grid.Column="1" Grid.Row="4" Height="30" Margin="10,10,10,5" 
+                        Text="{Binding PhoneNumber, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Button Grid.Column="1" Grid.Row="5" Margin="10,10,10,10" Content="Save" Height="23" HorizontalAlignment="Left" Name="SaveButton" Command="{Binding AddStudentCommand}"  Width="80"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1" Grid.RowSpan="2" BorderThickness="3" CornerRadius="20,0,20,0" Margin="20" MaxWidth="500">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Language:" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                        <Label Grid.Row="1" Content="Language Level:" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                        <Label Grid.Row="2" Content="Class Name:" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" Height="50"/>
+                        <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding SelectedLevel}" Height="50"/>
+                        <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}" DisplayMemberPath="ClassName" Height="50"/>
+
+                        <Button Grid.Row="3" Grid.Column="1" Content="Sign up" Command="{Binding SignForClassCommand}" Width="80" Height="30" HorizontalAlignment="Left" />
+                    </Grid>
+                </Border>
         </Grid>
     </Grid>
   </AdornerDecorator>

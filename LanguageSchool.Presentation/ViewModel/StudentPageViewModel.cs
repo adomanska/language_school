@@ -13,6 +13,7 @@ using System.Data.Entity;
 using System.Windows.Data;
 using PropertyChanged;
 using System.Text.RegularExpressions;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace LanguageSchool.Presentation
 {
@@ -25,16 +26,61 @@ namespace LanguageSchool.Presentation
         ILanguageBLL languageBLL;
 
         EditWindowViewModel editWindowVM;
+        public IDialogCoordinator dialogCoordinator;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string FirstName { get; set; }
+        public StudentPageViewModel(IStudentBLL _studentBLL, IClassBLL _classBLL, ILanguageLevelBLL _languageLevelBLL, ILanguageBLL _languageBLL)
+        {
+            studentBLL = _studentBLL;
+            classBLL = _classBLL;
+            languageLevelBLL = _languageLevelBLL;
+            languageBLL = _languageBLL;
 
+            editWindowVM = new EditWindowViewModel(studentBLL);
+
+            IsLastNameFilterChecked = true;
+
+            AddStudentCommand = new RelayCommand(AddStudent, CanAddStudent);
+            EditCommand = new RelayCommand(Edit, CanUseSelectedStudent);
+            SignForClassCommand = new RelayCommand(SignForClass, CanUseSelectedStudent);
+            SearchCommand = new RelayCommand(o => Search(o));
+
+            PropertyChanged += this.OnPropertyChanged;
+            LoadLanguages();
+            PageNumber = 1;
+            Search(null);
+        }
+
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-       
         public string PhoneNumber { get; set; }
-        
+
+        public string Error { get; set; }
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = null;
+                if (columnName == nameof(FirstName))
+                    Validator.IsFirstNameValid(FirstName, ref error);
+                if (columnName == nameof(LastName))
+                    Validator.IsLastNameValid(LastName, ref error);
+                if (columnName == nameof(Email))
+                    Validator.IsEmailValid(Email, ref error);
+                if (PhoneNumber != null && columnName == nameof(PhoneNumber))
+                    Validator.IsPhoneNumberValid(PhoneNumber, ref error);
+
+                Error = error;
+                return error;
+            }
+        }
+
+        public ObservableCollection<StudentModel> Students { get; set; }
+        public StudentModel SelectedStudent { get; set; }
+        public StudentModel EditedStudent { get; set; }
+
         bool _isAlphabeticallSortSelected;
         public bool IsAlphabeticallSortSelected
         {
@@ -60,9 +106,6 @@ namespace LanguageSchool.Presentation
         public bool IsLastNameFilterChecked { get; set; }
         public bool IsEmailFilterChecked { get; set; }
 
-      
-        public StudentModel SelectedStudent { get; set; }
-        public StudentModel EditedStudent { get; set; }
 
         public List<string> Languages { get; set; }
         public string SelectedLanguage { get; set; }
@@ -89,7 +132,7 @@ namespace LanguageSchool.Presentation
             SelectedClass = Classes.FirstOrDefault();
         }
 
-        private void OnLanguageChanged(object sender, PropertyChangedEventArgs e)
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName == nameof(SelectedLanguage))
             {
@@ -99,70 +142,10 @@ namespace LanguageSchool.Presentation
             if (e.PropertyName == nameof(SelectedLevel))
                 LoadClasses();
             if (e.PropertyName == nameof(PageNumber))
-                OnPageNumberChange();
-        }
-
-        string _exceptionMessage;
-        public string ExceptionMessage
-        {
-            get { return _exceptionMessage; }
-            set
-            {
-                _exceptionMessage = value;
-                MessageBox.Show(_exceptionMessage, "Error message");
-            }
+                OnStudentListChange();
         }
 
         public ICommand AddStudentCommand { get; set; }
-        public ICommand FilterCommand { get; set; }
-        public ICommand EditCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
-        public ICommand SaveChangesCommand { get; set; }
-        public ICommand SignForClassCommand { get; set; }
-
-        public ObservableCollection<StudentModel> Students { get; set; }
-        public string Error { get; set; }
-
-        public string this[string columnName]
-        {
-            get
-            {
-                string error = null;
-                if(columnName == nameof(FirstName))
-                    Validator.IsFirstNameValid(FirstName, ref error);
-                if (columnName == nameof(LastName))
-                    Validator.IsLastNameValid(LastName, ref error);
-                if (columnName == nameof(Email))
-                    Validator.IsEmailValid(Email, ref error);
-                if (PhoneNumber != null && columnName == nameof(PhoneNumber))
-                    Validator.IsPhoneNumberValid(PhoneNumber, ref error);
-
-                Error = error;
-                return error;
-            }
-        }
-
-        public StudentPageViewModel(IStudentBLL _studentBLL, IClassBLL _classBLL, ILanguageLevelBLL _languageLevelBLL, ILanguageBLL _languageBLL)
-        {
-            studentBLL = _studentBLL;
-            classBLL = _classBLL;
-            languageLevelBLL = _languageLevelBLL;
-            languageBLL = _languageBLL;
-
-            editWindowVM = new EditWindowViewModel(studentBLL);
-            
-            IsLastNameFilterChecked = true;
-
-            AddStudentCommand = new RelayCommand(AddStudent, CanAddStudent);
-            EditCommand = new RelayCommand(Edit, CanUseSelectedStudent);
-            SignForClassCommand = new RelayCommand(SignForClass, CanUseSelectedStudent);
-            SearchCommand = new RelayCommand(o => Search(o));
-            PropertyChanged += this.OnLanguageChanged;
-            LoadLanguages();
-            PageNumber = 1;
-            Search(null);
-        }
-
         void AddStudent(object param)
         {
             try
@@ -173,12 +156,12 @@ namespace LanguageSchool.Presentation
                 Email = null;
                 PhoneNumber = null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ExceptionMessage = ex.Message;
+                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
             }
 
-            OnPageNumberChange();
+            OnStudentListChange();
         }
 
         private bool CanAddStudent(object o)
@@ -188,24 +171,7 @@ namespace LanguageSchool.Presentation
                 Validator.IsEmailValid(Email, ref error) && Validator.IsPhoneNumberValid(PhoneNumber, ref error);
         }
 
-        private void SignForClass(object o)
-        {
-            try
-            {
-                studentBLL.SignForClass(SelectedStudent.ID, SelectedClass);
-            }
-            catch(Exception ex)
-            {
-                ExceptionMessage = ex.Message;
-            }
-        }
-
-        private bool CanUseSelectedStudent(object o)
-        {
-            return SelectedStudent != null;
-        }
-
-
+        public ICommand EditCommand { get; set; }
         void Edit(object param)
         {
             editWindowVM.ID = SelectedStudent.ID;
@@ -226,14 +192,27 @@ namespace LanguageSchool.Presentation
             editWindow.ShowDialog();
         }
 
+        public ICommand SignForClassCommand { get; set; }
+        private void SignForClass(object o)
+        {
+            try
+            {
+                studentBLL.SignForClass(SelectedStudent.ID, SelectedClass);
+            }
+            catch (Exception ex)
+            {
+                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
+            }
+        }
+
+        private bool CanUseSelectedStudent(object o)
+        {
+            return SelectedStudent != null;
+        }
+
         public ICommand SearchCommand { get; set; }
         public int PageCount { get; set; }
         public int PageNumber { get; set; }
-
-        public void Refresh()
-        {
-            LoadLanguages();
-        }
 
         public void Search(object o, int page = 1)
         {
@@ -246,7 +225,7 @@ namespace LanguageSchool.Presentation
                 Filter = IsEmailFilterChecked ? DataAccess.SearchBy.Email : DataAccess.SearchBy.LastName
             });
 
-            Students = new ObservableCollection<StudentModel>(result.students.Select(x=>new StudentModel()
+            Students = new ObservableCollection<StudentModel>(result.students.Select(x => new StudentModel()
             {
                 ID = x.ID,
                 FirstName = x.FirstName,
@@ -259,9 +238,21 @@ namespace LanguageSchool.Presentation
             PageNumber = page;
         }
 
-        private void OnPageNumberChange()
+        
+        private void OnStudentListChange()
         {
             Search(null, PageNumber);
+        }
+
+        public void Refresh()
+        {
+            LoadLanguages();
+        }
+
+        private async void ShowMessageDialog(object sender, RoutedEventArgs e)
+        {
+            ExceptionMessageRoutedEventArgs args = (ExceptionMessageRoutedEventArgs)e;
+            await dialogCoordinator.ShowMessageAsync(this, "Information", args.ExceptionMessage);
         }
 
         public void RaisePropertyChanged(string propertyName)
@@ -272,5 +263,7 @@ namespace LanguageSchool.Presentation
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        
     }
 }

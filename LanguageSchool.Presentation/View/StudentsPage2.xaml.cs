@@ -29,6 +29,7 @@ namespace LanguageSchool.Presentation
         public StudentsPage2(StudentPageViewModel _studentPageViewModel)
         {
             InitializeComponent();
+            _studentPageViewModel.dialogCoordinator = DialogCoordinator.Instance;
             this.DataContext = _studentPageViewModel;
 
             Loaded += (x, e) =>

@@ -77,17 +77,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CloseInformationEventArgs.cs" />
+    <Compile Include="Helpers\CloseInformationEventArgs.cs" />
+    <Compile Include="Helpers\ExceptionMessageRoutedEventArgs.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="Models\LanguageLevelModel.cs" />
     <Compile Include="Models\LanguageModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Helpers\PhoneNumberConverter.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Validator.cs" />
+    <Compile Include="Helpers\Validator.cs" />
     <Compile Include="ViewModel\ClassesPageViewModel.cs" />
     <Compile Include="ViewModel\EditClassWindowiewModel.cs" />
     <Compile Include="ViewModel\EditWindowViewModel.cs" />
@@ -201,6 +203,18 @@
   <ItemGroup>
     <Resource Include="Images\closedDoor2.png" />
     <Resource Include="Images\openedDoor2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\phone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\phone2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\no-phones.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />

@@ -21,15 +21,10 @@ namespace LanguageSchool.BusinessLogic
         public StudentBLL(LanguageSchoolContext context)
         {
             studentDAL = new StudentDAL(context);
-            firstNameRegex = new Regex(@"[A-Z][a-z]*");
-            lastNameRegex = new Regex(@"([A-Z][a-z]*)(-[A-Z][a-z]*)*");
+            firstNameRegex = new Regex(@"^[A-Z][a-z]+");
+            lastNameRegex = new Regex(@"^([A-Z][a-z]*)(-[A-Z][a-z]+)*");
             emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
             phoneNumberRegex = new Regex(@"^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$");
-        }
-
-        private string StandarizeInput(string input)
-        {
-            return input.First().ToString().ToUpper() + input.Substring(1).ToLower();
         }
 
         private bool IsValidData(string firstName, string lastName, string email, string phoneNumber = "")
@@ -67,8 +62,8 @@ namespace LanguageSchool.BusinessLogic
                 IsValidData(firstName, lastName, email, phoneNumber);
 
                 Student student = new Student {
-                    FirstName = StandarizeInput(firstName),
-                    LastName = StandarizeInput(lastName),
+                    FirstName = firstName,
+                    LastName = lastName,
                     Email = email,
                     PhoneNumber = phoneNumber == "" ? null : phoneNumber
                 };
@@ -104,7 +99,7 @@ namespace LanguageSchool.BusinessLogic
                     throw new Exception("Student with such email already exists");
 
                 IsValidData(firstName, lastName, email, phoneNumber);
-                studentDAL.Update(id, StandarizeInput(firstName), StandarizeInput(lastName), email, phoneNumber == "" ? null : phoneNumber);
+                studentDAL.Update(id, firstName, lastName, email, phoneNumber == "" ? null : phoneNumber);
             }
             catch
             {
@@ -120,15 +115,5 @@ namespace LanguageSchool.BusinessLogic
 
             return (list, (int)count);
         }
-    }
-
-    public class StudentFilter
-    {
-        public string Text { get; set; }
-        public SearchBy Filter { get; set; }
-        public bool IsSorted { get; set; }
-
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using LanguageSchool.BusinessLogic;
 using LanguageSchool.Model;
 using System.Windows;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace LanguageSchool.Presentation
 {
@@ -36,17 +37,7 @@ namespace LanguageSchool.Presentation
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-        string _exceptionMessage;
-        public string ExceptionMessage
-        {
-            get { return _exceptionMessage; }
-            set
-            {
-                _exceptionMessage = value;
-                MessageBox.Show(_exceptionMessage, "Error message");
-            }
-        }
-
+        
         public string Error { get; set; }
 
         public string this[string columnName]
@@ -86,7 +77,7 @@ namespace LanguageSchool.Presentation
             }
             catch (Exception ex)
             {
-                ExceptionMessage = ex.Message;
+                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
             }
         }
 
@@ -97,6 +88,11 @@ namespace LanguageSchool.Presentation
                 Validator.IsEmailValid(Email, ref error) && Validator.IsPhoneNumberValid(PhoneNumber, ref error);
         }
 
+        private async void ShowMessageDialog(object sender, RoutedEventArgs e)
+        {
+            ExceptionMessageRoutedEventArgs args = (ExceptionMessageRoutedEventArgs)e;
+            await DialogCoordinator.Instance.ShowMessageAsync(this, "Information", args.ExceptionMessage);
+        }
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

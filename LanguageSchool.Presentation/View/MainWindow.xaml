@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:LanguageSchool.Presentation"
         xmlns:mahapps ="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Height="600" Width="1000"
-        MinHeight="650" MinWidth="1000">
+        Height="650" Width="1000"
+        MinHeight="700" MinWidth="1050">
     <Frame Name="navigationFrame" NavigationUIVisibility="Hidden"
            Margin="10">
         </Frame>
