@@ -193,7 +193,7 @@ namespace LanguageSchool.Presentation
                     {
                         if (String.IsNullOrEmpty(NewLanguageName))
                             error = "You have to enter new language name";
-                        if (languageBLL.Exists(NewLanguageName))
+                        else if (languageBLL.Exists(NewLanguageName))
                             error = "Language with such name already exists";
                         if (!languageBLL.IsValidLanguage(NewLanguageName) || NewLanguageName == null)
                             error = "Invalid language name";

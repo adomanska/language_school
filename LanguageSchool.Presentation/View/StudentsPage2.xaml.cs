@@ -26,10 +26,10 @@ namespace LanguageSchool.Presentation
     /// </summary>
     public partial class StudentsPage2 : Page
     {
-        public StudentsPage2(StudentPageViewModel vm)
+        public StudentsPage2(StudentPageViewModel _studentPageViewModel)
         {
             InitializeComponent();
-            this.DataContext = vm;
+            this.DataContext = _studentPageViewModel;
 
             Loaded += (x, e) =>
             {

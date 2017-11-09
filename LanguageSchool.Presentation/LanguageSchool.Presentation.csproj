@@ -87,6 +87,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Validator.cs" />
     <Compile Include="ViewModel\ClassesPageViewModel.cs" />
     <Compile Include="ViewModel\EditClassWindowiewModel.cs" />
     <Compile Include="ViewModel\EditWindowViewModel.cs" />

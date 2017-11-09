@@ -27,7 +27,7 @@ namespace LanguageSchool.Presentation
             studentBLL = _studentBLL;
 
             CancelCommand = new RelayCommand(Cancel);
-            SaveChangesCommand = new RelayCommand(SaveChanges);
+            SaveCommand = new RelayCommand(Save, CanSave);
         }
 
         public int ID { get; set; }
@@ -55,30 +55,13 @@ namespace LanguageSchool.Presentation
             {
                 string error = null;
                 if (columnName == nameof(FirstName))
-                {
-                    Regex firstNameRegex = new Regex(@"[A-Z][a-z]*");
-                    if (String.IsNullOrEmpty(FirstName) || !firstNameRegex.IsMatch(FirstName))
-                        error = "Invalid First Name";
-                }
+                    Validator.IsFirstNameValid(FirstName, ref error);
                 if (columnName == nameof(LastName))
-                {
-                    Regex lastNameRegex = new Regex(@"([A-Z][a-z]*)(-[A-Z][a-z]*)*");
-                    if (String.IsNullOrEmpty(LastName) || !lastNameRegex.IsMatch(LastName))
-                        error = "Invalid Last Name";
-                }
+                    Validator.IsLastNameValid(LastName, ref error);
                 if (columnName == nameof(Email))
-                {
-                    Regex emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-                    if (String.IsNullOrEmpty(Email) || !emailRegex.IsMatch(Email))
-                        error = "Invalid Email Address";
-                }
-                if (columnName == nameof(PhoneNumber))
-                {
-                    Regex phoneNumberRegex = new Regex(@"^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$");
-                    PhoneNumber = PhoneNumber == null ? "" : PhoneNumber;
-                    if (!phoneNumberRegex.IsMatch(PhoneNumber))
-                        error = "Invalid Phone Number";
-                }
+                    Validator.IsEmailValid(Email, ref error);
+                if (PhoneNumber != null && columnName == nameof(PhoneNumber))
+                    Validator.IsPhoneNumberValid(PhoneNumber, ref error);
 
                 Error = error;
                 return error;
@@ -86,14 +69,14 @@ namespace LanguageSchool.Presentation
         }
 
         public ICommand CancelCommand { get; set; }
-        public ICommand SaveChangesCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
 
         void Cancel(object param)
         {
             Informed?.Invoke(this, new CloseInformationEventArgs(null));
         }
 
-        void SaveChanges(object param)
+        void Save(object param)
         {
             try
             {
@@ -105,6 +88,13 @@ namespace LanguageSchool.Presentation
             {
                 ExceptionMessage = ex.Message;
             }
+        }
+
+        private bool CanSave(object o)
+        {
+            string error = null;
+            return Validator.IsFirstNameValid(FirstName, ref error) && Validator.IsLastNameValid(LastName, ref error) &&
+                Validator.IsEmailValid(Email, ref error) && Validator.IsPhoneNumberValid(PhoneNumber, ref error);
         }
 
         public void OnPropertyChanged(string propertyName)

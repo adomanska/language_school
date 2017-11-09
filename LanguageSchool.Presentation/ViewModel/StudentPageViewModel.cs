@@ -129,32 +129,15 @@ namespace LanguageSchool.Presentation
             {
                 string error = null;
                 if(columnName == nameof(FirstName))
-                {
-                    Regex firstNameRegex = new Regex(@"[A-Z][a-z]*");
-                    if (String.IsNullOrEmpty(FirstName) || !firstNameRegex.IsMatch(FirstName))
-                        error = "Invalid First Name";
-                }
-                if(columnName == nameof(LastName))
-                {
-                    Regex lastNameRegex = new Regex(@"([A-Z][a-z]*)(-[A-Z][a-z]*)*");
-                    if (String.IsNullOrEmpty(LastName) || !lastNameRegex.IsMatch(LastName))
-                        error = "Invalid Last Name";
-                }
+                    Validator.IsFirstNameValid(FirstName, ref error);
+                if (columnName == nameof(LastName))
+                    Validator.IsLastNameValid(LastName, ref error);
                 if (columnName == nameof(Email))
-                {
-                    Regex emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-                    if (String.IsNullOrEmpty(Email) || !emailRegex.IsMatch(Email))
-                        error = "Invalid Email Address";
-                }
-                if(PhoneNumber != null && columnName == nameof(PhoneNumber))
-                {
-                    Regex phoneNumberRegex = new Regex(@"^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$");
-                    PhoneNumber =  PhoneNumber == null ? "" : PhoneNumber;
-                    if (!phoneNumberRegex.IsMatch(PhoneNumber))
-                        error = "Invalid Phone Number";
-                }
-                //if(error != null)
-                    Error = error;
+                    Validator.IsEmailValid(Email, ref error);
+                if (PhoneNumber != null && columnName == nameof(PhoneNumber))
+                    Validator.IsPhoneNumberValid(PhoneNumber, ref error);
+
+                Error = error;
                 return error;
             }
         }
@@ -185,6 +168,10 @@ namespace LanguageSchool.Presentation
             try
             {
                 studentBLL.Add(FirstName, LastName, Email, PhoneNumber);
+                FirstName = null;
+                LastName = null;
+                Email = null;
+                PhoneNumber = null;
             }
             catch(Exception ex)
             {
@@ -196,7 +183,9 @@ namespace LanguageSchool.Presentation
 
         private bool CanAddStudent(object o)
         {
-            return string.IsNullOrEmpty(Error) ;
+            string error = null;
+            return Validator.IsFirstNameValid(FirstName, ref error) && Validator.IsLastNameValid(LastName, ref error) &&
+                Validator.IsEmailValid(Email, ref error) && Validator.IsPhoneNumberValid(PhoneNumber, ref error);
         }
 
         private void SignForClass(object o)
