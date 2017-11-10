@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using LanguageSchool.BusinessLogic;
+using LanguageSchool.DataAccess;
 using LanguageSchool.Model;
 
 namespace LanguageSchool.Presentation
@@ -22,7 +23,7 @@ namespace LanguageSchool.Presentation
             ILanguageBLL languageBLL = new LanguageBLL(context);
             ILanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
             IClassBLL classBLL = new ClassBLL(context);
-            IStudentBLL studentBLL = new StudentBLL(context);
+            IStudentBLL studentBLL = new StudentBLL(new StudentDAL(context));
 
 
             StudentPageViewModel sVM = new StudentPageViewModel(studentBLL, classBLL, languageLevelBLL, languageBLL);

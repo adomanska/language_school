@@ -18,9 +18,9 @@ namespace LanguageSchool.BusinessLogic
         private Regex emailRegex;
         private Regex phoneNumberRegex;
 
-        public StudentBLL(LanguageSchoolContext context)
+        public StudentBLL(IStudentDAL _studentDAL)
         {
-            studentDAL = new StudentDAL(context);
+            studentDAL = _studentDAL;
             firstNameRegex = new Regex(@"^[A-Z][a-z]+");
             lastNameRegex = new Regex(@"^([A-Z][a-z]*)(-[A-Z][a-z]+)*");
             emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
