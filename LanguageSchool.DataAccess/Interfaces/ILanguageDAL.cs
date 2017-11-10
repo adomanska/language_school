@@ -10,7 +10,7 @@ namespace LanguageSchool.DataAccess
 {
     public interface ILanguageDAL
     {
-        DbSet<Language> GetAll();
+        IDbSet<Language> GetAll();
         void Add(Language language);
     }
 }

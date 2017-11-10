@@ -10,7 +10,7 @@ namespace LanguageSchool.BusinessLogic
 {
     public interface ILanguageBLL
     {
-        DbSet<Language> GetAll();
+        IDbSet<Language> GetAll();
         int Add(string languageName);
         bool Exists(string languageName);
         bool IsValidLanguage(string languageName);
