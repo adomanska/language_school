@@ -263,7 +263,5 @@ namespace LanguageSchool.Presentation
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        
     }
 }

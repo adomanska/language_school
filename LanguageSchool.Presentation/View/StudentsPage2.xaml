@@ -48,8 +48,7 @@
                         <CheckBox Content="Sort alphabetically" IsChecked="{Binding IsAlphabeticallSortSelected}" Grid.Column="2" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
-            <ListBox Grid.Row="1" Margin="10" Name="studentsListBox" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" Grid.Column="0"  
-                 AlternationCount="2" FontFamily="Arial" HorizontalContentAlignment="Stretch" VerticalAlignment="Top"
+            <ListBox Grid.Row="1" Margin="10" Name="studentsListBox" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}"
                  BorderBrush="AliceBlue" BorderThickness="5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -74,7 +73,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center">
-                                <Image Height="25" Source="/Images/phone2.png">
+                                <Image Height="25">
                                     <Image.Style>
                                         <Style TargetType="{x:Type Image}">
                                             <Style.Triggers>
@@ -99,7 +98,7 @@
             </ListBox>
             <Grid Grid.Row="2" Margin="0,20,0,20">
             <Button Content="EDIT" Grid.Column="0" Command="{Binding EditCommand}" Width="80" Height="30" HorizontalAlignment="Right"/>
-            <Controls:NumericUpDown Minimum="1" Maximum="{Binding PageCount}" Value="{Binding PageNumber}" HorizontalAlignment="Center"/>
+            <Controls:NumericUpDown Minimum="1" Maximum="{Binding PageCount}" Value="{Binding PageNumber}" HorizontalAlignment="Center" Height="30" Margin="262,0,262,0.4" VerticalAlignment="Bottom"/>
             <Button Content="Go To Start Page" Grid.Column="2" Width="150" Height="30" Click="goToStartPage_Click" HorizontalAlignment="Left"/>
         </Grid>
         <Grid Grid.Column="1" Grid.RowSpan="3">
