@@ -11,7 +11,8 @@ namespace LanguageSchool.BusinessLogic
     public interface IClassBLL
     {
         List<Class> GetAll();
-        void Add(string className, int startHour, int startMinute, int endHour, int endMinute, DayOfWeek day, int languageID, int languageLevelID);
+        Class GetByID(int ID);
+        int Add(string className, int startHour, int startMinute, int endHour, int endMinute, DayOfWeek day, int languageID, int languageLevelID);
         Predicate<object> GetFilterPredicate(string className, Language language, LanguageLevel languageLevel);
         List<Class> GetClasses(string language, string level);
         void Update(int classID, string className, int startHour, int startMinute, int endHour, int endMinute, int languageID, LanguageLevel languageLevel, DayOfWeek day);

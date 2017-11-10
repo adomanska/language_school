@@ -30,7 +30,12 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void Add(string className, int startHour, int startMinute, int endHour, int endMinute, DayOfWeek day, int languageID, int languageLevelID )
+        public Class GetByID (int ID)
+        {
+            return classDAL.GetByID(ID);
+        }
+
+        public int Add(string className, int startHour, int startMinute, int endHour, int endMinute, DayOfWeek day, int languageID, int languageLevelID )
         {
             Class _class = new Class {
                 ClassName = className,
@@ -48,6 +53,8 @@ namespace LanguageSchool.BusinessLogic
             {
                 throw;
             }
+
+            return _class.ClassID;
         }
 
         public void Update(int classID, string className, int startHour, int startMinute, int endHour, int endMinute, int languageID, LanguageLevel languageLevel, DayOfWeek day)
@@ -79,23 +86,12 @@ namespace LanguageSchool.BusinessLogic
             return filtre;
         }
 
-        private bool IsValidTime(string _startHour, string _startMinute, string _endHour, string _endMinute)
+        public bool IsValidTime(int startHour, int startMinute, int endHour, int endMinute)
         {
-            int startHour, startMinute, endHour=-1, endMinute;
-            if(Int32.TryParse(_startHour, out startHour) && Int32.TryParse(_endHour, out endHour))
-            {
-                if (startHour < 0 || startHour >= 24 || endHour < 0 || endHour >= 24)
-                    return false;
-                if (startHour > endHour)
-                    return false;
-            }
-            if (Int32.TryParse(_startMinute, out startMinute) && Int32.TryParse(_endMinute, out endMinute))
-            {
-                if (startMinute < 0 || startMinute >= 24 || endMinute < 0 || endMinute >= 24)
-                    return false;
-                if (startHour == endHour && startMinute > endMinute)
-                    return false;
-            }
+            if (startHour > endHour)
+                return false;
+            if (startHour == endHour && startMinute > endMinute)
+                return false;
             return true;
         }
 

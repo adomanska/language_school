@@ -28,6 +28,12 @@ namespace LanguageSchool.DataAccess
                 throw;
             }
         }
+
+        public Class GetByID(int ID)
+        {
+            Class _class = db.Classes.Where(x => x.ClassID == ID).Select(x => x).FirstOrDefault();
+            return _class;
+        }
         public void Add(Class _class)
         {
             try

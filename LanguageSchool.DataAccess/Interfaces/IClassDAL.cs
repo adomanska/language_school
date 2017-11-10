@@ -11,6 +11,7 @@ namespace LanguageSchool.DataAccess
     public interface IClassDAL
     {
         IQueryable<Class> GetAll();
+        Class GetByID(int ID);
         void Add(Class _class);
         List<Class> GetClasess(string language, string level);
         void Update(int classID, string className,string startTime, string endTime, int languageID, int languageLevelID, DayOfWeek day);
