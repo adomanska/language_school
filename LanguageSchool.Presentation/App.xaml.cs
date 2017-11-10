@@ -22,7 +22,7 @@ namespace LanguageSchool.Presentation
             LanguageSchoolContext context = new LanguageSchoolContext();
             ILanguageBLL languageBLL = new LanguageBLL(context);
             ILanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
-            IClassBLL classBLL = new ClassBLL(context);
+            IClassBLL classBLL = new ClassBLL(new ClassDAL(context));
             IStudentBLL studentBLL = new StudentBLL(new StudentDAL(context));
 
 

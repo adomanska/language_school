@@ -10,11 +10,11 @@ namespace TestApp
 {
     class Program
     {
-        static private LanguageSchoolContext context = new LanguageSchoolContext();
-        static private StudentBLL studentBLL = new StudentBLL(context);
-        static private ClassBLL classBLL = new ClassBLL(context);
-        static private LanguageBLL languageBLL = new LanguageBLL(context);
-        static private LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
+        //static private LanguageSchoolContext context = new LanguageSchoolContext();
+        //static private StudentBLL studentBLL = new StudentBLL(context);
+        //static private ClassBLL classBLL = new ClassBLL(context);
+        //static private LanguageBLL languageBLL = new LanguageBLL(context);
+        //static private LanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
         static void Main(string[] args)
         {
             //Console.WriteLine("Do you want to find student? Y/N");

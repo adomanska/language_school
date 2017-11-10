@@ -8,18 +8,18 @@ using System.Configuration;
 
 namespace LanguageSchool.Model
 {
-    public class LanguageSchoolContext: DbContext
+    public class LanguageSchoolContext: DbContext, ILanguageSchoolContext
     {
         static LanguageSchoolContext()
         {
             Database.SetInitializer<LanguageSchoolContext>(new LanguageSchoolContextInitializer());
         }
 
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Class> Classes { get; set; }
-        public DbSet<StudentToClass> StudentsToClasses { get; set; }
-        public DbSet<Language> Languages { get; set; }
-        public DbSet<LanguageLevel> LanguageLevels { get; set; }
+        public IDbSet<Student> Students { get; set; }
+        public IDbSet<Class> Classes { get; set; }
+        public IDbSet<StudentToClass> StudentsToClasses { get; set; }
+        public IDbSet<Language> Languages { get; set; }
+        public IDbSet<LanguageLevel> LanguageLevels { get; set; }
 
     }
 }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class.cs" />
+    <Compile Include="ILanguageSchoolContext.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LanguageLevel.cs" />
     <Compile Include="LanguageSchoolContext.cs" />

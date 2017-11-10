@@ -14,9 +14,9 @@ namespace LanguageSchool.BusinessLogic
     {
         IClassDAL classDAL;
 
-        public ClassBLL(LanguageSchoolContext context)
+        public ClassBLL(IClassDAL _classDAL)
         {
-            classDAL = new ClassDAL(context);
+            classDAL = _classDAL;
         }
         public List<Class> GetAll()
         {
