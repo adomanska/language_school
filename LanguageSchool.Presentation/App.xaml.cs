@@ -20,8 +20,8 @@ namespace LanguageSchool.Presentation
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
             LanguageSchoolContext context = new LanguageSchoolContext();
-            ILanguageBLL languageBLL = new LanguageBLL(context);
-            ILanguageLevelBLL languageLevelBLL = new LanguageLevelBLL(context);
+            ILanguageBLL languageBLL = new LanguageBLL(new LanguageDAL( context));
+            ILanguageLevelBLL languageLevelBLL = new LanguageLevelBLL( new LanguageLevelDAL( context));
             IClassBLL classBLL = new ClassBLL(new ClassDAL(context));
             IStudentBLL studentBLL = new StudentBLL(new StudentDAL(context));
 

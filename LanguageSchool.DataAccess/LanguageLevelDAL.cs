@@ -10,12 +10,12 @@ namespace LanguageSchool.DataAccess
 {
     public class LanguageLevelDAL: ILanguageLevelDAL
     {
-        private LanguageSchoolContext db;
+        private ILanguageSchoolContext db;
 
-        public LanguageLevelDAL(LanguageSchoolContext context)
+        public LanguageLevelDAL(ILanguageSchoolContext context)
         {
             db = context;
-            db.LanguageLevels.Load();
+            //db.LanguageLevels.Load();
         }
         public IQueryable<LanguageLevel> GetAll()
         {

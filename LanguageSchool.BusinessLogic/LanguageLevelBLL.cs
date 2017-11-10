@@ -13,9 +13,9 @@ namespace LanguageSchool.BusinessLogic
     {
         ILanguageLevelDAL languageLevelDAL;
 
-        public LanguageLevelBLL(LanguageSchoolContext context)
+        public LanguageLevelBLL(ILanguageLevelDAL _languageLevelDAL)
         {
-            languageLevelDAL = new LanguageLevelDAL(context);
+            languageLevelDAL = _languageLevelDAL;
         }
         public List<LanguageLevel> GetAll()
         {

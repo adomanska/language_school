@@ -14,5 +14,6 @@ namespace LanguageSchool.BusinessLogic
         int Add(string languageName);
         bool Exists(string languageName);
         bool IsValidLanguage(string languageName);
+        Language GetById(int Id);
     }
 }

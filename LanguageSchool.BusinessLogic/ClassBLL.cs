@@ -7,6 +7,7 @@ using LanguageSchool.DataAccess;
 using LanguageSchool.Model;
 using System.Data.Entity;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -35,18 +36,26 @@ namespace LanguageSchool.BusinessLogic
             return classDAL.GetByID(ID);
         }
 
-        public int Add(string className, int startHour, int startMinute, int endHour, int endMinute, DayOfWeek day, int languageID, int languageLevelID )
+        public bool Add(string className, int startHour, int startMinute, int endHour, int endMinute, DayOfWeek day, int languageID, int languageLevelID )
         {
-            Class _class = new Class {
-                ClassName = className,
-                StartTime = startHour.ToString("00")+":"+startMinute.ToString("00"),
-                EndTime = endHour.ToString("00")+":"+endMinute.ToString("00"),
-                Day = day,
-                LanguageRefID = languageID,
-                LanguageLevelRefID = languageLevelID
-            };
+            if (!IsValidTime(startHour, startMinute, endHour, endMinute))
+                return false;
+            if (String.IsNullOrEmpty(className))
+                return false;
+            if (languageLevelID < 1 || languageLevelID > 6)
+                return false;
+
             try
             {
+                Class _class = new Class
+                {
+                    ClassName = className,
+                    StartTime = startHour.ToString("00") + ":" + startMinute.ToString("00"),
+                    EndTime = endHour.ToString("00") + ":" + endMinute.ToString("00"),
+                    Day = day,
+                    LanguageRefID = languageID,
+                    LanguageLevelRefID = languageLevelID
+                };
                 classDAL.Add(_class);
             }
             catch
@@ -54,11 +63,17 @@ namespace LanguageSchool.BusinessLogic
                 throw;
             }
 
-            return _class.ClassID;
+            return true;
         }
 
-        public void Update(int classID, string className, int startHour, int startMinute, int endHour, int endMinute, int languageID, LanguageLevel languageLevel, DayOfWeek day)
+        public bool Update(int classID, string className, int startHour, int startMinute, int endHour, int endMinute, int languageID, LanguageLevel languageLevel, DayOfWeek day)
         {
+            if (!IsValidTime(startHour, startMinute, endHour, endMinute))
+                return false;
+            if (String.IsNullOrEmpty(className))
+                return false;
+            if (languageLevel==null)
+                return false;
             try
             {
                 classDAL.Update(classID, className, startHour.ToString("00")+":"+startMinute.ToString("00"), endHour.ToString("00")+":"+endMinute.ToString("00"), languageID, languageLevel.LanguageLevelID, day);
@@ -67,6 +82,7 @@ namespace LanguageSchool.BusinessLogic
             {
                 throw;
             }
+            return true;
         }
         public Predicate<object> GetFilterPredicate(string className, Language language, LanguageLevel languageLevel)
         {
@@ -88,6 +104,10 @@ namespace LanguageSchool.BusinessLogic
 
         public bool IsValidTime(int startHour, int startMinute, int endHour, int endMinute)
         {
+            if (startHour < 0 || startHour >= 24 || endHour < 0 || endHour >= 24)
+                return false;
+            if (startMinute < 0 || startMinute >= 60 || endMinute < 0 || endMinute >= 60)
+                return false;
             if (startHour > endHour)
                 return false;
             if (startHour == endHour && startMinute > endMinute)

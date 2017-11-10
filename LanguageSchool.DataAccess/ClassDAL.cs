@@ -15,7 +15,7 @@ namespace LanguageSchool.DataAccess
         public ClassDAL(ILanguageSchoolContext context)
         {
             db = context;
-            db.Classes.Load();
+            //db.Classes.Load();
         }
         public IQueryable<Class> GetAll()
         {
@@ -63,12 +63,13 @@ namespace LanguageSchool.DataAccess
                 obj.Day = day;
                 obj.StartTime = startTime;
                 obj.EndTime = endTime;
-                db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+                if(db.Entry(obj)!=null)
+                    db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
             catch(Exception e)
             {
-                throw new Exception("Class cannot be updated: "+e.Message);
+                throw new Exception("Class cannot be updated");
             }
         }
 
