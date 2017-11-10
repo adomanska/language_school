@@ -12,9 +12,9 @@ namespace LanguageSchool.DataAccess
     public enum SearchBy { Email, LastName };
     public class StudentDAL: IStudentDAL
     {
-        private LanguageSchoolContext db;
+        private ILanguageSchoolContext db;
 
-        public StudentDAL(LanguageSchoolContext context)
+        public StudentDAL(ILanguageSchoolContext context)
         {
             db = context;
         }

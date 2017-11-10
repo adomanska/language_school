@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.Model;
+using System.Data.Entity.Infrastructure;
 
 namespace UnitTests
 {
@@ -16,7 +17,7 @@ namespace UnitTests
         readonly MockDbSet<LanguageLevel> _languageLevels;
         readonly MockDbSet<StudentToClass> _studentToClass;
 
-        public LanguageSchoolMockContext()
+        public LanguageSchoolMockContext() 
         {
             List<Student> students = new List<Student>()
             {
@@ -77,6 +78,16 @@ namespace UnitTests
 
         public void Dispose()
         {
+        }
+
+        public int SaveChanges()
+        {
+            return 0;
+        }
+
+        public DbEntityEntry Entry(Object o)
+        {
+            return null;
         }
     }
 }

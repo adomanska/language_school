@@ -61,6 +61,7 @@
     <Compile Include="LanguageSchoolMockContext.cs" />
     <Compile Include="MockDbSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StudentBLLTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -70,6 +71,10 @@
     <ProjectReference Include="..\LanguageSchool.BusinessLogic\LanguageSchool.BusinessLogic.csproj">
       <Project>{036de280-ef74-4b92-8730-1abdcba18e3c}</Project>
       <Name>LanguageSchool.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageSchool.DataAccess\LanguageSchool.DataAccess.csproj">
+      <Project>{98e12b1a-ce3f-418e-bc8e-41aa040323e1}</Project>
+      <Name>LanguageSchool.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\LanguageSchool.Model\LanguageSchool.Model.csproj">
       <Project>{7188bcf3-7c5b-473d-925f-497fa9fe1636}</Project>
