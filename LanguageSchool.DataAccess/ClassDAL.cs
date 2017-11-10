@@ -10,9 +10,9 @@ namespace LanguageSchool.DataAccess
 {
     public class ClassDAL: IClassDAL
     {
-        private LanguageSchoolContext db;
+        private ILanguageSchoolContext db;
 
-        public ClassDAL(LanguageSchoolContext context)
+        public ClassDAL(ILanguageSchoolContext context)
         {
             db = context;
             db.Classes.Load();
