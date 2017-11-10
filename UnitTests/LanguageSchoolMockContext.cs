@@ -62,8 +62,92 @@ namespace UnitTests
                 }
             };
 
-
             _students = new MockDbSet<Student>(students);
+
+            List<Language> languages = new List<Language>()
+            {
+                new Language()
+                {
+                    LanguageID=1,
+                    LanguageName = "English"
+                },
+                new Language()
+                {
+                    LanguageID=2,
+                    LanguageName="Spanish"
+                },
+                new Language()
+                {
+                    LanguageID=4,
+                    LanguageName="Russian"
+                }
+            };
+            _languages = new MockDbSet<Language>(languages);
+
+            List<Class> classes = new List<Class>()
+            {
+                new Class()
+                {
+                    ClassID=1,
+                    ClassName="English M1",
+                    LanguageRefID=1,
+                    LanguageLevelRefID=1,
+                    StartTime="10:00",
+                    EndTime="11:30",
+                    Day=DayOfWeek.Monday
+                },
+                new Class()
+                {
+                    ClassID=2,
+                    ClassName="English M14",
+                    LanguageRefID=1,
+                    LanguageLevelRefID=5,
+                    StartTime="10:00",
+                    EndTime="11:30",
+                    Day=DayOfWeek.Tuesday
+                },
+                new Class()
+                {
+                    ClassID=3,
+                    ClassName="Spanish M2",
+                    LanguageRefID=2,
+                    LanguageLevelRefID=1,
+                    StartTime="11:00",
+                    EndTime="12:30",
+                    Day=DayOfWeek.Monday
+                },
+                new Class()
+                {
+                    ClassID=4,
+                    ClassName="Spanish Conversations",
+                    LanguageRefID=2,
+                    LanguageLevelRefID=4,
+                    StartTime="10:00",
+                    EndTime="11:30",
+                    Day=DayOfWeek.Thursday
+                },
+                new Class()
+                {
+                    ClassID=5,
+                    ClassName="Russian M15",
+                    LanguageRefID=3,
+                    LanguageLevelRefID=5,
+                    StartTime="12:00",
+                    EndTime="13:30",
+                    Day=DayOfWeek.Wednesday
+                },
+                new Class()
+                {
+                    ClassID=6,
+                    ClassName="Russian M1",
+                    LanguageRefID=3,
+                    LanguageLevelRefID=1,
+                    StartTime="10:00",
+                    EndTime="11:30",
+                    Day=DayOfWeek.Friday
+                },
+            };
+            _clasess = new MockDbSet<Class>(classes);
         }
         public IDbSet<Student> Students => _students.Set.Object;
 
