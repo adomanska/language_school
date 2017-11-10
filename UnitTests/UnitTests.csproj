@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="ClassBLLTest.cs" />
     <Compile Include="ClassDALTest.cs" />
+    <Compile Include="LanguageDALTest.cs" />
+    <Compile Include="LanguageLevelDALTest.cs" />
     <Compile Include="LanguageSchoolMockContext.cs" />
     <Compile Include="MockDbSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
