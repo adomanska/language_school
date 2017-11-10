@@ -21,7 +21,7 @@ namespace LanguageSchool.BusinessLogic
             languageDAL = new LanguageDAL(context);
             existingLanguages = JArray.Parse(@File.ReadAllText("LanguagesList.json"));
         }
-        public DbSet<Language> GetAll()
+        public IDbSet<Language> GetAll()
         {
             try
             {

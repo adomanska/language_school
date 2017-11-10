@@ -17,7 +17,7 @@ namespace LanguageSchool.DataAccess
             db = context;
             db.Languages.Load();
         }
-        public DbSet<Language> GetAll()
+        public IDbSet<Language> GetAll()
         {
             try
             {
