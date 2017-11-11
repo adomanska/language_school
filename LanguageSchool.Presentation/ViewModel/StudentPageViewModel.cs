@@ -123,7 +123,7 @@ namespace LanguageSchool.Presentation
         private void LoadLevels()
         {
             LanguageLevels = languageLevelBLL.GetLevels(SelectedLanguage);
-            SelectedLevel = LanguageLevels.FirstOrDefault();
+            SelectedLevel = LanguageLevels?.FirstOrDefault();
         }
 
         private void LoadClasses()
@@ -248,6 +248,8 @@ namespace LanguageSchool.Presentation
         public void Refresh()
         {
             LoadLanguages();
+            LoadClasses();
+            LoadLevels();
         }
 
         private async void ShowMessageDialog(object sender, RoutedEventArgs e)
