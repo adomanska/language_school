@@ -11,6 +11,12 @@ namespace UnitTests
 {
     class LanguageSchoolMockContext : ILanguageSchoolContext
     {
+        //readonly MockDbSet<Student> _students;
+        //readonly MockDbSet<Class> _clasess;
+        //readonly MockDbSet<Language> _languages;
+        //readonly MockDbSet<LanguageLevel> _languageLevels;
+        //readonly MockDbSet<StudentToClass> _studentToClass;
+
         readonly MockDbSet<Student> _students;
         readonly MockDbSet<Class> _clasess;
         readonly MockDbSet<Language> _languages;
@@ -79,12 +85,46 @@ namespace UnitTests
                 },
                 new Language()
                 {
-                    LanguageID=4,
+                    LanguageID=3,
                     LanguageName="Russian"
                 }
             };
             _languages = new MockDbSet<Language>(languages);
 
+            List<LanguageLevel> languageLevels = new List<LanguageLevel>()
+            {
+                new LanguageLevel()
+                {
+                    LanguageLevelID=1,
+                    LanguageLevelSignature="A1"
+                },
+                new LanguageLevel()
+                {
+                    LanguageLevelID=2,
+                    LanguageLevelSignature="A2"
+                },
+                new LanguageLevel()
+                {
+                    LanguageLevelID=3,
+                    LanguageLevelSignature="B1"
+                },
+                new LanguageLevel()
+                {
+                    LanguageLevelID=4,
+                    LanguageLevelSignature="B2"
+                },
+                new LanguageLevel()
+                {
+                    LanguageLevelID=5,
+                    LanguageLevelSignature="C1"
+                },
+                new LanguageLevel()
+                {
+                    LanguageLevelID=6,
+                    LanguageLevelSignature="C2"
+                }
+            };
+            _languageLevels = new MockDbSet<LanguageLevel>( languageLevels);
             List<Class> classes = new List<Class>()
             {
                 new Class()
@@ -92,7 +132,9 @@ namespace UnitTests
                     ClassID=1,
                     ClassName="English M1",
                     LanguageRefID=1,
+                    Language = languages.ElementAt(0),
                     LanguageLevelRefID=1,
+                    LanguageLevel = languageLevels.ElementAt(0),
                     StartTime="10:00",
                     EndTime="11:30",
                     Day=DayOfWeek.Monday
@@ -102,7 +144,9 @@ namespace UnitTests
                     ClassID=2,
                     ClassName="English M14",
                     LanguageRefID=1,
+                    Language = languages.ElementAt(0),
                     LanguageLevelRefID=5,
+                    LanguageLevel = languageLevels.ElementAt(4),
                     StartTime="10:00",
                     EndTime="11:30",
                     Day=DayOfWeek.Tuesday
@@ -112,7 +156,9 @@ namespace UnitTests
                     ClassID=3,
                     ClassName="Spanish M2",
                     LanguageRefID=2,
+                    Language = languages.ElementAt(1),
                     LanguageLevelRefID=1,
+                    LanguageLevel = languageLevels.ElementAt(0),
                     StartTime="11:00",
                     EndTime="12:30",
                     Day=DayOfWeek.Monday
@@ -122,7 +168,9 @@ namespace UnitTests
                     ClassID=4,
                     ClassName="Spanish Conversations",
                     LanguageRefID=2,
+                    Language = languages.ElementAt(1),
                     LanguageLevelRefID=4,
+                    LanguageLevel = languageLevels.ElementAt(3),
                     StartTime="10:00",
                     EndTime="11:30",
                     Day=DayOfWeek.Thursday
@@ -132,7 +180,9 @@ namespace UnitTests
                     ClassID=5,
                     ClassName="Russian M15",
                     LanguageRefID=3,
+                    Language = languages.ElementAt(2),
                     LanguageLevelRefID=5,
+                    LanguageLevel = languageLevels.ElementAt(4),
                     StartTime="12:00",
                     EndTime="13:30",
                     Day=DayOfWeek.Wednesday
@@ -143,6 +193,8 @@ namespace UnitTests
                     ClassName="Russian M1",
                     LanguageRefID=3,
                     LanguageLevelRefID=1,
+                    LanguageLevel = languageLevels.ElementAt(0),
+                    Language = languages.ElementAt(2),
                     StartTime="10:00",
                     EndTime="11:30",
                     Day=DayOfWeek.Friday
@@ -159,6 +211,7 @@ namespace UnitTests
         public IDbSet<Language> Languages => _languages.Set.Object;
 
         public IDbSet<LanguageLevel> LanguageLevels => _languageLevels.Set.Object;
+
 
         public void Dispose()
         {

@@ -16,9 +16,9 @@ namespace LanguageSchool.BusinessLogic
         ILanguageDAL languageDAL;
         JArray existingLanguages;
 
-        public LanguageBLL(LanguageSchoolContext context)
+        public LanguageBLL(ILanguageDAL _languageDAL)
         {
-            languageDAL = new LanguageDAL(context);
+            languageDAL = _languageDAL;
             existingLanguages = JArray.Parse(@File.ReadAllText("LanguagesList.json"));
         }
         public IDbSet<Language> GetAll()
@@ -59,6 +59,11 @@ namespace LanguageSchool.BusinessLogic
             }
 
             return language.LanguageID;
+        }
+
+        public Language GetById(int Id)
+        {
+            return languageDAL.GetById(Id);
         }
     }
 }

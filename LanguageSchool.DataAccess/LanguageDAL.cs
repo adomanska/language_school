@@ -10,12 +10,12 @@ namespace LanguageSchool.DataAccess
 {
     public class LanguageDAL: ILanguageDAL
     {
-        private LanguageSchoolContext db;
+        private ILanguageSchoolContext db;
 
-        public LanguageDAL(LanguageSchoolContext context)
+        public LanguageDAL(ILanguageSchoolContext context)
         {
             db = context;
-            db.Languages.Load();
+            //db.Languages.Load();
         }
         public IDbSet<Language> GetAll()
         {
@@ -39,6 +39,11 @@ namespace LanguageSchool.DataAccess
             {
                 throw;
             }
+        }
+
+        public Language GetById(int Id)
+        {
+            return db.Languages.Where(x => x.LanguageID == Id).Select(x => x).FirstOrDefault();
         }
     }
 }
