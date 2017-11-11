@@ -8,6 +8,8 @@ using LanguageSchool.DataAccess;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Data.Entity;
+using System.Collections.ObjectModel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -19,13 +21,15 @@ namespace LanguageSchool.BusinessLogic
         public LanguageBLL(ILanguageDAL _languageDAL)
         {
             languageDAL = _languageDAL;
-            existingLanguages = JArray.Parse(@File.ReadAllText("LanguagesList.json"));
+            var directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var path = string.Format("{0}\\{1}", directory, "LanguagesList.json");
+            existingLanguages = JArray.Parse(@File.ReadAllText(path));
         }
-        public IDbSet<Language> GetAll()
+        public List<Language> GetAll()
         {
             try
             {
-                return languageDAL.GetAll();
+                return languageDAL.GetAll().OrderBy(x => x.LanguageName).ToList();
             }
             catch
             {

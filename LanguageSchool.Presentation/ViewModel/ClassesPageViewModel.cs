@@ -75,7 +75,7 @@ namespace LanguageSchool.Presentation
             EditCommand = new RelayCommand(Edit, CanEditClass);
             SearchCommand = new RelayCommand(o => Search(o));
             ChangePageCommand = new RelayCommand(OnPageNumberChange);
-            Languages = CollectionViewSource.GetDefaultView(languageBLL.GetAll().Local);
+            Languages = CollectionViewSource.GetDefaultView(languageBLL.GetAll());
             Languages.SortDescriptions.Add(new System.ComponentModel.SortDescription("LanguageName", System.ComponentModel.ListSortDirection.Ascending));
             LanguageLevels = CollectionViewSource.GetDefaultView(languageLevelBLL.GetAll());
 
@@ -96,6 +96,7 @@ namespace LanguageSchool.Presentation
                 try
                 {
                     languageID = languageBLL.Add(NewLanguageName);
+                    Languages = CollectionViewSource.GetDefaultView(languageBLL.GetAll());
                 }
                 catch
                 {

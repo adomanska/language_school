@@ -1,6 +1,7 @@
 ﻿using LanguageSchool.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace LanguageSchool.DataAccess
 {
     public interface ILanguageDAL
     {
-        IDbSet<Language> GetAll();
+        IQueryable<Language> GetAll();
         Language GetById(int Id);
         void Add(Language language);
     }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.Model;
 using System.Data.Entity;
+using System.Collections.ObjectModel;
 
 namespace LanguageSchool.DataAccess
 {
@@ -17,7 +18,7 @@ namespace LanguageSchool.DataAccess
             db = context;
             //db.Languages.Load();
         }
-        public IDbSet<Language> GetAll()
+        public IQueryable<Language> GetAll()
         {
             try
             {

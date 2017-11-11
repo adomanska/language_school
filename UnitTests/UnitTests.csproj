@@ -69,7 +69,9 @@
   <ItemGroup>
     <Compile Include="ClassBLLTest.cs" />
     <Compile Include="ClassDALTest.cs" />
+    <Compile Include="LanguageBLLTest.cs" />
     <Compile Include="LanguageDALTest.cs" />
+    <Compile Include="LanguageLevelBLLTest.cs" />
     <Compile Include="LanguageLevelDALTest.cs" />
     <Compile Include="LanguageSchoolMockContext.cs" />
     <Compile Include="MockDbSet.cs" />
@@ -79,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="LanguagesList.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
