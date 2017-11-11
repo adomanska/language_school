@@ -7,6 +7,7 @@ using LanguageSchool.DataAccess;
 using LanguageSchool.Model;
 using System.Text.RegularExpressions;
 using System.Data.Entity;
+using LanguageSchool.Presentation;
 
 namespace LanguageSchool.BusinessLogic
 {
@@ -29,14 +30,15 @@ namespace LanguageSchool.BusinessLogic
 
         private bool IsValidData(string firstName, string lastName, string email, string phoneNumber = "")
         {
-            if (!firstNameRegex.IsMatch(firstName))
-                throw new Exception("Invalid First Name");
-            if (!lastNameRegex.IsMatch(lastName))
-                throw new Exception("Invalid Last Name");
-            if (!emailRegex.IsMatch(email))
-                throw new Exception("Invalid Email Address");
-            if (phoneNumber != null && phoneNumber != "" && !phoneNumberRegex.IsMatch(phoneNumber))
-                throw new Exception("Invalid Phone Number");
+            string error = null;
+            if (!Validator.IsFirstNameValid(firstName, ref error))
+                throw new Exception(error);
+            if (!Validator.IsLastNameValid(lastName, ref error))
+                throw new Exception(error);
+            if (!Validator.IsEmailValid(email, ref error))
+                throw new Exception(error);
+            if (phoneNumber != null && phoneNumber != "" && !Validator.IsPhoneNumberValid(phoneNumber, ref error))
+                throw new Exception(error);
 
             return true;
         }

@@ -81,7 +81,6 @@
     <Compile Include="Helpers\ExceptionMessageRoutedEventArgs.cs" />
     <Compile Include="Helpers\PhoneNumberConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Helpers\Validator.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="Models\LanguageLevelModel.cs" />
     <Compile Include="Models\LanguageModel.cs" />
