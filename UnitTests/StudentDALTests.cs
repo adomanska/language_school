@@ -124,19 +124,22 @@ namespace UnitTests
         }
 
         [Test]
-        public void Add_WhenNewStudent_IncreaseStudentsCount()
+        public void Add_WhenNewStudentNonExists_IncreaseStudentsCount()
         {
             int count1 = context.Students.Count();
-            studentDAL.Add(new Student
+            var student = new Student
             {
                 ID = 6,
                 FirstName = "Paul",
                 LastName = "Kingson",
                 Email = "paulking@gmail.com",
                 PhoneNumber = "789652314",
-            });
+            };
+            studentDAL.Add(student);
+            
             int count2 = context.Students.Count();
             Assert.That(count1 + 1, Is.EqualTo(count2));
+            context.Students.Remove(student);
         }
     }
 }

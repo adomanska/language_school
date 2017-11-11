@@ -63,6 +63,7 @@
     <Compile Include="StudentBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentFilter.cs" />
+    <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanguageSchool.DataAccess\LanguageSchool.DataAccess.csproj">
