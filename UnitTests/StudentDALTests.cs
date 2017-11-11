@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LanguageSchool.DataAccess;
 using NUnit.Framework;
+using LanguageSchool.Model;
 
 namespace UnitTests
 {
@@ -21,14 +22,14 @@ namespace UnitTests
         }
 
         [Test]
-        public void DALGetAll_Always_ReturnAllStudents()
+        public void GetAll_Always_ReturnAllStudents()
         {
             var result = studentDAL.GetAll();
-            Assert.That(result.Count, Is.EqualTo(5));
+            Assert.That(result.Count, Is.EqualTo(context.Students.Count()));
         }
 
         [Test]
-        public void DALGetAll_Always_ReturnsCorrectEmailOfFirstStudent()
+        public void GetAll_Always_ReturnsCorrectEmailOfFirstStudent()
         {
             var result = studentDAL.GetAll();
             var email = result.First().Email;
@@ -36,13 +37,106 @@ namespace UnitTests
         }
 
         [Test]
-        public void DALSearchByName_WhenNameExists_ReturnsCorrectStudent()
+        public void SearchByName_WhenNameExists_ReturnsCorrectStudent()
         {
-            var result = studentDAL.Search(SearchBy.LastName, "Brown", false);
-            Assert.That(result.First().Email, Is.EqualTo("tomb@gmail.com"));
+            var result = studentDAL.Search(SearchBy.LastName, "Davis", false);
+            Assert.That(result.First().ID, Is.EqualTo(5));
         }
 
         [Test]
-        public void DAL
+        public void SearchByEmail_WhenEmailExists_ReturnsCorrectStudent()
+        {
+            var result = studentDAL.Search(SearchBy.Email, "king@gmail.com", false);
+            Assert.That(result.First().ID, Is.EqualTo(4));
+        }
+
+        [Test]
+        public void SearchByName_WhenIsAlphabeticallySorted_ReturnsCorrectFirstStudent()
+        {
+            var result = studentDAL.Search(SearchBy.LastName, "", true);
+            Assert.That(result.First().ID, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void SearchByEmail_WhenIsAlphabeticallySorted_ReturnsCorrectFirstStudent()
+        {
+            var result = studentDAL.Search(SearchBy.Email, "", true);
+            Assert.That(result.First().ID, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void Update_NonExisitingStudent_ThrowsException()
+        {
+            Assert.Throws<Exception>(() => studentDAL.Update(-1, "Tom", "Cruise", "tom@gmail.com", "503998452"));
+        }
+
+        [Test]
+        public void Update_ExisitingStudent_ReturnCorrectResult()
+        {
+            studentDAL.Update(2, "John", "Cruise", "tom@gmail.com", "503998452");
+            var firstName = context.Students.Where(x => x.ID == 2).First().FirstName;
+            Assert.That(firstName, Is.EqualTo("John"));
+        }
+
+        [Test]
+        public void FindByEmail_NonExistingEmail_ReturnsNull()
+        {
+            var result = studentDAL.FindByEmail("example@gmail.com");
+            Assert.IsNull(result);
+        }
+
+        [TestCase("kate@gmail.com", 1)]
+        [TestCase("elizabeth@gmail.com", 3)]
+        public void FindByEmail_ExistingEmail_ReturnsCorrectStudent(string email, int id)
+        {
+            var result = studentDAL.FindByEmail(email);
+            Assert.IsNotNull(result);
+            Assert.That(result.ID, Is.EqualTo(id));
+        }
+
+        //[Test]
+        //public void SignForClass_WhenStudentIsAlreadySigned_ThrowsException()
+        //{
+        //    StudentToClass studentToClass = new StudentToClass()
+        //    {
+        //        ClassRefID = 1,
+        //        StudentRefID = 1,
+        //        Student = context.Students.ElementAt(0),
+        //        Class = context.Classes.ElementAt(0)
+        //    };
+        //    Assert.Throws<Exception>(() => studentDAL.SignForClass(studentToClass));
+        //}
+
+        [Test]
+        public void SignForClass_WhenStudentIsNotSigned_IncreaseStudentToClassCount()
+        {
+            int count1 = context.StudentsToClasses.Count();
+            StudentToClass studentToClass = new StudentToClass()
+            {
+                ClassRefID = 1,
+                StudentRefID = 2,
+                Student = context.Students.ElementAt(1),
+                Class = context.Classes.ElementAt(0)
+            };
+            studentDAL.SignForClass(studentToClass);
+            int count2 = context.StudentsToClasses.Count();
+            Assert.That(count1 + 1, Is.EqualTo(count2));
+        }
+
+        [Test]
+        public void Add_WhenNewStudent_IncreaseStudentsCount()
+        {
+            int count1 = context.Students.Count();
+            studentDAL.Add(new Student
+            {
+                ID = 6,
+                FirstName = "Paul",
+                LastName = "Kingson",
+                Email = "paulking@gmail.com",
+                PhoneNumber = "789652314",
+            });
+            int count2 = context.Students.Count();
+            Assert.That(count1 + 1, Is.EqualTo(count2));
+        }
     }
 }

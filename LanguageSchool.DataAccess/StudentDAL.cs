@@ -65,16 +65,16 @@ namespace LanguageSchool.DataAccess
         {
             try
             {
-                Student existingStudent = db.Students.Find(id);
-                if (existingStudent != null)
-                {
-                    existingStudent.FirstName = firstName;
+                Student existingStudent = db.Students.Where(x => x.ID == id).FirstOrDefault();
+                //if (existingStudent != null)
+                //{
+                existingStudent.FirstName = firstName;
                     existingStudent.LastName = lastName;
                     existingStudent.Email = email;
                     existingStudent.PhoneNumber = phoneNumber;
-                }
-
-                db.Entry(existingStudent).State = System.Data.Entity.EntityState.Modified;
+                //}
+                if(db.Entry(existingStudent) != null)
+                    db.Entry(existingStudent).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
             catch(Exception ex)

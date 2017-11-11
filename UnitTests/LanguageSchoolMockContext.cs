@@ -68,9 +68,9 @@ namespace UnitTests
                    PhoneNumber = "456321789"
                 }
             };
-
             _students = new MockDbSet<Student>(students);
 
+            
             List<Language> languages = new List<Language>()
             {
                 new Language()
@@ -201,6 +201,19 @@ namespace UnitTests
                 },
             };
             _clasess = new MockDbSet<Class>(classes);
+
+            List<StudentToClass> studentToClass = new List<StudentToClass>()
+            {
+                new StudentToClass
+                {
+                    ClassRefID = 1,
+                    StudentRefID = 1,
+                    Student = Students.ElementAt(0),
+                    Class = Classes.ElementAt(0)
+                }
+            };
+            _studentToClass = new MockDbSet<StudentToClass>(studentToClass);
+
         }
         public IDbSet<Student> Students => _students.Set.Object;
 
