@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace LanguageSchool.Model
 {
-    public interface ILanguageSchoolContext: IDisposable
+    public interface ILanguageSchoolContext
     {
         IDbSet<Student> Students { get; }
         IDbSet<Class> Classes { get; }
-        IDbSet<StudentToClass> StudentsToClasses { get; }
         IDbSet<Language> Languages { get; }
         IDbSet<LanguageLevel> LanguageLevels { get; }
 

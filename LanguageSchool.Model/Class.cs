@@ -31,6 +31,6 @@ namespace LanguageSchool.Model
         [ForeignKey("LanguageLevelRefID")]
         public virtual LanguageLevel LanguageLevel { get; set; }
 
-        public virtual ICollection<StudentToClass> StudentToClasses { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

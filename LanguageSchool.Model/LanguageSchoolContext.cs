@@ -17,7 +17,6 @@ namespace LanguageSchool.Model
 
         public IDbSet<Student> Students { get; set; }
         public IDbSet<Class> Classes { get; set; }
-        public IDbSet<StudentToClass> StudentsToClasses { get; set; }
         public IDbSet<Language> Languages { get; set; }
         public IDbSet<LanguageLevel> LanguageLevels { get; set; }
 

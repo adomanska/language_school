@@ -42,18 +42,18 @@ namespace LanguageSchool.DataAccess
             }
         }
 
-        public void SignForClass(StudentToClass studentToClass)
-        {
-            try
-            {
-                db.StudentsToClasses.Add(studentToClass);
-                db.SaveChanges();
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("Student is already signed for this class");
-            }
-        }
+        //public void SignForClass(StudentToClass studentToClass)
+        //{
+        //    try
+        //    {
+        //        db.StudentsToClasses.Add(studentToClass);
+        //        db.SaveChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Student is already signed for this class");
+        //    }
+        //}
 
         public Student FindByEmail(string email)
         {
@@ -103,7 +103,12 @@ namespace LanguageSchool.DataAccess
                 query = query.OrderBy(expression);
             return query;
         }
-       
+
+        public void SignForClass(Student student, Class _class)
+        {
+            student.Classes.Add(_class);
+            db.SaveChanges();
+        }
     }
     
 }

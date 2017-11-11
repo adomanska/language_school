@@ -77,8 +77,8 @@ namespace LanguageSchool.Presentation
             }
         }
 
-        public ObservableCollection<StudentModel> Students { get; set; }
-        public StudentModel SelectedStudent { get; set; }
+        public ObservableCollection<Student> Students { get; set; }
+        public Student SelectedStudent { get; set; }
         public StudentModel EditedStudent { get; set; }
 
         bool _isAlphabeticallSortSelected;
@@ -195,15 +195,16 @@ namespace LanguageSchool.Presentation
         public ICommand SignForClassCommand { get; set; }
         private void SignForClass(object o)
         {
-            try
-            {
-                studentBLL.SignForClass(SelectedStudent.ID, SelectedClass);
-                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs("Student has successfully registered for the class"));
-            }
-            catch (Exception ex)
-            {
-                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
-            }
+             studentBLL.SignForClass(SelectedStudent, SelectedClass);
+            //try
+            //{
+            //    studentBLL.SignForClass(SelectedStudent, SelectedClass);
+            //    ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs("Student has successfully registered for the class"));
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
+            //}
         }
 
         private bool CanUseSelectedStudent(object o)
@@ -226,14 +227,16 @@ namespace LanguageSchool.Presentation
                 Filter = IsEmailFilterChecked ? DataAccess.SearchBy.Email : DataAccess.SearchBy.LastName
             });
 
-            Students = new ObservableCollection<StudentModel>(result.students.Select(x => new StudentModel()
-            {
-                ID = x.ID,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Email = x.Email,
-                PhoneNumber = x.PhoneNumber
-            }));
+            //Students = new ObservableCollection<StudentModel>(result.students.Select(x => new StudentModel()
+            //{
+            //    ID = x.ID,
+            //    FirstName = x.FirstName,
+            //    LastName = x.LastName,
+            //    Email = x.Email,
+            //    PhoneNumber = x.PhoneNumber
+            //}));
+
+            Students = new ObservableCollection<Student>(result.students.Select(x => x));
 
             PageCount = result.pageCount;
             PageNumber = page;

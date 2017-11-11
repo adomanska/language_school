@@ -78,17 +78,9 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void SignForClass(int studentID, Class languageClass)
+        public void SignForClass(Student student, Class languageClass)
         {
-            StudentToClass studentToClass = new StudentToClass { StudentRefID = studentID, ClassRefID = languageClass.ClassID };
-            try
-            {
-                studentDAL.SignForClass(studentToClass);
-            }
-            catch
-            {
-                throw;
-            }
+            studentDAL.SignForClass(student, languageClass);
         }
         
 
