@@ -94,33 +94,34 @@ namespace UnitTests
             Assert.That(result.ID, Is.EqualTo(id));
         }
 
-        //[Test]
-        //public void SignForClass_WhenStudentIsAlreadySigned_ThrowsException()
-        //{
-        //    StudentToClass studentToClass = new StudentToClass()
-        //    {
-        //        ClassRefID = 1,
-        //        StudentRefID = 1,
-        //        Student = context.Students.ElementAt(0),
-        //        Class = context.Classes.ElementAt(0)
-        //    };
-        //    Assert.Throws<Exception>(() => studentDAL.SignForClass(studentToClass));
-        //}
+        [Test]
+        public void FindByID_NonExistingID_ReturnsNull()
+        {
+            var result = studentDAL.FindByID(-1);
+            Assert.IsNull(result);
+        }
+
+        [TestCase(1)]
+        [TestCase(3)]
+        public void FindByID_ExistingID_ReturnsCorrectStudent(int id)
+        {
+            var result = studentDAL.FindByID(id);
+            Assert.IsNotNull(result);
+            Assert.That(result.ID, Is.EqualTo(id));
+        }
+
 
         [Test]
-        public void SignForClass_WhenStudentIsNotSigned_IncreaseStudentToClassCount()
+        public void SignForClass_WhenStudentIsNotSigned_IncreaseStudentClassesCount()
         {
-            int count1 = context.StudentsToClasses.Count();
-            StudentToClass studentToClass = new StudentToClass()
-            {
-                ClassRefID = 1,
-                StudentRefID = 2,
-                Student = context.Students.ElementAt(1),
-                Class = context.Classes.ElementAt(0)
-            };
-            studentDAL.SignForClass(studentToClass);
-            int count2 = context.StudentsToClasses.Count();
-            Assert.That(count1 + 1, Is.EqualTo(count2));
+            Student s = context.Students.First();
+            int countClassesBefore = s.Classes.Count;
+            Class c = context.Classes.First();
+
+            studentDAL.SignForClass(s, c);
+
+            int countClassesAfter = s.Classes.Count;
+            Assert.That(countClassesBefore + 1, Is.EqualTo(countClassesAfter));
         }
 
         [Test]

@@ -8,24 +8,16 @@ using LanguageSchool.Model;
 using System.Text.RegularExpressions;
 using System.Data.Entity;
 using LanguageSchool.Presentation;
+using System.Collections.ObjectModel;
 
 namespace LanguageSchool.BusinessLogic
 {
     public class StudentBLL: IStudentBLL
     {
         private IStudentDAL studentDAL;
-        private Regex firstNameRegex;
-        private Regex lastNameRegex;
-        private Regex emailRegex;
-        private Regex phoneNumberRegex;
-
         public StudentBLL(IStudentDAL _studentDAL)
         {
             studentDAL = _studentDAL;
-            firstNameRegex = new Regex(@"^[A-Z][a-z]+");
-            lastNameRegex = new Regex(@"^([A-Z][a-z]*)(-[A-Z][a-z]+)*");
-            emailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-            phoneNumberRegex = new Regex(@"^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$");
         }
 
         private bool IsValidData(string firstName, string lastName, string email, string phoneNumber = "")
@@ -67,7 +59,8 @@ namespace LanguageSchool.BusinessLogic
                     FirstName = firstName,
                     LastName = lastName,
                     Email = email,
-                    PhoneNumber = phoneNumber == "" ? null : phoneNumber
+                    PhoneNumber = phoneNumber == "" ? null : phoneNumber,
+                    Classes = new Collection<Class>()
                 };
 
                 studentDAL.Add(student);
@@ -78,9 +71,13 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
-        public void SignForClass(Student student, Class languageClass)
+        public void SignForClass(int studentID, Class languageClass)
         {
-            studentDAL.SignForClass(student, languageClass);
+            Student student = studentDAL.FindByID(studentID);
+            if (student != null && !student.Classes.Contains(languageClass))
+                studentDAL.SignForClass(student, languageClass);
+            else
+                throw new Exception("Student is already registered for this class");
         }
         
 

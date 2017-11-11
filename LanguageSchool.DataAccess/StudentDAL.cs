@@ -36,28 +36,21 @@ namespace LanguageSchool.DataAccess
                 db.Students.Add(student);
                 db.SaveChanges();
             }
-            catch(Exception ex)
+            catch
             {
                 throw new Exception("Student with such email address already exists in the database");
             }
         }
 
-        //public void SignForClass(StudentToClass studentToClass)
-        //{
-        //    try
-        //    {
-        //        db.StudentsToClasses.Add(studentToClass);
-        //        db.SaveChanges();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Student is already signed for this class");
-        //    }
-        //}
-
         public Student FindByEmail(string email)
         {
             Student student = db.Students.FirstOrDefault(x => x.Email == email);
+            return student;
+        }
+
+        public Student FindByID(int id)
+        {
+            Student student = db.Students.FirstOrDefault(x => x.ID == id);
             return student;
         }
 
@@ -66,18 +59,17 @@ namespace LanguageSchool.DataAccess
             try
             {
                 Student existingStudent = db.Students.Where(x => x.ID == id).FirstOrDefault();
-                //if (existingStudent != null)
-                //{
+                
                 existingStudent.FirstName = firstName;
-                    existingStudent.LastName = lastName;
-                    existingStudent.Email = email;
-                    existingStudent.PhoneNumber = phoneNumber;
-                //}
+                existingStudent.LastName = lastName;
+                existingStudent.Email = email;
+                existingStudent.PhoneNumber = phoneNumber;
+                
                 if(db.Entry(existingStudent) != null)
                     db.Entry(existingStudent).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
-            catch(Exception ex)
+            catch
             {
                 throw new Exception("Update failed");
             }
@@ -104,9 +96,9 @@ namespace LanguageSchool.DataAccess
             return query;
         }
 
-        public void SignForClass(Student student, Class _class)
+        public void SignForClass(Student student, Class languageClass)
         {
-            student.Classes.Add(_class);
+            student.Classes.Add(languageClass);
             db.SaveChanges();
         }
     }

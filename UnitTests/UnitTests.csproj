@@ -67,17 +67,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassBLLTest.cs" />
-    <Compile Include="ClassDALTest.cs" />
-    <Compile Include="LanguageBLLTest.cs" />
-    <Compile Include="LanguageDALTest.cs" />
-    <Compile Include="LanguageLevelBLLTest.cs" />
-    <Compile Include="LanguageLevelDALTest.cs" />
+    <Compile Include="BLLTests\ClassBLLTest.cs" />
+    <Compile Include="DALTests\ClassDALTest.cs" />
+    <Compile Include="BLLTests\LanguageBLLTest.cs" />
+    <Compile Include="DALTests\LanguageDALTest.cs" />
+    <Compile Include="BLLTests\LanguageLevelBLLTest.cs" />
+    <Compile Include="DALTests\LanguageLevelDALTest.cs" />
     <Compile Include="LanguageSchoolMockContext.cs" />
     <Compile Include="MockDbSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentBLLTests.cs" />
-    <Compile Include="StudentDALTests.cs" />
+    <Compile Include="BLLTests\StudentBLLTests.cs" />
+    <Compile Include="DALTests\StudentDALTests.cs" />
     <Compile Include="ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>

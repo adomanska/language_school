@@ -12,7 +12,7 @@ namespace LanguageSchool.BusinessLogic
     {
         List<Student> GetAll();
         void Add(string firstName, string lastName, string email, string phoneNumber = "");
-        void SignForClass(Student student, Class languageClass);
+        void SignForClass(int studentID, Class languageClass);
         void Update(int id, string firstName, string lastName, string email, string phoneNumber = "");
         (List<Student> students, int pageCount) Search(StudentFilter filter);
 

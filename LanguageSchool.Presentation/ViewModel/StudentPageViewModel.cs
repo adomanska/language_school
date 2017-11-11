@@ -43,7 +43,7 @@ namespace LanguageSchool.Presentation
 
             AddStudentCommand = new RelayCommand(AddStudent, CanAddStudent);
             EditCommand = new RelayCommand(Edit, CanUseSelectedStudent);
-            SignForClassCommand = new RelayCommand(SignForClass, CanUseSelectedStudent);
+            SignForClassCommand = new RelayCommand(SignForClass, CanSignStudentForClass);
             SearchCommand = new RelayCommand(o => Search(o));
 
             PropertyChanged += this.OnPropertyChanged;
@@ -77,9 +77,8 @@ namespace LanguageSchool.Presentation
             }
         }
 
-        public ObservableCollection<Student> Students { get; set; }
-        public Student SelectedStudent { get; set; }
-        public StudentModel EditedStudent { get; set; }
+        public ObservableCollection<StudentModel> Students { get; set; }
+        public StudentModel SelectedStudent { get; set; }
 
         bool _isAlphabeticallSortSelected;
         public bool IsAlphabeticallSortSelected
@@ -191,27 +190,29 @@ namespace LanguageSchool.Presentation
 
             editWindow.ShowDialog();
         }
-
-        public ICommand SignForClassCommand { get; set; }
-        private void SignForClass(object o)
-        {
-             studentBLL.SignForClass(SelectedStudent, SelectedClass);
-            //try
-            //{
-            //    studentBLL.SignForClass(SelectedStudent, SelectedClass);
-            //    ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs("Student has successfully registered for the class"));
-            //}
-            //catch (Exception ex)
-            //{
-            //    ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
-            //}
-        }
-
         private bool CanUseSelectedStudent(object o)
         {
             return SelectedStudent != null;
         }
 
+        public ICommand SignForClassCommand { get; set; }
+        private void SignForClass(object o)
+        {
+            try
+            {
+                studentBLL.SignForClass(SelectedStudent.ID, SelectedClass);
+                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs("Student has successfully registered for the class"));
+            }
+            catch (Exception ex)
+            {
+                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
+            }
+        }
+        private bool CanSignStudentForClass(object o)
+        {
+            return SelectedStudent != null && SelectedClass != null;
+        }
+        
         public ICommand SearchCommand { get; set; }
         public int PageCount { get; set; }
         public int PageNumber { get; set; }
@@ -227,16 +228,14 @@ namespace LanguageSchool.Presentation
                 Filter = IsEmailFilterChecked ? DataAccess.SearchBy.Email : DataAccess.SearchBy.LastName
             });
 
-            //Students = new ObservableCollection<StudentModel>(result.students.Select(x => new StudentModel()
-            //{
-            //    ID = x.ID,
-            //    FirstName = x.FirstName,
-            //    LastName = x.LastName,
-            //    Email = x.Email,
-            //    PhoneNumber = x.PhoneNumber
-            //}));
-
-            Students = new ObservableCollection<Student>(result.students.Select(x => x));
+            Students = new ObservableCollection<StudentModel>(result.students.Select(x => new StudentModel()
+            {
+                ID = x.ID,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber
+            }));
 
             PageCount = result.pageCount;
             PageNumber = page;

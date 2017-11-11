@@ -8,6 +8,7 @@ using LanguageSchool.DataAccess;
 using LanguageSchool.Model;
 using NUnit.Framework;
 using Moq;
+using System.Collections.ObjectModel;
 
 namespace UnitTests
 {
@@ -94,6 +95,39 @@ namespace UnitTests
             mockStudentDAL.Setup(x => x.Add(new Student()));
 
             Assert.Throws<Exception>(() => studentBLL.Add(firstName, lastName, email, phoneNumber));
+        }
+
+        [Test]
+        public void SignForClass_WhenStudentIsSigned_throwsException()
+        {
+            Class c = new Class()
+            {
+                ClassID = 1,
+                ClassName = "English M1",
+                LanguageRefID = 1,
+                LanguageLevelRefID = 1,
+                StartTime = "10:00",
+                EndTime = "11:30",
+                Day = DayOfWeek.Monday,
+                Students = new Collection<Student>()
+            };
+
+            Student s = new Student()
+            {
+                ID = 2,
+                FirstName = "Tom",
+                LastName = "Brown",
+                Email = "tomb@gmail.com",
+                PhoneNumber = "236859714",
+                Classes = new Collection<Class>()
+            };
+
+            s.Classes.Add(c);
+
+            mockStudentDAL.Setup(x => x.FindByID(s.ID)).Returns(s);
+            mockStudentDAL.Setup(x => x.SignForClass(s, c));
+
+            Assert.Throws<Exception>(() => studentBLL.SignForClass(s.ID, c));
         }
 
         [TestCase(100, "Sam", "Smith", "tomb@gmail.com", "545898452")]
