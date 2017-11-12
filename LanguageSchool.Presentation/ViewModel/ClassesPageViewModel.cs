@@ -158,6 +158,7 @@ namespace LanguageSchool.Presentation
         {
             if (SelectedClass == null)
                 return;
+            eCVM.Languages = Languages;
             eCVM.NewClassName = SelectedClass.ClassName;
             eCVM.NewLanguage = SelectedClass.Language;
             eCVM.NewLanguageLevel = SelectedClass.LanguageLevel;
