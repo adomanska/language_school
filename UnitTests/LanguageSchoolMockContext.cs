@@ -12,12 +12,6 @@ namespace UnitTests
 {
     class LanguageSchoolMockContext : ILanguageSchoolContext
     {
-        //readonly MockDbSet<Student> _students;
-        //readonly MockDbSet<Class> _clasess;
-        //readonly MockDbSet<Language> _languages;
-        //readonly MockDbSet<LanguageLevel> _languageLevels;
-        //readonly MockDbSet<StudentToClass> _studentToClass;
-
         readonly MockDbSet<Student> _students;
         readonly MockDbSet<Class> _clasess;
         readonly MockDbSet<Language> _languages;

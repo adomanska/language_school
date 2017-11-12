@@ -77,7 +77,7 @@ namespace LanguageSchool.Presentation
             }
             catch (Exception ex)
             {
-                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
+                ShowMessageDialog(this, new MessageRoutedEventArgs(ex.Message));
             }
         }
 
@@ -90,8 +90,8 @@ namespace LanguageSchool.Presentation
 
         private async void ShowMessageDialog(object sender, RoutedEventArgs e)
         {
-            ExceptionMessageRoutedEventArgs args = (ExceptionMessageRoutedEventArgs)e;
-            await DialogCoordinator.Instance.ShowMessageAsync(this, "Information", args.ExceptionMessage);
+            MessageRoutedEventArgs args = (MessageRoutedEventArgs)e;
+            await DialogCoordinator.Instance.ShowMessageAsync(this, "Information", args.Message);
         }
         public void OnPropertyChanged(string propertyName)
         {
