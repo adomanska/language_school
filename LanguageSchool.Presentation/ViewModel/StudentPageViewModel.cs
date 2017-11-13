@@ -157,7 +157,7 @@ namespace LanguageSchool.Presentation
             }
             catch (Exception ex)
             {
-                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
+                ShowMessageDialog(this, new MessageRoutedEventArgs(ex.Message));
             }
 
             OnStudentListChange();
@@ -201,11 +201,11 @@ namespace LanguageSchool.Presentation
             try
             {
                 studentBLL.SignForClass(SelectedStudent.ID, SelectedClass);
-                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs("Student has successfully registered for the class"));
+                ShowMessageDialog(this, new MessageRoutedEventArgs("Student is successfully registered for the class"));
             }
             catch (Exception ex)
             {
-                ShowMessageDialog(this, new ExceptionMessageRoutedEventArgs(ex.Message));
+                ShowMessageDialog(this, new MessageRoutedEventArgs(ex.Message));
             }
         }
         private bool CanSignStudentForClass(object o)
@@ -256,8 +256,8 @@ namespace LanguageSchool.Presentation
 
         private async void ShowMessageDialog(object sender, RoutedEventArgs e)
         {
-            ExceptionMessageRoutedEventArgs args = (ExceptionMessageRoutedEventArgs)e;
-            await dialogCoordinator.ShowMessageAsync(this, "Information", args.ExceptionMessage);
+            MessageRoutedEventArgs args = (MessageRoutedEventArgs)e;
+            await dialogCoordinator.ShowMessageAsync(this, "Information", args.Message);
         }
 
         public void RaisePropertyChanged(string propertyName)

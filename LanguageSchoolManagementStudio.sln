@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{1A0416C8-F346-41FB-A05E-4119982EAB83}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageSchool.DataAccess", "LanguageSchool.DataAccess\LanguageSchool.DataAccess.csproj", "{98E12B1A-CE3F-418E-BC8E-41AA040323E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageSchool.BusinessLogic", "LanguageSchool.BusinessLogic\LanguageSchool.BusinessLogic.csproj", "{036DE280-EF74-4B92-8730-1ABDCBA18E3C}"
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A0416C8-F346-41FB-A05E-4119982EAB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A0416C8-F346-41FB-A05E-4119982EAB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A0416C8-F346-41FB-A05E-4119982EAB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A0416C8-F346-41FB-A05E-4119982EAB83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{98E12B1A-CE3F-418E-BC8E-41AA040323E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98E12B1A-CE3F-418E-BC8E-41AA040323E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E12B1A-CE3F-418E-BC8E-41AA040323E1}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -54,17 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassBLL.cs" />
+    <Compile Include="Classes\ClassBLL.cs" />
     <Compile Include="Interfaces\IClassBLL.cs" />
     <Compile Include="Interfaces\ILanguageBLL.cs" />
     <Compile Include="Interfaces\ILanguageLevelBLL.cs" />
     <Compile Include="Interfaces\IStudentBLL.cs" />
-    <Compile Include="LanguageBLL.cs" />
-    <Compile Include="LanguageLevelBLL.cs" />
-    <Compile Include="StudentBLL.cs" />
+    <Compile Include="Classes\LanguageBLL.cs" />
+    <Compile Include="Classes\LanguageLevelBLL.cs" />
+    <Compile Include="Classes\StudentBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentFilter.cs" />
-    <Compile Include="Validator.cs" />
+    <Compile Include="Classes\StudentFilter.cs" />
+    <Compile Include="Classes\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanguageSchool.DataAccess\LanguageSchool.DataAccess.csproj">
