@@ -201,7 +201,7 @@ namespace LanguageSchool.Presentation
             try
             {
                 studentBLL.SignForClass(SelectedStudent.ID, SelectedClass);
-                ShowMessageDialog(this, new MessageRoutedEventArgs("Student has successfully registered for the class"));
+                ShowMessageDialog(this, new MessageRoutedEventArgs("Student is successfully registered for the class"));
             }
             catch (Exception ex)
             {
